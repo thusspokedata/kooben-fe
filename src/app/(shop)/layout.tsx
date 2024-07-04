@@ -2,8 +2,9 @@
 
 import type { Metadata } from 'next';
 import '@mantine/core/styles.css';
-import { ColorSchemeScript, MantineProvider } from '@mantine/core';
-import { AppShell, Burger, Group, Skeleton } from '@mantine/core';
+
+import { ColorSchemeScript, Flex, MantineProvider } from '@mantine/core';
+import { ClerkProvider, SignInButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
 import { useDisclosure } from '@mantine/hooks';
 
 // import './globals.css';
