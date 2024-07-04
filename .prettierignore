@@ -1,0 +1,27 @@
+# Ignora los archivos de compilación y dependencias
+node_modules/
+.next/
+dist/
+
+# Ignora los archivos de configuración y de lock
+package-lock.json
+yarn.lock
+
+# Ignora los archivos de producción
+public/
+out/
+
+# Ignora archivos específicos
+*.md
+*.png
+*.jpg
+*.svg
+*.ico
+
+# Ignora archivos de estilo que no deseas que Prettier formatee
+**/styles/**/*.css
+**/styles/**/*.scss
+
+# Ignora la configuración de Tailwind
+tailwind.config.js
+postcss.config.js
