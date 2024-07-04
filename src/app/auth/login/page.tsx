@@ -1,20 +1,21 @@
 import Link from 'next/link';
-import { Button } from '@mantine/core';
-import styles from './page.module.css';
-
+import { Button, Flex, Text } from '@mantine/core';
 
 export default function LoginPage() {
   return (
-    <div className={styles.main}>
-      <Button component={Link} href="/" color="lime.4">
-        Shop Page
-      </Button>
-      <Button component={Link} href="/" color="lime.4">
-        login page
-      </Button>
-      <Button component={Link} href="/auth/new-account" color="lime.4">
-        new account page
-      </Button>
-    </div>
+    <>
+      <Text c="cyan.5">login</Text>
+      <Flex gap="xs">
+        <Button component={Link} href="/" color="red.4">
+          Shop Page
+        </Button>
+        <Button component={Link} href="/" color="red.4">
+          login page
+        </Button>
+        <Button component={Link} href="/auth/new-account" color="red.4">
+          new account page
+        </Button>
+      </Flex>
+    </>
   );
 }

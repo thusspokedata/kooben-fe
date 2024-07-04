@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import '@mantine/core/styles.css';
-import { ColorSchemeScript, MantineProvider } from '@mantine/core';
+import { ColorSchemeScript, Flex, MantineProvider } from '@mantine/core';
+import { ClerkProvider, SignInButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -15,13 +16,26 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es">
-      <head>
-        <ColorSchemeScript />
-      </head>
-      <body>
-        <MantineProvider>{children}</MantineProvider>
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="es">
+        <head>
+          <ColorSchemeScript />
+        </head>
+        <body>
+          <MantineProvider>
+            <Flex justify="center" h="100px" w="100%" bg="cyan">
+              <SignedOut>
+                <SignInButton />
+              </SignedOut>
+              <SignedIn>
+                <UserButton />
+              </SignedIn>
+            </Flex>
+
+            {children}
+          </MantineProvider>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
