@@ -4,10 +4,10 @@ import styles from './page.module.css';
 
 export default function Home() {
   return (
-    <main className={styles.main}>
-      <Button component={Link} href="/hello">
-        Next link button
+    <div className={styles.main}>
+      <Button component={Link} href="/auth/login" color="lime.4">
+        Login Page
       </Button>
-    </main>
+    </div>
   );
 }
