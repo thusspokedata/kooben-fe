@@ -3,9 +3,7 @@
 import type { Metadata } from 'next';
 import '@mantine/core/styles.css';
 
-import { ColorSchemeScript, Flex, MantineProvider } from '@mantine/core';
-import { ClerkProvider, SignInButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
-import { useDisclosure } from '@mantine/hooks';
+import { ColorSchemeScript, MantineProvider } from '@mantine/core';
 
 // import './globals.css';
 
@@ -20,14 +18,5 @@ export default function ShopLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <html lang="es">
-      <head>
-        <ColorSchemeScript />
-      </head>
-      <body className="bg-red-500">
-        <MantineProvider>{children}</MantineProvider>
-      </body>
-    </html>
-  );
+  return <>{children}</>;
 }

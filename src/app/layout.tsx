@@ -1,8 +1,10 @@
 import type { Metadata } from 'next';
+import { ClerkProvider } from '@clerk/nextjs';
+import { ColorSchemeScript, MantineProvider } from '@mantine/core';
 import '@mantine/core/styles.css';
-import { ColorSchemeScript, Flex, MantineProvider } from '@mantine/core';
-import { ClerkProvider, SignInButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
 import './globals.css';
+import { HeaderMegaMenu } from '@/components';
+import { esMX } from '@clerk/localizations';
 
 export const metadata: Metadata = {
   title: "K'ooben",
@@ -16,22 +18,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider>
+    <ClerkProvider localization={esMX}>
       <html lang="es">
         <head>
           <ColorSchemeScript />
         </head>
         <body>
           <MantineProvider>
-            <Flex justify="center" h="100px" w="100%" bg="cyan">
-              <SignedOut>
-                <SignInButton />
-              </SignedOut>
-              <SignedIn>
-                <UserButton />
-              </SignedIn>
-            </Flex>
-
+            <HeaderMegaMenu />
             {children}
           </MantineProvider>
         </body>
