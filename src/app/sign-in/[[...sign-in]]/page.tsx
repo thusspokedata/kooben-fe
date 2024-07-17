@@ -1,10 +1,16 @@
-import { SignIn } from '@clerk/nextjs';
-import { Center, Flex } from '@mantine/core';
+import { ClerkLoaded, ClerkLoading, SignIn } from '@clerk/nextjs';
+import { Center, Loader } from '@mantine/core';
 
 export default function Page() {
   return (
-    <Center h="100%" w="100%">
-      <SignIn />
+    <Center>
+      <ClerkLoading>
+        <Loader size={50} type="dots" />
+      </ClerkLoading>
+
+      <ClerkLoaded>
+        <SignIn />
+      </ClerkLoaded>
     </Center>
   );
 }
