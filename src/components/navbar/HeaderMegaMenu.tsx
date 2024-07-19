@@ -4,7 +4,6 @@ import {
   Group,
   Button,
   UnstyledButton,
-  Text,
   Anchor,
   Divider,
   Center,
@@ -23,10 +22,12 @@ import classes from './HeaderMegaMenu.module.css';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import LogoKooben from '../../../public/assets/svgs/LogoKooben';
 
 const mainLinks = [
-  { link: '/nuestros-productos', label: 'Nuestros productos' },
-  { link: '/historia', label: 'Historia' },
+  { link: '/', label: 'Inicio' },
+  { link: '/catalogo', label: 'Catálogo' },
+  { link: '/quienes-somos', label: 'Quiénes somos' },
   { link: '/contacto', label: 'Contacto' },
 ];
 
@@ -50,7 +51,7 @@ export const HeaderMegaMenu = () => {
       size="6xl"
       fw={500}
       component={Link}
-      c={index === active ? 'blue' : 'black'}
+      c="black"
       data-active={index === active || undefined}
       onClick={() => {
         setActive(index);
@@ -63,9 +64,10 @@ export const HeaderMegaMenu = () => {
   return (
     <Container size="lg">
       <header className={classes.header}>
-        <Group justify="space-between" h="100%" mt="sm">
+        <Group justify="space-between" h="100%" mt="sm" gap="0px">
           <Flex justify="space-between" w="100%" align="center">
-            <Text size="36px">K&apos;óoben</Text>
+            <Burger opened={drawerOpened} onClick={toggleDrawer} hiddenFrom="sm" />
+            <LogoKooben />
 
             <Group visibleFrom="sm">
               <Button
@@ -88,21 +90,19 @@ export const HeaderMegaMenu = () => {
               </Button>
             </Group>
           </Flex>
-          <Group gap={0} justify="flex-end" className={classes.mainLinks} visibleFrom="sm">
+          <Group gap={80} justify="flex-end" className={classes.mainLinks} visibleFrom="sm">
             {mainItems}
           </Group>
-
-          <Burger opened={drawerOpened} onClick={toggleDrawer} hiddenFrom="sm" />
         </Group>
-        <Divider my="7px" size="sm" color="black" />
+        <Divider size="md" color="#52796F" />
       </header>
 
       <Drawer
         opened={drawerOpened}
         onClose={closeDrawer}
         size="100%"
-        padding="md"
-        title="Navigation"
+        padding="xs"
+        title={<LogoKooben />}
         hiddenFrom="sm"
         zIndex={1000000}
       >

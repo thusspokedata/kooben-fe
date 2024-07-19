@@ -22,6 +22,8 @@ export default function RootLayout({
       <html lang="es">
         <head>
           <ColorSchemeScript />
+          {/* <link rel="icon" href="favicon.ico" sizes="any" /> */}
+          <link rel="icon" href="/favicon.ico" sizes="32x32"/>
         </head>
         <body>
           <MantineProvider>
