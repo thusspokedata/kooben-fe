@@ -1,23 +1,8 @@
 'use client';
 
-import {
-  Group,
-  Button,
-  UnstyledButton,
-  Anchor,
-  Divider,
-  Center,
-  Box,
-  Burger,
-  Drawer,
-  ScrollArea,
-  rem,
-  useMantineTheme,
-  Flex,
-  Container,
-} from '@mantine/core';
+import { Group, Button, Anchor, Divider, Burger, Drawer, Flex, Container, Box } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import { IconChevronDown, IconUserFilled, IconShoppingBagPlus } from '@tabler/icons-react';
+import { IconUserFilled, IconShoppingBagPlus } from '@tabler/icons-react';
 import classes from './HeaderMegaMenu.module.css';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
@@ -33,9 +18,7 @@ const mainLinks = [
 
 export const HeaderMegaMenu = () => {
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] = useDisclosure(false);
-  const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
   const [active, setActive] = useState(0);
-  const theme = useMantineTheme();
   const pathname = usePathname();
 
   useEffect(() => {
@@ -55,6 +38,25 @@ export const HeaderMegaMenu = () => {
       data-active={index === active || undefined}
       onClick={() => {
         setActive(index);
+        closeDrawer();
+      }}
+    >
+      {item.label}
+    </Anchor>
+  ));
+
+  const mainItemsDrawer = mainLinks.map((item, index) => (
+    <Anchor
+      href={item.link}
+      key={item.label}
+      className={classes.mainLink}
+      size="6xl"
+      fw={500}
+      component={Link}
+      c="black"
+      onClick={() => {
+        setActive(index);
+        closeDrawer();
       }}
     >
       {item.label}
@@ -74,8 +76,8 @@ export const HeaderMegaMenu = () => {
                 component="a"
                 href="/sign-in"
                 c="black"
+                color="#c5c5c5"
                 leftSection={<IconUserFilled size={20} />}
-                variant="white"
               >
                 Iniciar sesión
               </Button>
@@ -84,7 +86,7 @@ export const HeaderMegaMenu = () => {
                 href="/sign-in"
                 c="black"
                 leftSection={<IconShoppingBagPlus size={20} />}
-                variant="white"
+                color="#c5c5c5"
               >
                 Carrito (0)
               </Button>
@@ -106,39 +108,32 @@ export const HeaderMegaMenu = () => {
         hiddenFrom="sm"
         zIndex={1000000}
       >
-        <ScrollArea h={`calc(100vh - ${rem(80)})`} mx="-md">
+        <Box>
           <Divider my="sm" />
-
-          <a href="#" className={classes.link}>
-            Home
-          </a>
-          <UnstyledButton className={classes.link} onClick={toggleLinks}>
-            <Center inline>
-              <Box component="span" mr={5}>
-                Features
-              </Box>
-              <IconChevronDown style={{ width: rem(16), height: rem(16) }} color={theme.colors.blue[6]} />
-            </Center>
-          </UnstyledButton>
-          {/* <Collapse in={linksOpened}>{links}</Collapse> */}
-          <a href="#" className={classes.link}>
-            Learn
-          </a>
-          <a href="#" className={classes.link}>
-            Academy2
-          </a>
+          <Flex justify="flex-start" direction="column">
+            {mainItemsDrawer}
+          </Flex>
+          <Button
+            component="a"
+            href="/sign-in"
+            c="black"
+            leftSection={<IconShoppingBagPlus size={20} />}
+            variant="white"
+          >
+            Carrito (0)
+          </Button>
 
           <Divider my="sm" />
 
           <Group justify="center" grow pb="xl" px="md">
-            {/* <SignedOut>
-              <SignInButton />
-            </SignedOut>
-            <SignedIn>
-              <UserButton />
-            </SignedIn> */}
+            <Button variant="default" component="a" href="/sign-in">
+              Iniciar sesión
+            </Button>
+            <Button component="a" href="/sign-up">
+              Registrarse
+            </Button>
           </Group>
-        </ScrollArea>
+        </Box>
       </Drawer>
     </Container>
   );
