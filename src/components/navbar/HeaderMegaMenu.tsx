@@ -11,7 +11,7 @@ import {
   Container,
   Box,
   useMantineTheme,
-  Stack,
+  Text,
   ActionIcon,
   Center,
 } from '@mantine/core';
@@ -65,16 +65,14 @@ export const HeaderMegaMenu = () => {
       href={item.link}
       key={item.label}
       className={classes.mainLink}
-      size="6xl"
-      fw={500}
       component={Link}
-      c="#2a3f41"
+      c={theme.colors.brand[9]}
       onClick={() => {
         setActive(index);
         closeDrawer();
       }}
     >
-      {item.label}
+      <Text>{item.label}</Text>
     </Anchor>
   ));
 
@@ -86,22 +84,24 @@ export const HeaderMegaMenu = () => {
             <LogoKooben />
 
             <Flex align="center" gap="xs" hiddenFrom="sm">
-              <ActionIcon variant="subtle" color="green" aria-label="Settings">
+              <ActionIcon variant="subtle" color={theme.colors.brand[8]} aria-label="Settings">
                 <IconUserFilled size={24} />
               </ActionIcon>
-              <ActionIcon variant="subtle" color="green" aria-label="Settings">
+              <ActionIcon variant="subtle" color={theme.colors.brand[8]} aria-label="Settings">
                 <IconShoppingBagPlus size={24} />
               </ActionIcon>
 
-              <Burger opened={drawerOpened} color="green" onClick={toggleDrawer} />
+              <Burger opened={drawerOpened} color={theme.colors.brand[8]} onClick={toggleDrawer} />
             </Flex>
 
             <Group visibleFrom="sm">
               <Button
                 component="a"
                 href="/sign-in"
-                c="black"
-                color="#c5c5c5"
+                variant="transparent"
+                fz="md"
+                fw={400}
+                c={theme.colors.brand[9]}
                 leftSection={<IconUserFilled size={20} />}
               >
                 Iniciar sesión
@@ -109,9 +109,11 @@ export const HeaderMegaMenu = () => {
               <Button
                 component="a"
                 href="/sign-in"
-                c="black"
+                variant="transparent"
+                fz="md"
+                fw={400}
                 leftSection={<IconShoppingBagPlus size={20} />}
-                color="#c5c5c5"
+                c={theme.colors.brand[9]}
               >
                 Carrito (0)
               </Button>
@@ -130,7 +132,7 @@ export const HeaderMegaMenu = () => {
         size="100%"
         padding="xs"
         title={
-          <Center bg="red" w="100%">
+          <Center w="100%">
             <LogoKooben />
           </Center>
         }
@@ -138,30 +140,24 @@ export const HeaderMegaMenu = () => {
         zIndex={1000000}
       >
         <Box>
-          <Divider my="sm" />
-          <Flex justify="flex-start" direction="column">
+          <Divider my="sm" size="md" color={theme.colors['brand-secondary'][6]} />
+          <Flex justify="flex-start" direction="column" align="flex-start">
             {mainItemsDrawer}
+            <Anchor component="a" href="/sign-in" variant="white" pl="xs" c={theme.colors.brand[9]}>
+              <Text>Carrito (0)</Text>
+            </Anchor>
           </Flex>
-          <Button
-            component="a"
-            href="/sign-in"
-            c="black"
-            leftSection={<IconShoppingBagPlus size={20} />}
-            variant="white"
-          >
-            Carrito (0)
-          </Button>
 
-          <Divider my="sm" />
+          <Divider my="sm" size="md" color={theme.colors['brand-secondary'][6]} />
 
-          <Group justify="center" grow pb="xl" px="md">
-            <Button variant="default" component="a" href="/sign-in">
+          <Flex justify="space-around" direction="column" align="center" pb="xl" px="md" mt="11xl" gap="xl">
+            <Button c="white" color={theme.colors.brand[7]} component="a" w="50%" href="/sign-in">
               Iniciar sesión
             </Button>
-            <Button component="a" href="/sign-up">
+            <Button variant="transparent" component="a" w="50%" href="/sign-up">
               Registrarse
             </Button>
-          </Group>
+          </Flex>
         </Box>
       </Drawer>
     </Container>
