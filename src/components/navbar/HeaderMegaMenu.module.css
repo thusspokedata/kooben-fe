@@ -1,5 +1,5 @@
 .header {
-  height: rem(99px);
+  height: rem(100px);
   margin-bottom: rem(40px);
   background-color: '#C5C5C5';
 }
@@ -24,11 +24,8 @@
 }
 
 .mainLink {
-  /* text-transform: uppercase; */
-  font-size: var(--mantine-font-size-6xl);
   color: light-dark(var(--mantine-color-gray-6), var(--mantine-color-dark-1));
   padding: rem(7px) var(--mantine-spacing-sm);
-  font-weight: 700;
   border-bottom: rem(4px) solid transparent;
   transition: border-color 100ms ease, color 100ms ease;
 
@@ -39,7 +36,7 @@
 
   &[data-active] {
     color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
-    border-bottom-color: #dab005;
+    border-bottom-color: #D4AD0B;
   }
 }
 

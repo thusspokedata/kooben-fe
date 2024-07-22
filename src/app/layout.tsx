@@ -5,6 +5,7 @@ import '@mantine/core/styles.css';
 import './globals.css';
 import { HeaderMegaMenu } from '@/components';
 import { esMX } from '@clerk/localizations';
+import { theme } from '@/themes/mantine-theme'; 
 
 export const metadata: Metadata = {
   title: "K'ooben",
@@ -26,7 +27,7 @@ export default function RootLayout({
           <link rel="icon" href="/favicon.ico" sizes="32x32"/>
         </head>
         <body>
-          <MantineProvider>
+          <MantineProvider theme={theme}>
             <HeaderMegaMenu />
             {children}
           </MantineProvider>

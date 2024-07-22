@@ -1,6 +1,20 @@
 'use client';
 
-import { Group, Button, Anchor, Divider, Burger, Drawer, Flex, Container, Box } from '@mantine/core';
+import {
+  Group,
+  Button,
+  Anchor,
+  Divider,
+  Burger,
+  Drawer,
+  Flex,
+  Container,
+  Box,
+  useMantineTheme,
+  Stack,
+  ActionIcon,
+  Center,
+} from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { IconUserFilled, IconShoppingBagPlus } from '@tabler/icons-react';
 import classes from './HeaderMegaMenu.module.css';
@@ -20,6 +34,7 @@ export const HeaderMegaMenu = () => {
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] = useDisclosure(false);
   const [active, setActive] = useState(0);
   const pathname = usePathname();
+  const theme = useMantineTheme();
 
   useEffect(() => {
     const activeIndex = mainLinks.findIndex((link) => link.link === pathname);
@@ -31,10 +46,10 @@ export const HeaderMegaMenu = () => {
       href={item.link}
       key={item.label}
       className={classes.mainLink}
-      size="6xl"
-      fw={500}
       component={Link}
-      c="black"
+      size="lg"
+      fw={400}
+      c={theme.colors.brand[9]}
       data-active={index === active || undefined}
       onClick={() => {
         setActive(index);
@@ -53,7 +68,7 @@ export const HeaderMegaMenu = () => {
       size="6xl"
       fw={500}
       component={Link}
-      c="black"
+      c="#2a3f41"
       onClick={() => {
         setActive(index);
         closeDrawer();
@@ -68,8 +83,18 @@ export const HeaderMegaMenu = () => {
       <header className={classes.header}>
         <Group justify="space-between" h="100%" mt="sm" gap="0px">
           <Flex justify="space-between" w="100%" align="center">
-            <Burger opened={drawerOpened} onClick={toggleDrawer} hiddenFrom="sm" />
             <LogoKooben />
+
+            <Flex align="center" gap="xs" hiddenFrom="sm">
+              <ActionIcon variant="subtle" color="green" aria-label="Settings">
+                <IconUserFilled size={24} />
+              </ActionIcon>
+              <ActionIcon variant="subtle" color="green" aria-label="Settings">
+                <IconShoppingBagPlus size={24} />
+              </ActionIcon>
+
+              <Burger opened={drawerOpened} color="green" onClick={toggleDrawer} />
+            </Flex>
 
             <Group visibleFrom="sm">
               <Button
@@ -104,7 +129,11 @@ export const HeaderMegaMenu = () => {
         onClose={closeDrawer}
         size="100%"
         padding="xs"
-        title={<LogoKooben />}
+        title={
+          <Center bg="red" w="100%">
+            <LogoKooben />
+          </Center>
+        }
         hiddenFrom="sm"
         zIndex={1000000}
       >
