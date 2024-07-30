@@ -30,6 +30,8 @@ const mainLinks = [
   { link: '/contacto', label: 'Contacto' },
 ];
 
+const cartLink = { link: '/carrito', label: 'Carrito (0)' };
+
 export const HeaderMegaMenu = () => {
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] = useDisclosure(false);
   const [active, setActive] = useState(0);
@@ -49,7 +51,7 @@ export const HeaderMegaMenu = () => {
       component={Link}
       size="lg"
       fw={400}
-      c={theme.colors.brand[9]}
+      c="brand.9"
       data-active={index === active || undefined}
       onClick={() => {
         setActive(index);
@@ -60,7 +62,7 @@ export const HeaderMegaMenu = () => {
     </Anchor>
   ));
 
-  const mainItemsDrawer = mainLinks.map((item, index) => (
+  const mainItemsDrawer = [...mainLinks, cartLink].map((item, index) => (
     <Anchor
       href={item.link}
       key={item.label}
@@ -72,7 +74,7 @@ export const HeaderMegaMenu = () => {
         closeDrawer();
       }}
     >
-      <Text>{item.label}</Text>
+      <Text fz="lg">{item.label}</Text>
     </Anchor>
   ));
 
@@ -84,14 +86,14 @@ export const HeaderMegaMenu = () => {
             <LogoKooben />
 
             <Flex align="center" gap="xs" hiddenFrom="sm">
-              <ActionIcon variant="subtle" color={theme.colors.brand[8]} aria-label="Settings">
+              <ActionIcon variant="subtle" color="brand.7">
                 <IconUserFilled size={24} />
               </ActionIcon>
-              <ActionIcon variant="subtle" color={theme.colors.brand[8]} aria-label="Settings">
+              <ActionIcon variant="subtle" color="brand.7">
                 <IconShoppingBagPlus size={24} />
               </ActionIcon>
 
-              <Burger opened={drawerOpened} color={theme.colors.brand[8]} onClick={toggleDrawer} />
+              <Burger opened={drawerOpened} color="brand.8" onClick={toggleDrawer} />
             </Flex>
 
             <Group visibleFrom="sm">
@@ -101,10 +103,10 @@ export const HeaderMegaMenu = () => {
                 variant="transparent"
                 fz="md"
                 fw={400}
-                c={theme.colors.brand[9]}
-                leftSection={<IconUserFilled size={20} />}
+                c="brand.8"
+                leftSection={<IconUserFilled size={24} />}
               >
-                Iniciar sesión
+                <Text c="brand.9">Iniciar sesión</Text>
               </Button>
               <Button
                 component="a"
@@ -112,10 +114,10 @@ export const HeaderMegaMenu = () => {
                 variant="transparent"
                 fz="md"
                 fw={400}
-                leftSection={<IconShoppingBagPlus size={20} />}
-                c={theme.colors.brand[9]}
+                c="brand.8"
+                leftSection={<IconShoppingBagPlus size={24} />}
               >
-                Carrito (0)
+                <Text c="brand.9">Carrito (0)</Text>
               </Button>
             </Group>
           </Flex>
@@ -138,23 +140,21 @@ export const HeaderMegaMenu = () => {
         }
         hiddenFrom="sm"
         zIndex={1000000}
+        bg="#F3F3F3"
       >
         <Box>
-          <Divider my="sm" size="md" color={theme.colors['brand-secondary'][6]} />
-          <Flex justify="flex-start" direction="column" align="flex-start">
+          <Divider mt="sm" size="md" color={theme.colors['brand-secondary'][6]} />
+          <Flex justify="flex-start" direction="column" align="flex-start" mt="7xl" mb="11xl">
             {mainItemsDrawer}
-            <Anchor component="a" href="/sign-in" variant="white" pl="xs" c={theme.colors.brand[9]}>
-              <Text>Carrito (0)</Text>
-            </Anchor>
           </Flex>
 
-          <Divider my="sm" size="md" color={theme.colors['brand-secondary'][6]} />
+          <Divider mb="sm" size="md" color={theme.colors['brand-secondary'][6]} />
 
-          <Flex justify="space-around" direction="column" align="center" pb="xl" px="md" mt="11xl" gap="xl">
-            <Button c="white" color={theme.colors.brand[7]} component="a" w="50%" href="/sign-in">
+          <Flex justify="space-around" direction="column" align="center" pb="xl" px="md" mt={84} gap="xl">
+            <Button fz="md" c="white" color={theme.colors.brand[7]} component="a" w="50%" href="/sign-in">
               Iniciar sesión
             </Button>
-            <Button variant="transparent" component="a" w="50%" href="/sign-up">
+            <Button fz="md" variant="transparent" component="a" w="50%" href="/sign-up">
               Registrarse
             </Button>
           </Flex>
