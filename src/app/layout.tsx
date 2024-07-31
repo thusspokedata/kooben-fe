@@ -2,7 +2,14 @@ import type { Metadata } from 'next';
 import { ClerkProvider } from '@clerk/nextjs';
 import { ColorSchemeScript, MantineProvider } from '@mantine/core';
 import '@mantine/core/styles.css';
+import '@mantine/carousel/styles.css';
+import '@mantine/notifications/styles.css';
+import '@mantine/nprogress/styles.css';
+import '@mantine/tiptap/styles.css';
+import '@mantine/dropzone/styles.css';
+import '@mantine/charts/styles.css';
 import './globals.css';
+
 import { HeaderMegaMenu } from '@/components';
 import { esMX } from '@clerk/localizations';
 import { theme } from '@/themes/mantine-theme'; 
