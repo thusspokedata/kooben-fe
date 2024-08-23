@@ -31,7 +31,14 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ title, Icon }) => {
 
 export const ServiceOverview = () => {
   return (
-    <SimpleGrid mih={388} bg="secondary.0" cols={{ base: 1, sm: 2, md: 4 }} spacing="xl" px={120} py={58}>
+    <SimpleGrid
+      mih={388}
+      bg="secondary.0"
+      cols={{ base: 2, sm: 4 }}
+      spacing={{ base: "md",md: 'xl' }}
+      px={{ base: 40, sm: 40, md: 120 }}
+      py={{ base: 30, sm: 58 }}
+    >
       <ServiceCard title="Cuotas" Icon={CreditCardSVG} />
       <ServiceCard title="Envíos" Icon={TruckSVG} />
       <ServiceCard title="Montaje" Icon={HammerSVG} />
