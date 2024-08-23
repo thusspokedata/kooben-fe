@@ -46,7 +46,7 @@ export function ArticleCardImage({
 export const Filters = () => {
   return (
     <Grid w="100%" gutter={{ base: 16, sm: 32 }}>
-      <Grid.Col span={{ base: 6, sm: 4 }} w="auto" h={{base: 330, sm: 520}}>
+      <Grid.Col span={{ base: 6, sm: 4 }} w="auto" h={{ base: 330, sm: 520 }}>
         <ArticleCardImage imageUrl="/images/20240629_180611.jpg" category="Respaldo de cama" />
       </Grid.Col>
 
@@ -64,7 +64,7 @@ export const Filters = () => {
         </Grid>
       </Grid.Col>
 
-      <Grid.Col span={6} h={220}>
+      <Grid.Col span={6} h={220} hiddenFrom="sm">
         <ArticleCardImage imageUrl="/images/botinero.png" category="Botinero" />
       </Grid.Col>
 
