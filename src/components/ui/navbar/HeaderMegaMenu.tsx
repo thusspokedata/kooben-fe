@@ -21,7 +21,7 @@ import classes from './HeaderMegaMenu.module.css';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import LogoKooben from '../../../public/assets/svgs/LogoKooben';
+import LogoKooben from '../../../../public/assets/svgs/LogoKooben';
 
 const mainLinks = [
   { link: '/', label: 'Inicio' },
