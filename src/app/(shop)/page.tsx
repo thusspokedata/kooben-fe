@@ -10,12 +10,12 @@ export default function Home() {
       <Flex gap="xl" direction="column" h="100%">
         <Filters />
 
-        <Text ta="center" size={theme.fontSizes['10xl']} c="#52796F" mt="xl" tt="uppercase">
+        <Text ta="center" size={theme.fontSizes['10xl']} c="secondary.5" mt="xl" tt="uppercase">
           Lo más vendido
         </Text>
 
         <CardsCarousel />
-        <Divider my="xl" size="lg" color="#52796F" />
+        <Divider my="xl" size="lg" color="secondary.5" />
       </Flex>
     </Container>
   );

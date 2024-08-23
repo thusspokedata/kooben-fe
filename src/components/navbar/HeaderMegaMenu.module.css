@@ -24,7 +24,7 @@
 }
 
 .mainLink {
-  padding: rem(7px) var(--mantine-spacing-sm);
+  padding: rem(9px) var(--mantine-spacing-sm);
   border-bottom: rem(4px) solid transparent;
   transition: border-color 100ms ease, color 100ms ease;
 
