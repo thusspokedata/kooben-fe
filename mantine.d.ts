@@ -2,7 +2,8 @@ import { MantineColorsTuple, DefaultMantineColor } from '@mantine/core';
 
 type ExtendedCustomColors =
   | 'brand'
-  | 'brand-secondary'
+  | 'secondary'
+  | 'tertiary'
   | 'neutral'
   | DefaultMantineColor;
 

@@ -10,7 +10,7 @@ import '@mantine/dropzone/styles.css';
 import '@mantine/charts/styles.css';
 import './globals.css';
 
-import { HeaderMegaMenu } from '@/components';
+import { Footer, HeaderMegaMenu } from '@/components';
 import { esMX } from '@clerk/localizations';
 import { theme } from '@/themes/mantine-theme'; 
 
@@ -37,6 +37,7 @@ export default function RootLayout({
           <MantineProvider theme={theme}>
             <HeaderMegaMenu />
             {children}
+            <Footer />
           </MantineProvider>
         </body>
       </html>
