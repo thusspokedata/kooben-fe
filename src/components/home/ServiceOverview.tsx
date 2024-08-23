@@ -13,7 +13,13 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ title, Icon }) => {
 
   return (
     <Card h="100%" w="100%">
-      <Text fw={300} mx={24} mt={24} c="brand.8" fz={theme.fontSizes['5xl']}>
+      <Text
+        fw={300}
+        mx={{ base: 14, sm: 24 }}
+        mt={{ base: 4, sm: 24 }}
+        c="brand.8"
+        fz={{ base: 'xl', sm: theme.fontSizes['2xl'], lg: theme.fontSizes['5xl'] }}
+      >
         {title}
       </Text>
       <Center h="100%">
@@ -25,7 +31,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ title, Icon }) => {
 
 export const ServiceOverview = () => {
   return (
-    <SimpleGrid h={388} bg="secondary.0" cols={4} spacing="xl" px={120} py={58}>
+    <SimpleGrid mih={388} bg="secondary.0" cols={{ base: 1, sm: 2, md: 4 }} spacing="xl" px={120} py={58}>
       <ServiceCard title="Cuotas" Icon={CreditCardSVG} />
       <ServiceCard title="Envíos" Icon={TruckSVG} />
       <ServiceCard title="Montaje" Icon={HammerSVG} />
