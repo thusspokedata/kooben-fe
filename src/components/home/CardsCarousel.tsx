@@ -1,17 +1,17 @@
 'use client';
 
 import { Carousel } from '@mantine/carousel';
-import { useMantineTheme, rem, Text, Button, Image, Group, Card, Box, Flex } from '@mantine/core';
+import { useMantineTheme, rem, Text, Button, Image, Card, Box, Flex } from '@mantine/core';
 import classes from './CardsCarousel.module.css';
 import { IconArrowLeft, IconArrowRight } from '@tabler/icons-react';
 
 interface CardProps {
   image: string;
   title: string;
-  category: string;
+  // category: string;
 }
 
-function CardWithImage({ image, title, category }: CardProps) {
+function CardWithImage({ image, title }: CardProps) {
   const theme = useMantineTheme();
 
   return (

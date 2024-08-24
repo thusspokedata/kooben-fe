@@ -30,7 +30,7 @@ const mainLinks = [
   { link: '/contacto', label: 'Contacto' },
 ];
 
-const cartLink = { link: '/carrito', label: 'Carrito (0)' };
+const cartLink = { link: '/', label: 'Carrito (0)' };
 
 export const HeaderMegaMenu = () => {
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] = useDisclosure(false);
@@ -44,22 +44,22 @@ export const HeaderMegaMenu = () => {
   }, [pathname]);
 
   const mainItems = mainLinks.map((item, index) => (
-    <Anchor
-      href={item.link}
-      key={item.label}
-      className={classes.mainLink}
-      component={Link}
-      size={theme.fontSizes['2xl']}
-      fw={300}
-      c="brand.8"
-      data-active={index === active || undefined}
-      onClick={() => {
-        setActive(index);
-        closeDrawer();
-      }}
-    >
-      {item.label}
-    </Anchor>
+    <Link href={item.link} key={item.label} passHref>
+      <Text
+        component="a"
+        size={theme.fontSizes['2xl']}
+        fw={300}
+        c="brand.8"
+        className={classes.mainLink}
+        data-active={index === active || undefined}
+        onClick={() => {
+          setActive(index);
+          closeDrawer();
+        }}
+      >
+        {item.label}
+      </Text>
+    </Link>
   ));
 
   const mainItemsDrawer = [...mainLinks, cartLink].map((item, index) => (
