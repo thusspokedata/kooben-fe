@@ -115,10 +115,10 @@ export const HeaderMegaMenu = () => {
             </Group>
 
             <Flex align="center" gap="xs" hiddenFrom="sm">
-              <ActionIcon variant="subtle" color="brand.7">
+              <ActionIcon variant="subtle" color="brand.7" c="brand.8">
                 <IconUserFilled size={24} />
               </ActionIcon>
-              <ActionIcon variant="subtle" color="brand.7">
+              <ActionIcon variant="subtle" color="brand.7" c="brand.8">
                 <IconShoppingBagPlus size={24} />
               </ActionIcon>
 

@@ -12,7 +12,7 @@ export default function Home() {
         <Flex gap="xl" direction="column" h="100%">
           <Filters />
 
-          <Text ta="center" size={theme.fontSizes['10xl']} c="secondary.5" mt="xl" tt="uppercase">
+          <Text ta="center" size={theme.fontSizes['10xl']} c="secondary.6" mt="xl" tt="uppercase">
             Lo más vendido
           </Text>
 
