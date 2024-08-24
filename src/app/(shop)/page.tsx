@@ -6,6 +6,7 @@ import { Container, Divider, Box, Flex, Text, useMantineTheme } from '@mantine/c
 
 export default function Home() {
   const theme = useMantineTheme();
+
   return (
     <>
       <Container size="lg" px="lg" pt="lg" h="100%">
