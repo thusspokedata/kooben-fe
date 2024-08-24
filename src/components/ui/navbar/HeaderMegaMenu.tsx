@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import {
   Group,
   Button,
@@ -15,13 +16,12 @@ import {
   ActionIcon,
   Center,
 } from '@mantine/core';
+import { usePathname } from 'next/navigation';
 import { useDisclosure } from '@mantine/hooks';
 import { IconUserFilled, IconShoppingBagPlus } from '@tabler/icons-react';
-import classes from './HeaderMegaMenu.module.css';
-import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 import LogoKooben from '../../../../public/assets/svgs/LogoKooben';
+import classes from './HeaderMegaMenu.module.css';
 
 const mainLinks = [
   { link: '/', label: 'Inicio' },
@@ -44,28 +44,28 @@ export const HeaderMegaMenu = () => {
   }, [pathname]);
 
   const mainItems = mainLinks.map((item, index) => (
-    <Link href={item.link} key={item.label} passHref>
-      <Text
-        component="a"
-        size={theme.fontSizes['2xl']}
-        fw={300}
-        c="brand.8"
-        className={classes.mainLink}
-        data-active={index === active || undefined}
-        onClick={() => {
-          setActive(index);
-          closeDrawer();
-        }}
-      >
-        {item.label}
-      </Text>
-    </Link>
+    <Anchor
+      key={`desktop-${item.label}`}
+      component={Link}
+      href={item.link}
+      className={classes.mainLink}
+      size={theme.fontSizes['2xl']}
+      fw={300}
+      c="brand.8"
+      data-active={index === active || undefined}
+      onClick={() => {
+        setActive(index);
+        closeDrawer();
+      }}
+    >
+      {item.label}
+    </Anchor>
   ));
 
   const mainItemsDrawer = [...mainLinks, cartLink].map((item, index) => (
     <Anchor
+      key={`drawer-${item.label}`}
       href={item.link}
-      key={item.label}
       className={classes.mainLink}
       component={Link}
       c={theme.colors.brand[9]}
