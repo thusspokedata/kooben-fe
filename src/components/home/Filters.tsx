@@ -1,6 +1,6 @@
 'use client';
 
-import { Grid, Paper, Card, Title, Box } from '@mantine/core';
+import { Grid, Card, Title } from '@mantine/core';
 import classes from './Filters.module.css';
 import { useHover } from '@mantine/hooks';
 
@@ -56,7 +56,7 @@ export const Filters = () => {
             <ArticleCardImage aspectRatio="4/3" imageUrl="/images/20240629_164705.jpg" category="Mesa de luz" />
           </Grid.Col>
           <Grid.Col span={{ base: 12, sm: 6 }} mah={300}>
-            <ArticleCardImage aspectRatio="4/3" category="Respaldo de cama" />
+            <ArticleCardImage aspectRatio="4/3" imageUrl="/images/20240629_165101.jpg" category="Respaldo de cama" />
           </Grid.Col>
           <Grid.Col span={12} h={230} visibleFrom="sm">
             <ArticleCardImage imageUrl="/images/botinero.png" category="Botinero" />
@@ -69,7 +69,7 @@ export const Filters = () => {
       </Grid.Col>
 
       <Grid.Col span={{ base: 6, sm: 12 }} h={220}>
-        <ArticleCardImage category="Botinero" />
+        <ArticleCardImage category="Botinero" imageUrl="/images/botinero.png" />
       </Grid.Col>
     </Grid>
   );
