@@ -35,7 +35,7 @@ export const ServiceOverview = () => {
       mih={388}
       bg="secondary.0"
       cols={{ base: 2, sm: 4 }}
-      spacing={{ base: "md",md: 'xl' }}
+      spacing={{ base: 'md', md: 'xl' }}
       px={{ base: 40, sm: 40, md: 120 }}
       py={{ base: 30, sm: 58 }}
     >

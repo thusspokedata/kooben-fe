@@ -22,7 +22,15 @@ const Historia: React.FC = () => {
   return (
     <>
       <QuienesSomos />
-      <Flex justify="center" gap="11xl" mt="11xl" w="100%" align="center">
+      <Flex
+        justify="center"
+        gap="11xl"
+        mt="11xl"
+        mb="11xl"
+        w="100%"
+        align="center"
+        direction={{ base: 'column', sm: 'row' }}
+      >
         <HistoriaImage src="/images/kooben-historia1.jpeg" />
         <HistoriaImage src="/images/kooben-historia2.jpeg" />
       </Flex>
