@@ -25,8 +25,8 @@ const Historia: React.FC = () => {
       <Flex
         justify="center"
         gap="11xl"
-        mt="11xl"
-        mb="11xl"
+        my="11xl"
+        px="sm"
         w="100%"
         align="center"
         direction={{ base: 'column', sm: 'row' }}

@@ -2,22 +2,30 @@
 
 import { CardsCarousel, Filters } from '@/components';
 import { ServiceOverview } from '@/components/home/ServiceOverview';
-import { Container, Divider, Flex, Text, useMantineTheme } from '@mantine/core';
+import { Container, Divider, Box, Flex, Text, useMantineTheme } from '@mantine/core';
 
 export default function Home() {
   const theme = useMantineTheme();
   return (
     <>
-      <Container size="lg" p="lg" h="100%">
-        <Flex gap="xl" direction="column" h="100%">
+      <Container size="lg" px="lg" pt="lg" h="100%">
+        <Flex direction="column" h="100%">
           <Filters />
 
-          <Text ta="center" size={theme.fontSizes['10xl']} c="secondary.6" mt="xl" tt="uppercase">
-            Lo más vendido
-          </Text>
+          <Box mt={{ base: 40, sm: 80 }}>
+            <Text
+              ta="center"
+              mb={theme.spacing['5xl']}
+              fz={{ base: theme.fontSizes['6xl'], sm: theme.fontSizes['10xl'] }}
+              c="secondary.6"
+              tt="uppercase"
+            >
+              Lo más vendido
+            </Text>
+            <CardsCarousel />
 
-          <CardsCarousel />
-          <Divider my={theme.spacing['9xl']} size="lg" color="secondary.5" />
+            <Divider my={{ base: 40, sm: 82 }} size="lg" color="secondary.5" />
+          </Box>
         </Flex>
       </Container>
       <ServiceOverview />
