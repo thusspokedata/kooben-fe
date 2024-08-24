@@ -1,7 +1,6 @@
 'use client';
 
 import { Carousel } from '@mantine/carousel';
-import { useMediaQuery } from '@mantine/hooks';
 import { useMantineTheme, rem, Text, Button, Image, Group, Card, Box, Flex } from '@mantine/core';
 import classes from './CardsCarousel.module.css';
 import { IconArrowLeft, IconArrowRight } from '@tabler/icons-react';
@@ -14,12 +13,13 @@ interface CardProps {
 
 function CardWithImage({ image, title, category }: CardProps) {
   const theme = useMantineTheme();
+
   return (
     <Card withBorder radius="md" p={0} className={classes.card}>
       <Flex wrap="nowrap" gap={0}>
         <Image src={image} height={280} alt={title} />
-        <Box className={classes.body} mt="xl" tt="uppercase">
-          <Text fw={500} mb="xs" fz={theme.fontSizes['3xl']} c="brand.8">
+        <Box className={classes.body} mt={{ base: '', sm: 'xl' }} tt="uppercase">
+          <Text fw={500} mb="xs" fz={{ base: 'lg', sm: theme.fontSizes['3xl'] }} c="brand.8">
             {title}
           </Text>
 
@@ -55,7 +55,7 @@ const data = [
   {
     image:
       'https://images.unsplash.com/photo-1507272931001-fc06c17e4f43?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80',
-    title: 'Aurora in Norway: when to visit for best experience',
+    title: 'Aurora in Norway',
     category: 'nature',
   },
   {
@@ -67,14 +67,13 @@ const data = [
   {
     image:
       'https://images.unsplash.com/photo-1582721478779-0ae163c05a60?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80',
-    title: 'Active volcanos reviews: travel at your own risk',
+    title: 'Active volcanos reviews',
     category: 'nature',
   },
 ];
 
 export function CardsCarousel() {
   const theme = useMantineTheme();
-  const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
   const slides = data.map((item) => (
     <Carousel.Slide key={item.title}>
       <CardWithImage {...item} />
@@ -86,7 +85,7 @@ export function CardsCarousel() {
       slideSize={{ base: '100%', sm: '50%' }}
       slideGap={{ base: rem(2), sm: 'xl' }}
       align="start"
-      slidesToScroll={mobile ? 1 : 2}
+      slidesToScroll={1}
       loop
       controlsOffset="md"
       controlSize={31}
