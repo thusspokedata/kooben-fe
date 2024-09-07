@@ -1,4 +1,4 @@
-import { cookies } from "next/headers";
+import { cookies } from 'next/headers';
 
 export default async function getUsers() {
   const res = await fetch('http://localhost:3000/api/auth/', {
