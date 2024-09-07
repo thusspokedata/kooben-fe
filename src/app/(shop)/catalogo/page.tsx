@@ -2,7 +2,7 @@ import { Container, Text } from '@mantine/core';
 
 const Catalogo = () => {
   return (
-    <Container size="lg" h="100%" p="lg">
+    <Container size="lg" h="100%" p="lg" style={{ minHeight: '100vh' }}>
       <Text ta="center" size="xl" mt="xl" style={{ zIndex: 1000 }}>
         Catalogo
       </Text>
