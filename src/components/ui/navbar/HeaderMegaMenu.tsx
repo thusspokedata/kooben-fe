@@ -90,7 +90,7 @@ export const HeaderMegaMenu = () => {
             <Group visibleFrom="sm">
               <Button
                 component="a"
-                href="/sign-in"
+                href="/auth/sign-in"
                 variant="transparent"
                 size="md"
                 c="brand.8"

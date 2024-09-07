@@ -1,7 +1,7 @@
 'use client';
 
 import { Carousel } from '@mantine/carousel';
-import { useMantineTheme, rem, Text, Button, Image, Card, Box, Flex } from '@mantine/core';
+import { useMantineTheme, rem, Text, Button, Image, Card, Box, Flex, Divider } from '@mantine/core';
 import classes from './CardsCarousel.module.css';
 import { IconArrowLeft, IconArrowRight } from '@tabler/icons-react';
 
@@ -95,5 +95,25 @@ export function CardsCarousel() {
     >
       {slides}
     </Carousel>
+  );
+}
+
+export function BestSellersCarousel() {
+  const theme = useMantineTheme();
+  return (
+    <Box mt={{ base: 40, sm: 80 }}>
+      <Text
+        ta="center"
+        mb={theme.spacing['5xl']}
+        fz={{ base: theme.fontSizes['6xl'], sm: theme.fontSizes['10xl'] }}
+        c="secondary.6"
+        tt="uppercase"
+      >
+        Lo más vendido
+      </Text>
+      <CardsCarousel />
+
+      <Divider my={{ base: 40, sm: 82 }} size="lg" color="secondary.5" />
+    </Box>
   );
 }
