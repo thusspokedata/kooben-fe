@@ -22,7 +22,7 @@ import { IconUserFilled, IconShoppingBagPlus } from '@tabler/icons-react';
 import Link from 'next/link';
 import LogoKooben from '../../../../public/assets/svgs/LogoKooben';
 import classes from './HeaderMegaMenu.module.css';
-import { useUser } from '@clerk/nextjs';
+import { UserButton, useUser } from '@clerk/nextjs';
 
 const mainLinks = [
   { link: '/', label: 'Inicio' },
@@ -91,18 +91,22 @@ export const HeaderMegaMenu = () => {
             </Box>
 
             <Group visibleFrom="sm">
-              <Button
-                component={Link}
-                href={isSignedIn ? '/mi-perfil' : '/sign-in'}
-                variant="transparent"
-                size="md"
-                c="brand.8"
-                leftSection={<IconUserFilled size={22} />}
-              >
-                <Text c="brand.9" fz="lg" fw={300}>
-                  {isSignedIn ? 'Mi Perfil' : 'Iniciar sesión'}
-                </Text>
-              </Button>
+              {isSignedIn ? (
+                <UserButton />
+              ) : (
+                <Button
+                  component={Link}
+                  href="/sign-in"
+                  variant="transparent"
+                  size="md"
+                  c="brand.8"
+                  leftSection={<IconUserFilled size={22} />}
+                >
+                  <Text c="brand.9" fz="lg" fw={300}>
+                    Iniciar sesión
+                  </Text>
+                </Button>
+              )}
 
               <Button
                 component={Link}
