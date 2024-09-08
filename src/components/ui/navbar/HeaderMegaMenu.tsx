@@ -22,6 +22,7 @@ import { IconUserFilled, IconShoppingBagPlus } from '@tabler/icons-react';
 import Link from 'next/link';
 import LogoKooben from '../../../../public/assets/svgs/LogoKooben';
 import classes from './HeaderMegaMenu.module.css';
+import { useUser } from '@clerk/nextjs';
 
 const mainLinks = [
   { link: '/', label: 'Inicio' },
@@ -37,6 +38,8 @@ export const HeaderMegaMenu = () => {
   const [active, setActive] = useState(0);
   const pathname = usePathname();
   const theme = useMantineTheme();
+
+  const { isSignedIn } = useUser();
 
   useEffect(() => {
     const activeIndex = mainLinks.findIndex((link) => link.link === pathname);
@@ -89,19 +92,20 @@ export const HeaderMegaMenu = () => {
 
             <Group visibleFrom="sm">
               <Button
-                component="a"
-                href="/auth/sign-in"
+                component={Link}
+                href={isSignedIn ? '/mi-perfil' : '/sign-in'}
                 variant="transparent"
                 size="md"
                 c="brand.8"
                 leftSection={<IconUserFilled size={22} />}
               >
                 <Text c="brand.9" fz="lg" fw={300}>
-                  Iniciar sesión
+                  {isSignedIn ? 'Mi Perfil' : 'Iniciar sesión'}
                 </Text>
               </Button>
+
               <Button
-                component="a"
+                component={Link}
                 href="/sign-in"
                 variant="transparent"
                 size="md"
