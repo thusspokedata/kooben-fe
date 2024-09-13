@@ -5,7 +5,7 @@ interface CardCatalogoProps {
   images: string[];
   title: string;
   description: string;
-  price: number;
+  price: string;
 }
 
 export function CardCatalogo({ images, title, description, price }: CardCatalogoProps) {

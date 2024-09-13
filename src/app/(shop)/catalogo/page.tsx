@@ -1,27 +1,29 @@
 'use client';
 
 import { CardCatalogo } from '@/components';
-import { fetchProductsByCategory } from '@/services';
-import { CategoryKey, CATEGORIES } from '@/utils/constants';
+import { fetchAllProducts } from '@/services';
+import { formatNumberWithCommas, CategoryKey, CATEGORIES } from '@/utils';
 import { Container, SimpleGrid, Text } from '@mantine/core';
 import { useEffect, useState } from 'react';
 
 type Product = {
   id: string;
   title: string;
+  category: string;
   images: string[];
   description: string;
   price: number;
 };
 
-const Catalogo = ({ category = 'mesa_de_luz' }: { category: CategoryKey }) => {
+const Catalogo = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const getProducts = async () => {
       try {
-        const data = await fetchProductsByCategory({ category });
+        // Fetch all products
+        const data = await fetchAllProducts({});
         setProducts(data);
       } catch (error) {
         setError('Failed to fetch products');
@@ -29,27 +31,41 @@ const Catalogo = ({ category = 'mesa_de_luz' }: { category: CategoryKey }) => {
     };
 
     getProducts();
-  }, [category]);
+  }, []);
 
   if (error) return <div>{error}</div>;
+
+  // Group products by category
+  const groupedProducts = products.reduce((acc: { [key: string]: Product[] }, product) => {
+    if (!acc[product.category]) {
+      acc[product.category] = [];
+    }
+    acc[product.category].push(product);
+    return acc;
+  }, {});
+
   return (
     <Container size="lg" h="100%" p="lg" style={{ minHeight: '100vh' }}>
-      <Text ta="start" fw={500} size="xl" mt="xl" mb="lg" c="brand.8" tt="uppercase">
-        {category && CATEGORIES[category]}
-      </Text>
-
-      <SimpleGrid cols={4} spacing="xl">
-        {products &&
-          products.map((product) => (
-            <CardCatalogo
-              key={product.id}
-              images={product.images}
-              title={product.title}
-              description={product.description}
-              price={product.price}
-            />
-          ))}
-      </SimpleGrid>
+      {Object.keys(groupedProducts).map((categoryKey) => (
+        <div key={categoryKey}>
+          {/* Render category name */}
+          <Text ta="start" fw={500} size="xl" mt="xl" mb="lg" c="brand.8" tt="uppercase">
+            {CATEGORIES[categoryKey as CategoryKey]}
+          </Text>
+          {/* Render products for the current category */}
+          <SimpleGrid cols={4} spacing="xl">
+            {groupedProducts[categoryKey].map((product) => (
+              <CardCatalogo
+                key={product.id}
+                images={product.images}
+                title={product.title}
+                description={product.description}
+                price={formatNumberWithCommas(product.price)}
+              />
+            ))}
+          </SimpleGrid>
+        </div>
+      ))}
     </Container>
   );
 };
