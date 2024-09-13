@@ -1,4 +1,4 @@
-import { AspectRatio, Card, Flex, Image, Text } from '@mantine/core';
+import { AspectRatio, Box, Card, Flex, Image, Text } from '@mantine/core';
 import ImagePlaceholder from '../global/ImagePlaceHolder';
 
 interface CardCatalogoProps {
@@ -23,14 +23,16 @@ export function CardCatalogo({ images, title, description, price }: CardCatalogo
         )}
       </Card.Section>
       <Flex direction="column" justify="space-between" gap="xs" h="100%">
-        <Text fw={500} size="lg" c="brand.7" mt="md" tt="capitalize">
-          {title}
-        </Text>
+        <Box>
+          <Text fw={500} size="lg" c="brand.7" mt="md" tt="capitalize">
+            {title}
+          </Text>
 
-        <Text mt="xs" fw={300} fz="lg" c="brand.7">
-          {description}
-        </Text>
-        <Text fw={500} fz="3xl" c="brand.7" mt="xs">
+          <Text mt="xs" fw={300} fz="lg" c="brand.7">
+            {description}
+          </Text>
+        </Box>
+        <Text mt="xs" fw={500} fz="3xl" c="brand.7">
           ${price}
         </Text>
       </Flex>
