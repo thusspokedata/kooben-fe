@@ -1,6 +1,6 @@
 'use client';
 
-import { useSearchParams } from 'next/navigation'; // Use this to get query params
+import { useSearchParams } from 'next/navigation';
 import { CardCatalogo } from '@/components';
 import { useProducts } from '@/hooks/useProducts';
 import { Product } from '@/interfaces';
@@ -57,3 +57,4 @@ const Catalogo = () => {
 };
 
 export default Catalogo;
+
