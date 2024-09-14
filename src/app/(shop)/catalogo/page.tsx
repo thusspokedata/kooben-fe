@@ -1,37 +1,13 @@
 'use client';
 
 import { CardCatalogo } from '@/components';
-import { fetchAllProducts } from '@/services';
+import { useProducts } from '@/hooks/useProducts';
+import { Product } from '@/interfaces';
 import { formatNumberWithCommas, CategoryKey, CATEGORIES } from '@/utils';
 import { Container, SimpleGrid, Text } from '@mantine/core';
-import { useEffect, useState } from 'react';
-
-type Product = {
-  id: string;
-  title: string;
-  category: string;
-  images: string[];
-  description: string;
-  price: number;
-};
 
 const Catalogo = () => {
-  const [products, setProducts] = useState<Product[]>([]);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const getProducts = async () => {
-      try {
-        // Fetch all products
-        const data = await fetchAllProducts({});
-        setProducts(data);
-      } catch (error) {
-        setError('Failed to fetch products');
-      }
-    };
-
-    getProducts();
-  }, []);
+  const { products, error } = useProducts();
 
   if (error) return <div>{error}</div>;
 
