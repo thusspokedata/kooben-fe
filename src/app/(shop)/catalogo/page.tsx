@@ -39,7 +39,7 @@ const Catalogo = () => {
             {CATEGORIES[categoryKey as CategoryKey]}
           </Text>
 
-          <SimpleGrid cols={4} spacing="xl">
+          <SimpleGrid cols={{ base: 1, xs: 2, sm: 3, md: 4 }} spacing="xl">
             {groupedProducts[categoryKey].map((product: Product) => (
               <CardCatalogo
                 key={product.id}
