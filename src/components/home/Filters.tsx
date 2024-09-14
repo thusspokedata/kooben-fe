@@ -67,33 +67,33 @@ export const Filters = () => {
   return (
     <Grid w="100%" gutter={{ base: 16, sm: 32 }}>
       <Grid.Col span={{ base: 6, sm: 4 }} w="auto" h={{ base: 330, sm: 520 }}>
-        <ArticleCardImage imageUrl={getFirstProductImage('respaldo_de_cama')} category="respaldo_de_cama" />
+        <ArticleCardImage imageUrl={getFirstProductImage('respaldo_de_cama')} category="Respaldo de cama" />
       </Grid.Col>
 
       <Grid.Col span={{ base: 6, sm: 8 }} mah={520}>
         <Grid gutter={{ base: 16, sm: 32 }}>
           <Grid.Col span={{ base: 12, sm: 6 }} mah={300}>
-            <ArticleCardImage aspectRatio="4/3" imageUrl={getFirstProductImage('mesa_de_luz')} category="mesa_de_luz" />
+            <ArticleCardImage aspectRatio="4/3" imageUrl={getFirstProductImage('mesa_de_luz')} category="Mesa de luz" />
           </Grid.Col>
           <Grid.Col span={{ base: 12, sm: 6 }} mah={300}>
             <ArticleCardImage
               aspectRatio="4/3"
               imageUrl={getFirstProductImage('respaldo_de_cama')}
-              category="respaldo_de_cama"
+              category="Respaldo de cama"
             />
           </Grid.Col>
           <Grid.Col span={12} h={230} visibleFrom="sm">
-            <ArticleCardImage imageUrl={getFirstProductImage('botinero')} category="botinero" />
+            <ArticleCardImage imageUrl={getFirstProductImage('botinero')} category="Botinero" />
           </Grid.Col>
         </Grid>
       </Grid.Col>
 
       <Grid.Col span={6} h={220} hiddenFrom="sm">
-        <ArticleCardImage imageUrl={getFirstProductImage('botinero')} category="botinero" />
+        <ArticleCardImage imageUrl={getFirstProductImage('botinero')} category="Botinero" />
       </Grid.Col>
 
       <Grid.Col span={{ base: 6, sm: 12 }} h={220}>
-        <ArticleCardImage category="botinero" imageUrl={getFirstProductImage('botinero')} />
+        <ArticleCardImage category="Botinero" imageUrl={getFirstProductImage('botinero')} />
       </Grid.Col>
     </Grid>
   );
