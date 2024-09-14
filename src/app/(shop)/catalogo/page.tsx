@@ -6,13 +6,17 @@ import { Product } from '@/interfaces';
 import { formatNumberWithCommas, CategoryKey, CATEGORIES } from '@/utils';
 import { Container, SimpleGrid, Text } from '@mantine/core';
 
-const Catalogo = () => {
-  const { products, error } = useProducts();
+interface CatalogoProps {
+  initialCategory?: CategoryKey;
+}
 
-  if (error) return <div>{error}</div>;
+const Catalogo = ({ initialCategory = 'mesa_de_luz' }: CatalogoProps) => {
+  const { products, isLoading } = useProducts();
+
+  if (isLoading) return <div>Cargando...</div>;
 
   // Group products by category
-  const groupedProducts = products.reduce((acc: { [key: string]: Product[] }, product) => {
+  const groupedProducts = products.reduce((acc: { [key: string]: Product[] }, product: Product) => {
     if (!acc[product.category]) {
       acc[product.category] = [];
     }
@@ -20,17 +24,23 @@ const Catalogo = () => {
     return acc;
   }, {});
 
+  // Order categories by initialCategory
+  const sortedCategories = Object.keys(groupedProducts).sort((a, b) => {
+    if (a === initialCategory) return -1;
+    if (b === initialCategory) return 1;
+    return 0;
+  });
+
   return (
     <Container size="lg" h="100%" p="lg" style={{ minHeight: '100vh' }}>
-      {Object.keys(groupedProducts).map((categoryKey) => (
+      {sortedCategories.map((categoryKey) => (
         <div key={categoryKey}>
-          {/* Render category name */}
           <Text ta="start" fw={500} size="xl" mt="xl" mb="lg" c="brand.8" tt="uppercase">
             {CATEGORIES[categoryKey as CategoryKey]}
           </Text>
-          {/* Render products for the current category */}
+
           <SimpleGrid cols={4} spacing="xl">
-            {groupedProducts[categoryKey].map((product) => (
+            {groupedProducts[categoryKey].map((product: Product) => (
               <CardCatalogo
                 key={product.id}
                 images={product.images}
