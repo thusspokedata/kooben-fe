@@ -32,4 +32,9 @@ Here are some preview images from the current development:
 
 The backend for this application is developed with **NestJS**. You can check out the repository [here](https://github.com/thusspokedata/kooben-be).
 
+## Design Reference
+
+For design details, you can visit the K’óoben design on [Figma](https://www.figma.com/design/5pfsdvCtVxXvwbVdgRdLEB/kooben?node-id=0-1&node-type=canvas&t=KQT7fgUIFiAWpKjl-0).
+
+
 Stay tuned for further updates!
