@@ -5,6 +5,8 @@ This app is a work-in-progress (WIP) for what will become an e-commerce platform
 - **Clerk** for authentication
 - **Mantine** for UI components and styling
 - **Axios** for handling HTTP requests
+- **TanStack Query** for efficient data fetching and state management
+- A custom error handling system for managing API and server errors.
 
 ## Screenshots
 
@@ -23,6 +25,8 @@ Here are some preview images from the current development:
 - Authentication via Clerk
 - Modern front-end development using Next.js
 - Integrated with external APIs using Axios
+- State management and data fetching handled by TanStack Query
+- A dedicated file for handling errors efficiently throughout the app.
 
 ## Backend
 
