@@ -1,7 +1,5 @@
 import { BestSellersCarousel, Filters } from '@/components';
-import { Container, Flex, Text } from '@mantine/core';
-import getUsers from '../../api/get-user';
-import { auth, currentUser } from '@clerk/nextjs/server';
+import { Container, Flex } from '@mantine/core';
 
 interface User {
   id: string;

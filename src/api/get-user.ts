@@ -1,10 +1,13 @@
-import { cookies } from 'next/headers';
+// import { cookies } from 'next/headers';
 
-export default async function getUsers() {
-  const res = await fetch('http://localhost:3000/api/auth/', {
-    headers: {
-      Cookie: cookies().toString(),
-    },
-  });
-  return res.json();
-}
+// export default async function getUsers() {
+//   const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
+//   const res = await fetch(`${apiUrl}auth/`, {
+//     headers: {
+//       Cookie: cookies().toString(),
+//     },
+//   });
+
+//   return res.json();
+// }
