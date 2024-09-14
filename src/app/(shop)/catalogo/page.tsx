@@ -1,16 +1,16 @@
 'use client';
 
+import { useSearchParams } from 'next/navigation'; // Use this to get query params
 import { CardCatalogo } from '@/components';
 import { useProducts } from '@/hooks/useProducts';
 import { Product } from '@/interfaces';
 import { formatNumberWithCommas, CategoryKey, CATEGORIES } from '@/utils';
 import { Container, SimpleGrid, Text } from '@mantine/core';
 
-interface CatalogoProps {
-  initialCategory?: CategoryKey;
-}
+const Catalogo = () => {
+  const searchParams = useSearchParams();
+  const initialCategory = (searchParams.get('category') as CategoryKey) || 'mesa_de_luz';
 
-const Catalogo = ({ initialCategory = 'mesa_de_luz' }: CatalogoProps) => {
   const { products, isLoading } = useProducts();
 
   if (isLoading) return <div>Cargando...</div>;
