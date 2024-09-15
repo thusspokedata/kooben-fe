@@ -5,7 +5,7 @@ import { Grid, Card, Title } from '@mantine/core';
 import classes from './Filters.module.css';
 import { useHover } from '@mantine/hooks';
 import { useProducts } from '@/hooks/useProducts';
-import { Product } from '@/interfaces';
+import type { Product } from '@/interfaces';
 import { CATEGORIES, CategoryKey } from '@/utils';
 
 interface ArticleCardImageProps {

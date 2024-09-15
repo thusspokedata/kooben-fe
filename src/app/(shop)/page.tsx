@@ -1,12 +1,6 @@
 import { BestSellersCarousel, Filters } from '@/components';
 import { Container, Flex } from '@mantine/core';
 
-interface User {
-  id: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-}
 
 export default async function Home() {
   return (
