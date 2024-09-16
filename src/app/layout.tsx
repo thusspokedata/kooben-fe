@@ -14,7 +14,6 @@ import '@mantine/charts/styles.css';
 import './globals.css';
 import { Footer, HeaderMegaMenu } from '@/components';
 
-
 export const metadata: Metadata = {
   title: "K'ooben",
   description:

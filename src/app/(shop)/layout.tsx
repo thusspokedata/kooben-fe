@@ -1,11 +1,6 @@
-//lrc
-
 import type { Metadata } from 'next';
 import '@mantine/core/styles.css';
 
-import { ColorSchemeScript, MantineProvider } from '@mantine/core';
-
-// import './globals.css';
 
 export const metadata: Metadata = {
   title: "K'ooben",

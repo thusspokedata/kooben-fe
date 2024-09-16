@@ -4,7 +4,7 @@ import { useSearchParams } from 'next/navigation';
 import { CardCatalogo } from '@/components';
 import { useProducts } from '@/hooks/useProducts';
 import type { Product } from '@/interfaces';
-import { formatNumberWithCommas, CategoryKey, CATEGORIES } from '@/utils';
+import { CategoryKey, CATEGORIES } from '@/utils';
 import { Container, SimpleGrid, Text } from '@mantine/core';
 
 const CatalogClient = () => {
@@ -41,13 +41,7 @@ const CatalogClient = () => {
 
           <SimpleGrid cols={{ base: 1, xs: 2, sm: 3, md: 4 }} spacing="xl">
             {groupedProducts[categoryKey].map((product: Product) => (
-              <CardCatalogo
-                key={product.id}
-                images={product.images}
-                title={product.title}
-                description={product.description}
-                price={formatNumberWithCommas(product.price)}
-              />
+              <CardCatalogo key={product.id} product={product} />
             ))}
           </SimpleGrid>
         </div>
