@@ -23,7 +23,7 @@ export default function ProductDetailPage({ params }: Props) {
 
   return (
     <Container size="lg" h="100%" p="lg" style={{ minHeight: '100vh' }}>
-      <Flex gap="xl">
+      <Flex direction={{ base: 'column', md: 'row' }} justify="space-between">
         <ProductCarousel product={product} />
         <ProductInfo product={product} />
       </Flex>

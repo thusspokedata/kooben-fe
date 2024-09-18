@@ -3,7 +3,7 @@ import { Inter } from 'next/font/google';
 
 const inter = Inter({
   subsets: ['latin'],
-  weight: ['400', '500', '600'],
+  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
 });
 
 const selectConfig = {
@@ -27,7 +27,7 @@ const customMantineTheme = createTheme({
       '#2A3F41',
       '#202F31',
     ],
-    'secondary': [
+    secondary: [
       '#EAF1EC',
       '#D6E2D9',
       '#C2D4C5',

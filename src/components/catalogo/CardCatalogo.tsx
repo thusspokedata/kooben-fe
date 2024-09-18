@@ -12,7 +12,7 @@ export function CardCatalogo({ product }: { product: Product }) {
 
   const { images, title, description, price, slug } = product;
   return (
-    <Link href={`/catalogo/product-details/${slug}`} passHref style={{ textDecoration: 'none' }}>
+    <Link href={`/catalogo/detalles-producto/${slug}`} passHref style={{ textDecoration: 'none' }}>
       <Card shadow="sm">
         <Card.Section>
           {images.length === 0 ? (

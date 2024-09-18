@@ -14,7 +14,6 @@ export const fetchAllProducts = async ({ limit = 10, offset = 0 }: FetchAllProdu
         offset,
       },
     });
-    console.log('fetching!!!!');
     return response.data;
   } catch (error) {
     console.error('Error fetching products:', error);
