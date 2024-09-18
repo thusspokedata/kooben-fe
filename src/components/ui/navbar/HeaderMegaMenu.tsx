@@ -31,6 +31,12 @@ const mainLinks = [
   { link: '/contacto', label: 'Contacto' },
 ];
 
+const adminLinks = [
+  { link: '/producto', label: 'Producto' },
+  { link: '/ordenes', label: 'Ordenes' },
+  { link: '/usuarios', label: 'Usuarios' },
+];
+
 const cartLink = { link: '/', label: 'Carrito (0)' };
 
 export const HeaderMegaMenu = () => {
@@ -38,11 +44,12 @@ export const HeaderMegaMenu = () => {
   const [active, setActive] = useState(0);
   const pathname = usePathname();
   const theme = useMantineTheme();
+  const { isSignedIn, user } = useUser();
 
-  const { isSignedIn } = useUser();
+  const isAdmin = user?.publicMetadata?.role === 'admin';
 
   useEffect(() => {
-    const activeIndex = mainLinks.findIndex((link) => link.link === pathname);
+    const activeIndex = [...mainLinks, ...adminLinks].findIndex((link) => link.link === pathname);
     setActive(activeIndex !== -1 ? activeIndex : 0);
   }, [pathname]);
 
@@ -65,7 +72,44 @@ export const HeaderMegaMenu = () => {
     </Anchor>
   ));
 
+  const adminItems = isAdmin
+    ? adminLinks.map((item, index) => (
+        <Anchor
+          key={`admin-${item.label}`}
+          component={Link}
+          href={item.link}
+          className={classes.mainLink}
+          size={theme.fontSizes['2xl']}
+          fw={300}
+          c="brand.8"
+          data-active={index + 4 === active || undefined}
+          onClick={() => {
+            setActive(index);
+            closeDrawer();
+          }}
+        >
+          {item.label}
+        </Anchor>
+      ))
+    : null;
+
   const mainItemsDrawer = [...mainLinks, cartLink].map((item, index) => (
+    <Anchor
+      key={`drawer-${item.label}`}
+      href={item.link}
+      className={classes.mainLink}
+      component={Link}
+      c={theme.colors.brand[9]}
+      onClick={() => {
+        setActive(index);
+        closeDrawer();
+      }}
+    >
+      <Text fz="lg">{item.label}</Text>
+    </Anchor>
+  ));
+
+  const adminItemsDrawer = [...(isAdmin ? adminLinks : [])].map((item, index) => (
     <Anchor
       key={`drawer-${item.label}`}
       href={item.link}
@@ -133,8 +177,14 @@ export const HeaderMegaMenu = () => {
               <Burger opened={drawerOpened} color="brand.8" onClick={toggleDrawer} />
             </Flex>
           </Flex>
-          <Group gap={80} justify="flex-end" className={classes.mainLinks} visibleFrom="sm">
+          <Group gap={isAdmin ? 20 : 80} justify="flex-end" className={classes.mainLinks} visibleFrom="sm">
             {mainItems}
+            {isAdmin && (
+              <>
+                <Divider orientation="vertical" size="md" mt="" color="secondary.5" />
+                {adminItems}
+              </>
+            )}
           </Group>
         </Group>
         <Divider size="md" mt="md" color="secondary.5" />
@@ -156,9 +206,18 @@ export const HeaderMegaMenu = () => {
       >
         <Box>
           <Divider mt="sm" size="md" color={theme.colors.secondary[6]} />
-          <Flex justify="flex-start" direction="column" align="flex-start" mt="7xl" mb="11xl">
+          <Flex justify="flex-start" direction="column" align="flex-start" mt="7xl">
             {mainItemsDrawer}
           </Flex>
+          {isAdmin && (
+            <>
+              <Divider my="sm" size="md" color={theme.colors.secondary[6]} />
+
+              <Flex justify="flex-start" direction="column" align="flex-start" mb="xl">
+                {adminItemsDrawer}
+              </Flex>
+            </>
+          )}
 
           <Divider mb="sm" size="md" color={theme.colors.secondary[6]} />
 

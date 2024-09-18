@@ -1,13 +1,24 @@
-// import { cookies } from 'next/headers';
+'use server';
 
-// export default async function getUsers() {
-//   const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+import { errorHandler, Unauthorized } from '@/utils';
+import { cookies } from 'next/headers';
 
-//   const res = await fetch(`${apiUrl}auth/`, {
-//     headers: {
-//       Cookie: cookies().toString(),
-//     },
-//   });
+export default async function getUsers() {
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
-//   return res.json();
-// }
+  try {
+    const res = await fetch(`${apiUrl}auth/`, {
+      headers: {
+        Cookie: cookies().toString(),
+      },
+    });
+
+    if (!res.ok) {
+      throw Unauthorized('No autorizado');
+    }
+
+    return await res.json();
+  } catch (error) {
+    throw errorHandler(error);
+  }
+}

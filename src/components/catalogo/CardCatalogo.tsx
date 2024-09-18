@@ -1,10 +1,15 @@
+'use client';
+
+import { useState } from 'react';
+import Link from 'next/link';
+import { formatPrice } from '@/utils';
 import { AspectRatio, Box, Card, Flex, Image, Text } from '@mantine/core';
 import ImagePlaceholder from '../global/ImagePlaceHolder';
-import Link from 'next/link';
 import { Product } from '@/interfaces';
-import { formatPrice } from '@/utils';
 
 export function CardCatalogo({ product }: { product: Product }) {
+  const [displayImage, setDisplayImage] = useState(product.images[0]);
+
   const { images, title, description, price, slug } = product;
   return (
     <Link href={`/catalogo/product-details/${slug}`} passHref style={{ textDecoration: 'none' }}>
@@ -16,7 +21,16 @@ export function CardCatalogo({ product }: { product: Product }) {
             </AspectRatio>
           ) : (
             <AspectRatio ratio={4 / 3}>
-              <Image src={images[0]} h={160} alt={title} width={160} height={160} style={{ objectFit: 'cover' }} />
+              <Image
+                src={displayImage}
+                h={160}
+                alt={title}
+                width={160}
+                height={160}
+                style={{ objectFit: 'cover' }}
+                onMouseEnter={() => setDisplayImage(images[1] ?? images[0])}
+                onMouseLeave={() => setDisplayImage(images[0])}
+              />
             </AspectRatio>
           )}
         </Card.Section>
