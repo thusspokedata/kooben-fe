@@ -16,28 +16,28 @@ const customMantineTheme = createTheme({
   // please add additional color names to 'mantine.d.ts' for reference as well
   colors: {
     brand: [
-      '#E6EEEF',
-      '#CCDCDE',
-      '#B3CBCE',
-      '#9ABABE',
-      '#80A9AD',
-      '#67979D',
-      '#568085',
-      '#45676B',
-      '#2A3F41',
-      '#202F31',
+      '#E6EEEF', // 0 
+      '#CCDCDE', // 1
+      '#B3CBCE', // 2
+      '#9ABABE', // 3
+      '#80A9AD', // 4
+      '#67979D', // 5
+      '#568085', // 6
+      '#45676B', // 7
+      '#2A3F41', // 8
+      '#202F31', // 9
     ],
     secondary: [
-      '#EAF1EC',
-      '#D6E2D9',
-      '#C2D4C5',
-      '#ADC6B2',
-      '#99B79F',
-      '#6D9976',
-      '#5B8364',
-      '#4B6C52',
-      '#3B5441',
-      '#2B3D2F',
+      '#EAF1EC', // 0
+      '#D6E2D9', // 1
+      '#C2D4C5', // 2
+      '#ADC6B2', // 3
+      '#99B79F', // 4
+      '#6D9976', // 5
+      '#5B8364', // 6
+      '#4B6C52', // 7
+      '#3B5441', // 8
+      '#2B3D2F', // 9
     ],
     tertiary: [
       '#DAB005',

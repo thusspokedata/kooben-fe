@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import { Flex, useMantineTheme, MantineSize } from '@mantine/core';
 import PlaceHolderSVG from '@/assets/svgs/PlaceHolderSVG';
 
 const ImagePlaceholder = ({
   iconWidth,
   borderRadius = 'md',
+  newStyle,
 }: {
   iconWidth?: number;
   borderRadius?: MantineSize | number;
+  newStyle?: CSSProperties;
 }) => {
   const theme = useMantineTheme();
 
@@ -20,6 +22,7 @@ const ImagePlaceholder = ({
       style={{
         backgroundColor: 'var(--mantine-color-gray-2)',
         borderRadius: typeof borderRadius === 'number' ? borderRadius : theme.radius[borderRadius],
+        ...newStyle,
       }}
     >
       <PlaceHolderSVG width={iconWidth} />
