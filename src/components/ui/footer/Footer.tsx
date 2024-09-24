@@ -17,7 +17,7 @@ function SocialIcon({ Icon }: SocialIconProps) {
 
 export function Footer() {
   return (
-    <Flex w="100%" h={200} bg="#84A98C" justify="center" align="center" direction="column" gap="md">
+    <Flex w="100%" h={200} mt="xl" bg="#84A98C" justify="center" align="center" direction="column" gap="md">
       <Group gap="md" justify="flex-end" wrap="nowrap">
         <SocialIcon Icon={IconBrandFacebookFilled} />
         <SocialIcon Icon={IconBrandInstagram} />

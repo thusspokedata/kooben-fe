@@ -21,8 +21,8 @@ const Carrito = () => {
   const [displayImage, setDisplayImage] = useState(hasImages ? product.images[0] : { ImagePlaceholder });
   const { images, title, description, price, slug } = product;
   return (
-    <Container size="lg" h="100%" p="lg" style={{ minHeight: '100vh' }}>
-      <Flex direction="row" gap="lg" justify="space-between">
+    <Container size="lg" h="100%" p={{ base: 'xs', md: 'lg' }} style={{ minHeight: '100vh' }}>
+      <Flex direction={{ base: 'column', md: 'row' }} gap="lg" justify="space-between">
         <Flex direction="column" gap="xs">
           <Title order={1} c="brand.8" fz={24} fw={500}>
             Carrito
@@ -40,7 +40,7 @@ const Carrito = () => {
             Resumen
           </Title>
 
-          <Box mt="xl" w="80%" h="100%" ta="end">
+          <Box mt="xl" w={{ base: '100%', md: '80%' }} h="100%" ta="end">
             <ResumenCard />
           </Box>
         </Flex>

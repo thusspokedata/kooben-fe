@@ -1,7 +1,26 @@
 import { Button, Text, Flex, useMantineTheme, Box } from '@mantine/core';
 
-export const ResumenCard = () => {
+interface ResumenRowProps {
+  label: string;
+  value: string | number;
+  isBold?: boolean;
+}
+
+const ResumenRow: React.FC<ResumenRowProps> = ({ label, value, isBold = false }) => {
   const theme = useMantineTheme();
+  return (
+    <Flex justify="space-between" w="100%" px="xl">
+      <Text fw={isBold ? 500 : 300} fz={theme.fontSizes['2xl']} c={isBold ? 'brand.8' : 'brand.7'}>
+        {label}
+      </Text>
+      <Text fw={isBold ? 500 : 300} fz={theme.fontSizes['2xl']} c={isBold ? 'brand.8' : 'brand.7'}>
+        {value}
+      </Text>
+    </Flex>
+  );
+};
+
+export const ResumenCard: React.FC = () => {
   return (
     <Flex
       direction="column"
@@ -12,40 +31,14 @@ export const ResumenCard = () => {
       bg="secondary.1"
       style={{ borderRadius: '6px' }}
     >
-      <Flex justify="space-between" w="100%" p="xl">
-        <Text fw={300} fz={theme.fontSizes['2xl']} c="brand.7">
-          No. Productos:{' '}
-        </Text>
-        <Text fw={300} fz={theme.fontSizes['2xl']} c="brand.7">
-          2
-        </Text>
-      </Flex>
-      <Box>
-        <Flex justify="space-between" w="100%" px="xl">
-          <Text fw={300} fz={theme.fontSizes['2xl']} c="brand.7">
-            Subtotal:{' '}
-          </Text>
-          <Text fw={300} fz={theme.fontSizes['2xl']} c="brand.7">
-            $200
-          </Text>
-        </Flex>
-        <Flex justify="space-between" w="100%" px="xl">
-          <Text fw={300} fz={theme.fontSizes['2xl']} c="brand.7">
-            Impuestos (21%):{' '}
-          </Text>
-          <Text fw={300} fz={theme.fontSizes['2xl']} c="brand.7">
-            $200
-          </Text>
-        </Flex>
+      <Box pt="lg">
+        <ResumenRow label="No. Productos:" value="2" />
       </Box>
-      <Flex justify="space-between" w="100%" px="xl">
-        <Text fw={500} fz={theme.fontSizes['2xl']} c="brand.8">
-          Total:{' '}
-        </Text>
-        <Text fw={500} fz={theme.fontSizes['2xl']} c="brand.8">
-          $200
-        </Text>
-      </Flex>
+      <Box>
+        <ResumenRow label="Subtotal:" value="$200" />
+        <ResumenRow label="Impuestos (21%):" value="$200" />
+      </Box>
+      <ResumenRow label="Total:" value="$200" isBold />
       <Button color="blue" fullWidth mt="md" radius="sm" size="lg" bg="brand.8">
         Continuar
       </Button>
