@@ -37,7 +37,7 @@ const adminLinks = [
   { link: '/usuarios', label: 'Usuarios' },
 ];
 
-const cartLink = { link: '/', label: 'Carrito (0)' };
+const cartLink = { link: '/carrito', label: 'Carrito (0)' };
 
 export const HeaderMegaMenu = () => {
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] = useDisclosure(false);
@@ -154,7 +154,7 @@ export const HeaderMegaMenu = () => {
 
               <Button
                 component={Link}
-                href="/sign-in"
+                href="/carrito"
                 variant="transparent"
                 size="md"
                 c="brand.8"

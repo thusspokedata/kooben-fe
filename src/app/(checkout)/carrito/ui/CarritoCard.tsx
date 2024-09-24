@@ -23,7 +23,7 @@ export const CarritoCard = ({ product }: { product: Product }) => {
   const { images, title, description, price, slug } = product;
 
   return (
-    <Card shadow="0" w={{ base: '100%', md: '90%' }} p="lg" mah={360} radius="sm">
+    <Card shadow="0" p="lg" mah={360} radius="sm">
       <SimpleGrid cols={2}>
         {images.length !== 0 ? (
           <AspectRatio ratio={9 / 16} mb="xl" style={{ width: '100%', height: '100%' }}>

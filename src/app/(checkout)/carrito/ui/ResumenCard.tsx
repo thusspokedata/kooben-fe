@@ -1,4 +1,7 @@
+'use client';
+
 import { Button, Text, Flex, useMantineTheme, Box } from '@mantine/core';
+import Link from 'next/link';
 
 interface ResumenRowProps {
   label: string;
@@ -20,7 +23,7 @@ const ResumenRow: React.FC<ResumenRowProps> = ({ label, value, isBold = false })
   );
 };
 
-export const ResumenCard: React.FC = () => {
+export const ResumenCard = ({ nextPage }: { nextPage: string }) => {
   return (
     <Flex
       direction="column"
@@ -39,9 +42,11 @@ export const ResumenCard: React.FC = () => {
         <ResumenRow label="Impuestos (21%):" value="$200" />
       </Box>
       <ResumenRow label="Total:" value="$200" isBold />
-      <Button color="blue" fullWidth mt="md" radius="sm" size="lg" bg="brand.8">
-        Continuar
-      </Button>
+      <Link href={nextPage} passHref style={{ textDecoration: 'none' }}>
+        <Button color="blue" fullWidth mt="md" radius="sm" size="lg" bg="brand.8">
+          Continuar
+        </Button>
+      </Link>
     </Flex>
   );
 };
