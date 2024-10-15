@@ -7,6 +7,8 @@ import { useHover } from '@mantine/hooks';
 import { useProducts } from '@/hooks/useProducts';
 import type { Product } from '@/interfaces';
 import { CATEGORIES, CategoryKey } from '@/utils';
+import ImagePlaceholder from '../global/ImagePlaceHolder';
+import { CldImage } from 'next-cloudinary';
 
 interface ArticleCardImageProps {
   aspectRatio?: string;
@@ -29,15 +31,44 @@ export function ArticleCardImage({
   };
 
   return (
+    // <Card
+    //   ref={ref}
+    //   onClick={handleClick}
+    //   shadow={hovered ? 'xl' : 'xs'}
+    //   p="xl"
+    //   radius="0"
+    //   className={classes.imageContainer}
+    //   style={{
+    //     backgroundImage: `url(${imageUrl})`,
+    //     height: '100%',
+    //     backgroundPosition: 'center',
+    //     backgroundRepeat: 'no-repeat',
+    //     cursor: 'pointer',
+    //     backgroundSize,
+    //     aspectRatio,
+    //   }}
+    // >
+      // <div className={classes.overlay} />
+      // <Title order={3} className={classes.title} tt="uppercase">
+      //   {CATEGORIES[category as CategoryKey]}
+      // </Title>
+    // </Card>
     <Card
-      ref={ref}
-      onClick={handleClick}
-      shadow={hovered ? 'xl' : 'xs'}
-      p="xl"
-      radius="0"
-      className={classes.imageContainer}
-      style={{
-        backgroundImage: `url(${imageUrl})`,
+    ref={ref}
+    onClick={handleClick}
+    shadow={hovered ? 'xl' : 'xs'}
+    p="0"
+    radius="0"
+    className={classes.imageContainer}
+    >
+
+<CldImage
+  width="600"
+  height="600"
+  src={imageUrl!}
+  // sizes="100vw"
+  alt="Description of my image"
+        style={{
         height: '100%',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
@@ -45,11 +76,12 @@ export function ArticleCardImage({
         backgroundSize,
         aspectRatio,
       }}
-    >
-      <div className={classes.overlay} />
+/>
+<div className={classes.overlay} />
       <Title order={3} className={classes.title} tt="uppercase">
         {CATEGORIES[category as CategoryKey]}
       </Title>
+
     </Card>
   );
 }
@@ -62,7 +94,7 @@ export const Filters = () => {
   // Helper function to get the first image of the first product in a category
   const getFirstProductImage = (category: string) => {
     const product = products.find((p: Product) => p.category === category);
-    return product ? product.images[0] : '/images/placeholder.jpg'; // TODO: Replace with placeholder image
+    return product ? product.images[0] : <ImagePlaceholder iconWidth={70} />
   };
 
   return (
