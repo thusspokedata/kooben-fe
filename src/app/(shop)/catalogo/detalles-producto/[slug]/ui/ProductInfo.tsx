@@ -1,6 +1,7 @@
 import { Product } from '@/interfaces';
 import { formatPrice } from '@/utils';
 import { Flex, Title, Text, Divider, Box, useMantineTheme, Button, Select } from '@mantine/core';
+import AddToCart from './AddToCart';
 
 export const ProductInfo = ({ product }: { product: Product }) => {
   const theme = useMantineTheme();
@@ -18,25 +19,7 @@ export const ProductInfo = ({ product }: { product: Product }) => {
 
       <Divider size="md" color="secondary.5" w="100%" />
 
-      <Flex direction="row" justify="space-between" align="start" gap="xs" w="100%">
-        <Box>
-          <Text>Color:</Text>
-          <Text>Blanco</Text>
-          <Text>Madera</Text>
-          <Text>Negro</Text>
-        </Box>
-        <Select label="Medidas:" placeholder="Elige la medida" data={product.sizes} />
-      </Flex>
-      <Flex direction="row" justify="space-between" align="center" gap="xs" w="100%" mt={theme.spacing['11xl']}>
-        <Flex direction="row" gap="xl">
-          <Text>-</Text>
-          <Text>1</Text>
-          <Text>+</Text>
-        </Flex>
-        <Button color="brand.8" px={40}>
-          Agregar al carrito
-        </Button>
-      </Flex>
+      <AddToCart product={product} />
     </Flex>
   );
 };

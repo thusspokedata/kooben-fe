@@ -26,7 +26,9 @@
 .mainLink {
   padding: rem(9px) var(--mantine-spacing-sm);
   border-bottom: rem(3px) solid transparent;
-  transition: border-color 100ms ease, color 100ms ease;
+  transition:
+    border-color 100ms ease,
+    color 100ms ease;
 
   @mixin hover {
     text-decoration: none;
