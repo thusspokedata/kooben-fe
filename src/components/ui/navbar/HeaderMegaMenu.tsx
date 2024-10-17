@@ -23,6 +23,7 @@ import Link from 'next/link';
 import LogoKooben from '../../../../public/assets/svgs/LogoKooben';
 import classes from './HeaderMegaMenu.module.css';
 import { UserButton, useUser } from '@clerk/nextjs';
+import { useCartStore } from '@/store';
 
 const mainLinks = [
   { link: '/', label: 'Inicio' },
@@ -45,8 +46,15 @@ export const HeaderMegaMenu = () => {
   const pathname = usePathname();
   const theme = useMantineTheme();
   const { isSignedIn, user } = useUser();
+  const totalItemsInCart = useCartStore((state) => state.getTotalItems());
 
   const isAdmin = user?.publicMetadata?.role === 'admin';
+
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    setLoaded(true);
+  }, []);
 
   useEffect(() => {
     const activeIndex = [...mainLinks, ...adminLinks].findIndex((link) => link.link === pathname);
@@ -161,7 +169,7 @@ export const HeaderMegaMenu = () => {
                 leftSection={<IconShoppingBagPlus size={22} />}
               >
                 <Text c="brand.8" fz="lg" fw={300}>
-                  Carrito (0)
+                  Carrito {loaded && totalItemsInCart > 0 && `(${totalItemsInCart})`}
                 </Text>
               </Button>
             </Group>

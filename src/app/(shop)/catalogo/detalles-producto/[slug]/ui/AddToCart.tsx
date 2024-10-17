@@ -1,65 +1,40 @@
 'use client';
 
-import { Product } from '@/interfaces';
+import { QuantitySelector, SizeSelector } from '@/components';
+import { CartProduct, Product } from '@/interfaces';
+import { useCartStore } from '@/store';
 import { theme } from '@/themes/mantine-theme';
-import { Flex, Box, Select, Button, Text } from '@mantine/core';
+import { Flex, Box, Button, Text } from '@mantine/core';
 import { useState } from 'react';
 
-interface Size {
-  sizes: string[];
-}
-
-interface SizeSelectorProps {
-  selectedSize?: string;
-  availableSizes: string[];
-
-  onSizeChanged: (size: string) => void;
-}
-
-const SizeSelector = ({ selectedSize, availableSizes, onSizeChanged }: SizeSelectorProps) => {
-  return (
-    <Select
-      label="Medidas:"
-      placeholder="Elige la medida"
-      data={availableSizes}
-      value={selectedSize}
-      onChange={(value) => {
-        onSizeChanged(value || '');
-      }}
-      allowDeselect
-    />
-  );
-};
-
-const QuantitySelector = ({
-  quantity,
-  onQuantityChanged,
-}: {
-  quantity: number;
-  onQuantityChanged: (quantity: number) => void;
-}) => {
-  const onValueChanged = (value: number) => {
-    if (quantity + value < 1) return;
-    onQuantityChanged(quantity + value);
-  };
-
-  return (
-    <Flex direction="row" gap="xl" align="center">
-      <Button variant="transparent" color="brand.8" onClick={() => onValueChanged(-1)}>
-        -
-      </Button>
-      <Text>{quantity}</Text>
-      <Button variant="transparent" color="brand.8" onClick={() => onValueChanged(1)}>
-        +
-      </Button>
-    </Flex>
-  );
-};
 
 export default function AddToCart({ product }: { product: Product }) {
+  const addProductToCart = useCartStore((state) => state.addProductToCart);
   const [color, setColor] = useState();
-  const [size, setSize] = useState<string>('');
+  const [size, setSize] = useState<string | undefined>('');
   const [quantity, setQuantity] = useState<number>(1);
+  const [posted, setPosted] = useState(false);
+
+  const addToCart = () => {
+    setPosted(true);
+    if (!size) return;
+
+    const cartProduct: CartProduct = {
+      id: product.id,
+      slug: product.slug,
+      title: product.title,
+      price: product.price,
+      description: product.description,
+      quantity: quantity,
+      size: size,
+      image: product.images[0],
+    };
+
+    addProductToCart(cartProduct);
+    setPosted(false);
+    setQuantity(1);
+    setSize('');
+  };
 
   return (
     <Box w="100%">
@@ -70,11 +45,14 @@ export default function AddToCart({ product }: { product: Product }) {
           <Text>Madera</Text>
           <Text>Negro</Text>
         </Box>
-        <SizeSelector selectedSize={size} availableSizes={product.sizes} onSizeChanged={setSize} />
+        <Box>
+          <SizeSelector selectedSize={size} availableSizes={product.sizes} onSizeChanged={setSize} />
+          {posted && !size && <Text c="red">Selecciona una medida</Text>}
+        </Box>
       </Flex>
       <Flex direction="row" justify="space-between" align="center" gap="xs" w="100%" mt={theme.spacing['11xl']}>
         <QuantitySelector quantity={quantity} onQuantityChanged={setQuantity} />
-        <Button color="brand.8" px={40}>
+        <Button color="brand.8" px={40} onClick={addToCart}>
           Agregar al carrito
         </Button>
       </Flex>
