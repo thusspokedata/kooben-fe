@@ -1,7 +1,7 @@
 'use client';
 
 import { theme } from '@/themes/mantine-theme';
-import { Card, Flex, Box, Button, Text, Image, AspectRatio, SimpleGrid, ActionIcon, Stack } from '@mantine/core';
+import { Card, Flex, Box, Text, Image, AspectRatio, SimpleGrid, ActionIcon } from '@mantine/core';
 import ImagePlaceholder from '@/components/global/ImagePlaceHolder';
 import { IconTrashFilled } from '@tabler/icons-react';
 import { useCartStore } from '@/store';
@@ -10,8 +10,9 @@ import Link from 'next/link';
 import classes from './CarritoCard.module.css';
 
 export const CarritoCard = () => {
-  const updateProductQuantity = useCartStore(state => state.updateProductQuantity)
+  const updateProductQuantity = useCartStore((state) => state.updateProductQuantity);
   const productsInCart = useCartStore((state) => state.cart);
+  const removeProduct = useCartStore((state) => state.removeProduct);
 
   return (
     <>
@@ -20,7 +21,11 @@ export const CarritoCard = () => {
           <SimpleGrid cols={2}>
             {product.image ? (
               <AspectRatio ratio={9 / 16} style={{ maxHeight: '320', margin: 0 }}>
-                <Image src={product.image} alt={product.title} style={{ objectFit: 'cover', maxHeight: '320px', margin: 0 }} />
+                <Image
+                  src={product.image}
+                  alt={product.title}
+                  style={{ objectFit: 'cover', maxHeight: '320px', margin: 0 }}
+                />
               </AspectRatio>
             ) : (
               <AspectRatio ratio={9 / 16} mb="xl" style={{ width: '100%', height: '100%' }}>
@@ -43,7 +48,7 @@ export const CarritoCard = () => {
                       {product.title}
                     </Text>
 
-                    <ActionIcon variant="transparent" c="brand.7" size="lg">
+                    <ActionIcon variant="transparent" c="brand.7" size="lg" onClick={() => removeProduct(product)}>
                       <IconTrashFilled />
                     </ActionIcon>
                   </Flex>
@@ -58,7 +63,10 @@ export const CarritoCard = () => {
                   <Text c="brand.8" fw={500} fz={theme.fontSizes['2xl']}>
                     ${product.price}
                   </Text>
-                  <QuantitySelector quantity={product.quantity} onQuantityChanged={value => updateProductQuantity(product, value)} />
+                  <QuantitySelector
+                    quantity={product.quantity}
+                    onQuantityChanged={(value) => updateProductQuantity(product, value)}
+                  />
                 </Flex>
               </Flex>
             </Card.Section>

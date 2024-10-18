@@ -50,10 +50,10 @@ export const HeaderMegaMenu = () => {
 
   const isAdmin = user?.publicMetadata?.role === 'admin';
 
-  const [loaded, setLoaded] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setLoaded(true);
+    setMounted(true);
   }, []);
 
   useEffect(() => {
@@ -169,7 +169,7 @@ export const HeaderMegaMenu = () => {
                 leftSection={<IconShoppingBagPlus size={22} />}
               >
                 <Text c="brand.8" fz="lg" fw={300}>
-                  Carrito {loaded && totalItemsInCart > 0 && `(${totalItemsInCart})`}
+                  Carrito {mounted && totalItemsInCart > 0 && `(${totalItemsInCart})`}
                 </Text>
               </Button>
             </Group>
