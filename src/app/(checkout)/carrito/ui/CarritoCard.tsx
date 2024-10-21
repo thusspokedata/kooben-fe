@@ -8,6 +8,7 @@ import { useCartStore } from '@/store';
 import { QuantitySelector } from '@/components';
 import Link from 'next/link';
 import classes from './CarritoCard.module.css';
+import { currencyFormat } from '../../../../utils/currencyFormat';
 
 export const CarritoCard = () => {
   const updateProductQuantity = useCartStore((state) => state.updateProductQuantity);
@@ -61,7 +62,7 @@ export const CarritoCard = () => {
                 </Box>
                 <Flex direction="column" gap="xs" align="start" justify="end" h="80%" w="100%">
                   <Text c="brand.8" fw={500} fz={theme.fontSizes['2xl']}>
-                    ${product.price}
+                    {currencyFormat(product.price)}
                   </Text>
                   <QuantitySelector
                     quantity={product.quantity}
