@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useCartStore } from '@/store';
 import Link from 'next/link';
 import { Button, Text, Flex, useMantineTheme, Box, Loader, LoadingOverlay } from '@mantine/core';
+import { currencyFormat } from '@/utils';
 
 interface ResumenRowProps {
   label: string;
@@ -33,9 +34,8 @@ export const ResumenCard = ({ nextPage }: { nextPage: string }) => {
     setMounted(true);
   }, []);
 
-
   const { total, tax, subTotal, itemsInCart } = getSummaryInformation();
-  const articles = itemsInCart === 1 ? "1 artículo" : `${itemsInCart} artículos`;
+  const articles = itemsInCart === 1 ? '1 artículo' : `${itemsInCart} artículos`;
 
   return (
     <Flex
@@ -48,15 +48,15 @@ export const ResumenCard = ({ nextPage }: { nextPage: string }) => {
       style={{ borderRadius: '6px' }}
       pos="relative"
     >
-       <LoadingOverlay visible={!mounted} />
+      <LoadingOverlay visible={!mounted} />
       <Box pt="lg">
         <ResumenRow label="No. Productos:" value={mounted ? articles : 0} />
       </Box>
       <Box>
-        <ResumenRow label="Subtotal:" value={mounted ? `$${subTotal.toFixed(2)}` : 0} />
-        <ResumenRow label="Impuestos (21%):" value={mounted ? `$${tax.toFixed(2)}` : 0} />
+        <ResumenRow label="Subtotal:" value={mounted ? `${currencyFormat(subTotal)}` : 0} />
+        <ResumenRow label="Impuestos (21%):" value={mounted ? `${currencyFormat(tax)}` : 0} />
       </Box>
-      <ResumenRow label="Total:" value={mounted ? `$${total.toFixed(2)}` : 0} isBold />
+      <ResumenRow label="Total:" value={mounted ? `${currencyFormat(total)}` : 0} isBold />
       <Link href={nextPage} passHref style={{ textDecoration: 'none' }}>
         <Button color="blue" fullWidth mt="md" radius="sm" size="lg" bg="brand.8">
           Continuar

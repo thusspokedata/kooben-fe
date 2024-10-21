@@ -38,7 +38,6 @@ const adminLinks = [
   { link: '/usuarios', label: 'Usuarios' },
 ];
 
-const cartLink = { link: '/carrito', label: 'Carrito (0)' };
 
 export const HeaderMegaMenu = () => {
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] = useDisclosure(false);
@@ -51,6 +50,11 @@ export const HeaderMegaMenu = () => {
   const isAdmin = user?.publicMetadata?.role === 'admin';
 
   const [mounted, setMounted] = useState(false);
+
+  const cartLink = {
+    link: totalItemsInCart === 0 && mounted ? '/carrito-vacio' : '/carrito',
+    label: `Carrito ${mounted && totalItemsInCart > 0 ? `(${totalItemsInCart})` : ''}`,
+  };
 
   useEffect(() => {
     setMounted(true);
@@ -162,7 +166,7 @@ export const HeaderMegaMenu = () => {
 
               <Button
                 component={Link}
-                href="/carrito"
+                href={totalItemsInCart === 0 && mounted ? '/carrito-vacio' : '/carrito'}
                 variant="transparent"
                 size="md"
                 c="brand.8"
@@ -175,10 +179,14 @@ export const HeaderMegaMenu = () => {
             </Group>
 
             <Flex align="center" gap="xs" hiddenFrom="sm">
-              <ActionIcon variant="subtle" color="brand.7" c="brand.8">
-                <IconUserFilled size={24} />
-              </ActionIcon>
-              <ActionIcon variant="subtle" color="brand.7" c="brand.8">
+              <ActionIcon
+                variant="subtle"
+                color="brand.7"
+                c="brand.8"
+                onClick={() => {
+                  window.location.href = isSignedIn && totalItemsInCart > 0 ? '/carrito' : '/carrito-vacio';
+                }}
+              >
                 <IconShoppingBagPlus size={24} />
               </ActionIcon>
 

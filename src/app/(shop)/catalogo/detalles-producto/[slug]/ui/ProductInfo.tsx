@@ -1,5 +1,5 @@
 import { Product } from '@/interfaces';
-import { formatPrice } from '@/utils';
+import { currencyFormat } from '@/utils';
 import { Flex, Title, Text, Divider, Box, useMantineTheme, Button, Select } from '@mantine/core';
 import AddToCart from './AddToCart';
 
@@ -14,7 +14,7 @@ export const ProductInfo = ({ product }: { product: Product }) => {
         {product.description}
       </Text>
       <Text c="brand.8" fw={500} fz={theme.fontSizes['4xl']}>
-        ${formatPrice(product.price)}
+        {currencyFormat(product.price)}
       </Text>
 
       <Divider size="md" color="secondary.5" w="100%" />
