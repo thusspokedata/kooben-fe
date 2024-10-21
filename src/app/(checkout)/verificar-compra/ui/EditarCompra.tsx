@@ -1,5 +1,3 @@
 export const EditarCompra = () => {
-  return (
-    <div>EditarCompra</div>
-  )
-}
+  return <div>EditarCompra</div>;
+};

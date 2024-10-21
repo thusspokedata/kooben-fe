@@ -16,7 +16,7 @@ const customMantineTheme = createTheme({
   // please add additional color names to 'mantine.d.ts' for reference as well
   colors: {
     brand: [
-      '#E6EEEF', // 0 
+      '#E6EEEF', // 0
       '#CCDCDE', // 1
       '#B3CBCE', // 2
       '#9ABABE', // 3

@@ -23,6 +23,7 @@ import Link from 'next/link';
 import LogoKooben from '../../../../public/assets/svgs/LogoKooben';
 import classes from './HeaderMegaMenu.module.css';
 import { UserButton, useUser } from '@clerk/nextjs';
+import { useCartStore } from '@/store';
 
 const mainLinks = [
   { link: '/', label: 'Inicio' },
@@ -37,7 +38,6 @@ const adminLinks = [
   { link: '/usuarios', label: 'Usuarios' },
 ];
 
-const cartLink = { link: '/carrito', label: 'Carrito (0)' };
 
 export const HeaderMegaMenu = () => {
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] = useDisclosure(false);
@@ -45,8 +45,20 @@ export const HeaderMegaMenu = () => {
   const pathname = usePathname();
   const theme = useMantineTheme();
   const { isSignedIn, user } = useUser();
+  const totalItemsInCart = useCartStore((state) => state.getTotalItems());
 
   const isAdmin = user?.publicMetadata?.role === 'admin';
+
+  const [mounted, setMounted] = useState(false);
+
+  const cartLink = {
+    link: totalItemsInCart === 0 && mounted ? '/carrito-vacio' : '/carrito',
+    label: `Carrito ${mounted && totalItemsInCart > 0 ? `(${totalItemsInCart})` : ''}`,
+  };
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     const activeIndex = [...mainLinks, ...adminLinks].findIndex((link) => link.link === pathname);
@@ -154,23 +166,27 @@ export const HeaderMegaMenu = () => {
 
               <Button
                 component={Link}
-                href="/carrito"
+                href={totalItemsInCart === 0 && mounted ? '/carrito-vacio' : '/carrito'}
                 variant="transparent"
                 size="md"
                 c="brand.8"
                 leftSection={<IconShoppingBagPlus size={22} />}
               >
                 <Text c="brand.8" fz="lg" fw={300}>
-                  Carrito (0)
+                  Carrito {mounted && totalItemsInCart > 0 && `(${totalItemsInCart})`}
                 </Text>
               </Button>
             </Group>
 
             <Flex align="center" gap="xs" hiddenFrom="sm">
-              <ActionIcon variant="subtle" color="brand.7" c="brand.8">
-                <IconUserFilled size={24} />
-              </ActionIcon>
-              <ActionIcon variant="subtle" color="brand.7" c="brand.8">
+              <ActionIcon
+                variant="subtle"
+                color="brand.7"
+                c="brand.8"
+                onClick={() => {
+                  window.location.href = isSignedIn && totalItemsInCart > 0 ? '/carrito' : '/carrito-vacio';
+                }}
+              >
                 <IconShoppingBagPlus size={24} />
               </ActionIcon>
 

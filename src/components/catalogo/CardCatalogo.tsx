@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { formatPrice } from '@/utils';
+import { currencyFormat } from '@/utils';
 import { AspectRatio, Box, Card, Flex, Image, Text } from '@mantine/core';
 import ImagePlaceholder from '../global/ImagePlaceHolder';
 import { Product } from '@/interfaces';
@@ -45,7 +45,7 @@ export function CardCatalogo({ product }: { product: Product }) {
             </Text>
           </Box>
           <Text mt="xs" fw={500} fz="3xl" c="brand.7">
-            ${formatPrice(price)}
+            {currencyFormat(price)}
           </Text>
         </Flex>
       </Card>

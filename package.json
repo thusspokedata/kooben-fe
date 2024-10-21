@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "format": "prettier --write ."
   },
   "dependencies": {
     "@clerk/localizations": "^2.4.8",
@@ -37,7 +38,7 @@
     "react": "^18",
     "react-dom": "^18",
     "recharts": "^2.12.7",
-    "zustand": "^5.0.0-rc.2"
+    "zustand": "^5.0.0"
   },
   "devDependencies": {
     "@types/node": "^20",
@@ -48,6 +49,7 @@
     "postcss": "^8.4.39",
     "postcss-preset-mantine": "^1.15.0",
     "postcss-simple-vars": "^7.0.1",
+    "prettier": "^3.3.3",
     "typescript": "^5"
   },
   "engines": {
