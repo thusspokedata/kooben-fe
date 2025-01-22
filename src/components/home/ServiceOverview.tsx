@@ -1,7 +1,7 @@
 'use client';
 
 import { CreditCardSVG, HammerSVG, TruckSVG, QualitySVG } from '@/assets';
-import { Card, Center, Text, SimpleGrid, useMantineTheme } from '@mantine/core';
+import { Card, Center, Text, SimpleGrid, useMantineTheme, Container, Box } from '@mantine/core';
 
 interface ServiceCardProps {
   title: string;
@@ -31,18 +31,21 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ title, Icon }) => {
 
 export const ServiceOverview = () => {
   return (
-    <SimpleGrid
-      mih={388}
-      bg="secondary.0"
-      cols={{ base: 2, sm: 4 }}
-      spacing={{ base: 'md', md: 'xl' }}
-      px={{ base: 40, sm: 40, md: 120 }}
-      py={{ base: 30, sm: 58 }}
-    >
-      <ServiceCard title="Cuotas" Icon={CreditCardSVG} />
-      <ServiceCard title="Envíos" Icon={TruckSVG} />
-      <ServiceCard title="Montaje" Icon={HammerSVG} />
-      <ServiceCard title="Calidad" Icon={QualitySVG} />
-    </SimpleGrid>
+    <Box bg="secondary.0">
+      <Container size="lg" px="lg" pt="lg" h="100%">
+        <SimpleGrid
+          mih={314}
+          cols={{ base: 2, sm: 4 }}
+          spacing={{ base: 'md', md: 'xl' }}
+          // px={{ base: 40, sm: 40, md: 120 }}
+          py={{ base: 30, sm: 20 }}
+        >
+          <ServiceCard title="Cuotas" Icon={CreditCardSVG} />
+          <ServiceCard title="Envíos" Icon={TruckSVG} />
+          <ServiceCard title="Montaje" Icon={HammerSVG} />
+          <ServiceCard title="Calidad" Icon={QualitySVG} />
+        </SimpleGrid>
+      </Container>
+    </Box>
   );
 };
