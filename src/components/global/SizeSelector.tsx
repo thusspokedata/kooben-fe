@@ -7,7 +7,11 @@ interface SizeSelectorProps {
   onSizeChanged: (size: string) => void;
 }
 
-export const SizeSelector = ({ selectedSize, availableSizes, onSizeChanged }: SizeSelectorProps) => {
+export const SizeSelector = ({
+  selectedSize,
+  availableSizes,
+  onSizeChanged,
+}: SizeSelectorProps) => {
   return (
     <Select
       label="Medidas:"

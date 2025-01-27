@@ -6,7 +6,11 @@ interface FetchProductsByCategoryProps {
   offset?: number;
 }
 
-export const fetchProductsByCategory = async ({ category, limit = 10, offset = 0 }: FetchProductsByCategoryProps) => {
+export const fetchProductsByCategory = async ({
+  category,
+  limit = 10,
+  offset = 0,
+}: FetchProductsByCategoryProps) => {
   try {
     const response = await api.get(`/products`, {
       params: {

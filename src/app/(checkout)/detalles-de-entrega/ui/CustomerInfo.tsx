@@ -91,9 +91,21 @@ export const CustomerInfo = () => {
           {...form.getInputProps('province')}
         />
 
-        <TextInput size="md" withAsterisk label="Ciudad" placeholder="Ciudad" {...form.getInputProps('city')} />
+        <TextInput
+          size="md"
+          withAsterisk
+          label="Ciudad"
+          placeholder="Ciudad"
+          {...form.getInputProps('city')}
+        />
 
-        <TextInput size="md" withAsterisk label="Teléfono" placeholder="Teléfono" {...form.getInputProps('phone')} />
+        <TextInput
+          size="md"
+          withAsterisk
+          label="Teléfono"
+          placeholder="Teléfono"
+          {...form.getInputProps('phone')}
+        />
 
         <Checkbox
           size="md"

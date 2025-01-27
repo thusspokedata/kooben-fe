@@ -18,7 +18,14 @@ export const CarritoCard = () => {
   return (
     <>
       {productsInCart.map((product) => (
-        <Card shadow="0" p="lg" mah={360} radius="sm" mb="lg" key={`${product.slug}-${product.size}`}>
+        <Card
+          shadow="0"
+          p="lg"
+          mah={360}
+          radius="sm"
+          mb="lg"
+          key={`${product.slug}-${product.size}`}
+        >
           <SimpleGrid cols={2}>
             {product.image ? (
               <AspectRatio ratio={9 / 16} style={{ maxHeight: '320', margin: 0 }}>
@@ -49,7 +56,12 @@ export const CarritoCard = () => {
                       {product.title}
                     </Text>
 
-                    <ActionIcon variant="transparent" c="brand.7" size="lg" onClick={() => removeProduct(product)}>
+                    <ActionIcon
+                      variant="transparent"
+                      c="brand.7"
+                      size="lg"
+                      onClick={() => removeProduct(product)}
+                    >
                       <IconTrashFilled />
                     </ActionIcon>
                   </Flex>

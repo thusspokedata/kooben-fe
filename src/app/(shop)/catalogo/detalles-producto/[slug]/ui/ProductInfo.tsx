@@ -6,7 +6,14 @@ import AddToCart from './AddToCart';
 export const ProductInfo = ({ product }: { product: Product }) => {
   const theme = useMantineTheme();
   return (
-    <Flex direction="column" align="start" gap="lg" w="100%" maw={500} my={{ base: theme.spacing['11xl'], md: 0 }}>
+    <Flex
+      direction="column"
+      align="start"
+      gap="lg"
+      w="100%"
+      maw={500}
+      my={{ base: theme.spacing['11xl'], md: 0 }}
+    >
       <Title c="brand.8" fw={500} order={1} fz="xl" tt="uppercase">
         {product.title}
       </Title>

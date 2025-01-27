@@ -183,7 +183,8 @@ export const HeaderMegaMenu = () => {
                 color="brand.7"
                 c="brand.8"
                 onClick={() => {
-                  window.location.href = isSignedIn && totalItemsInCart > 0 ? '/carrito' : '/carrito-vacio';
+                  window.location.href =
+                    isSignedIn && totalItemsInCart > 0 ? '/carrito' : '/carrito-vacio';
                 }}
               >
                 <IconShoppingBagPlus size={24} />
@@ -192,7 +193,12 @@ export const HeaderMegaMenu = () => {
               <Burger opened={drawerOpened} color="brand.8" onClick={toggleDrawer} />
             </Flex>
           </Flex>
-          <Group gap={isAdmin ? 20 : 80} justify="flex-end" className={classes.mainLinks} visibleFrom="sm">
+          <Group
+            gap={isAdmin ? 20 : 80}
+            justify="flex-end"
+            className={classes.mainLinks}
+            visibleFrom="sm"
+          >
             {mainItems}
             {isAdmin && (
               <>
@@ -236,8 +242,23 @@ export const HeaderMegaMenu = () => {
 
           <Divider mb="sm" size="md" color={theme.colors.secondary[6]} />
 
-          <Flex justify="space-around" direction="column" align="center" pb="xl" px="md" mt={84} gap="xl">
-            <Button fz="md" c="white" color={theme.colors.brand[7]} component="a" w="50%" href="/sign-in">
+          <Flex
+            justify="space-around"
+            direction="column"
+            align="center"
+            pb="xl"
+            px="md"
+            mt={84}
+            gap="xl"
+          >
+            <Button
+              fz="md"
+              c="white"
+              color={theme.colors.brand[7]}
+              component="a"
+              w="50%"
+              href="/sign-in"
+            >
               Iniciar sesión
             </Button>
             <Button fz="md" variant="transparent" component="a" w="50%" href="/sign-up">

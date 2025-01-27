@@ -30,7 +30,10 @@ export const useCartStore = create<State>()(
       getSummaryInformation: () => {
         const { cart } = get();
 
-        const total = cart.reduce((subTotal, product) => product.quantity * product.price + subTotal, 0);
+        const total = cart.reduce(
+          (subTotal, product) => product.quantity * product.price + subTotal,
+          0
+        );
         const tax = (total * 0.21) / 1.21;
         const subTotal = total - tax;
         const itemsInCart = cart.reduce((total, item) => total + item.quantity, 0);
@@ -46,7 +49,9 @@ export const useCartStore = create<State>()(
       addProductToCart: (product: CartProduct) => {
         const { cart } = get();
 
-        const productInCart = cart.some((item) => item.id === product.id && item.size === product.size);
+        const productInCart = cart.some(
+          (item) => item.id === product.id && item.size === product.size
+        );
 
         if (!productInCart) {
           set({ cart: [...cart, product] });
@@ -80,12 +85,14 @@ export const useCartStore = create<State>()(
       removeProduct: (product: CartProduct) => {
         const { cart } = get();
 
-        const updatedCartProducts = cart.filter((item) => item.id !== product.id || item.size !== product.size);
+        const updatedCartProducts = cart.filter(
+          (item) => item.id !== product.id || item.size !== product.size
+        );
         set({ cart: updatedCartProducts });
       },
     }),
     {
       name: 'shopping-cart',
-    },
-  ),
+    }
+  )
 );

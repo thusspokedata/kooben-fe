@@ -45,11 +45,22 @@ export default function AddToCart({ product }: { product: Product }) {
           <Text>Negro</Text>
         </Box>
         <Box>
-          <SizeSelector selectedSize={size} availableSizes={product.sizes} onSizeChanged={setSize} />
+          <SizeSelector
+            selectedSize={size}
+            availableSizes={product.sizes}
+            onSizeChanged={setSize}
+          />
           {posted && !size && <Text c="red">Selecciona una medida</Text>}
         </Box>
       </Flex>
-      <Flex direction="row" justify="space-between" align="center" gap="xs" w="100%" mt={theme.spacing['11xl']}>
+      <Flex
+        direction="row"
+        justify="space-between"
+        align="center"
+        gap="xs"
+        w="100%"
+        mt={theme.spacing['11xl']}
+      >
         <QuantitySelector quantity={quantity} onQuantityChanged={setQuantity} />
         <Button color="brand.8" px={40} onClick={addToCart}>
           Agregar al carrito
