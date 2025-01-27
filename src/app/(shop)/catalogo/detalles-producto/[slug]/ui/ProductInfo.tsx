@@ -1,6 +1,6 @@
 import { Product } from '@/interfaces';
 import { currencyFormat } from '@/utils';
-import { Flex, Title, Text, Divider, Box, useMantineTheme, Button, Select } from '@mantine/core';
+import { Flex, Title, Text, Divider, useMantineTheme } from '@mantine/core';
 import AddToCart from './AddToCart';
 
 export const ProductInfo = ({ product }: { product: Product }) => {

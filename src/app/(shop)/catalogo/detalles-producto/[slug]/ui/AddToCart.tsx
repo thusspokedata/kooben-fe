@@ -9,7 +9,7 @@ import { useState } from 'react';
 
 export default function AddToCart({ product }: { product: Product }) {
   const addProductToCart = useCartStore((state) => state.addProductToCart);
-  const [color, setColor] = useState();
+  // const [color, setColor] = useState();
   const [size, setSize] = useState<string | undefined>('');
   const [quantity, setQuantity] = useState<number>(1);
   const [posted, setPosted] = useState(false);

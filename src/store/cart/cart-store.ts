@@ -4,7 +4,6 @@ import { persist } from 'zustand/middleware';
 
 interface State {
   cart: CartProduct[];
-
   getTotalItems: () => number;
   getSummaryInformation: () => {
     total: number;

@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useCartStore } from '@/store';
 import Link from 'next/link';
-import { Button, Text, Flex, useMantineTheme, Box, Loader, LoadingOverlay } from '@mantine/core';
+import { Button, Text, Flex, useMantineTheme, Box, LoadingOverlay } from '@mantine/core';
 import { currencyFormat } from '@/utils';
 
 interface ResumenRowProps {
@@ -28,13 +28,15 @@ const ResumenRow: React.FC<ResumenRowProps> = ({ label, value, isBold = false })
 
 export const ResumenCard = ({ nextPage }: { nextPage: string }) => {
   const [mounted, setMounted] = useState(false);
+  const cart = useCartStore((state) => state.cart);
   const getSummaryInformation = useCartStore((state) => state.getSummaryInformation);
+  const summary = getSummaryInformation();
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  const { total, tax, subTotal, itemsInCart } = getSummaryInformation();
+  const { total, tax, subTotal, itemsInCart } = summary;
   const articles = itemsInCart === 1 ? '1 artículo' : `${itemsInCart} artículos`;
 
   return (
