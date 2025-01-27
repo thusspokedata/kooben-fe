@@ -38,7 +38,6 @@ const adminLinks = [
   { link: '/usuarios', label: 'Usuarios' },
 ];
 
-
 export const HeaderMegaMenu = () => {
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] = useDisclosure(false);
   const [active, setActive] = useState(0);
