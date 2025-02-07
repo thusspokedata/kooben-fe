@@ -26,7 +26,15 @@ export function ProductCarousel({ product }: { product: Product }) {
   ));
 
   return (
-    <Carousel withIndicators mah={imageHeight} maw={imageWidth} controlSize={40} loop slideGap="md" align="start">
+    <Carousel
+      withIndicators
+      mah={imageHeight}
+      maw={imageWidth}
+      controlSize={40}
+      loop
+      slideGap="md"
+      align="start"
+    >
       {slides}
     </Carousel>
   );

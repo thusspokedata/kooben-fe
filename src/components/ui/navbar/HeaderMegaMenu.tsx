@@ -23,6 +23,7 @@ import Link from 'next/link';
 import LogoKooben from '../../../../public/assets/svgs/LogoKooben';
 import classes from './HeaderMegaMenu.module.css';
 import { UserButton, useUser } from '@clerk/nextjs';
+import { useCartStore } from '@/store';
 
 const mainLinks = [
   { link: '/', label: 'Inicio' },
@@ -37,16 +38,26 @@ const adminLinks = [
   { link: '/usuarios', label: 'Usuarios' },
 ];
 
-const cartLink = { link: '/carrito', label: 'Carrito (0)' };
-
 export const HeaderMegaMenu = () => {
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] = useDisclosure(false);
   const [active, setActive] = useState(0);
   const pathname = usePathname();
   const theme = useMantineTheme();
   const { isSignedIn, user } = useUser();
+  const totalItemsInCart = useCartStore((state) => state.getTotalItems());
 
   const isAdmin = user?.publicMetadata?.role === 'admin';
+
+  const [mounted, setMounted] = useState(false);
+
+  const cartLink = {
+    link: totalItemsInCart === 0 && mounted ? '/carrito-vacio' : '/carrito',
+    label: `Carrito ${mounted && totalItemsInCart > 0 ? `(${totalItemsInCart})` : ''}`,
+  };
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     const activeIndex = [...mainLinks, ...adminLinks].findIndex((link) => link.link === pathname);
@@ -154,30 +165,40 @@ export const HeaderMegaMenu = () => {
 
               <Button
                 component={Link}
-                href="/carrito"
+                href={totalItemsInCart === 0 && mounted ? '/carrito-vacio' : '/carrito'}
                 variant="transparent"
                 size="md"
                 c="brand.8"
                 leftSection={<IconShoppingBagPlus size={22} />}
               >
                 <Text c="brand.8" fz="lg" fw={300}>
-                  Carrito (0)
+                  Carrito {mounted && totalItemsInCart > 0 && `(${totalItemsInCart})`}
                 </Text>
               </Button>
             </Group>
 
             <Flex align="center" gap="xs" hiddenFrom="sm">
-              <ActionIcon variant="subtle" color="brand.7" c="brand.8">
-                <IconUserFilled size={24} />
-              </ActionIcon>
-              <ActionIcon variant="subtle" color="brand.7" c="brand.8">
+              <ActionIcon
+                variant="subtle"
+                color="brand.7"
+                c="brand.8"
+                onClick={() => {
+                  window.location.href =
+                    isSignedIn && totalItemsInCart > 0 ? '/carrito' : '/carrito-vacio';
+                }}
+              >
                 <IconShoppingBagPlus size={24} />
               </ActionIcon>
 
               <Burger opened={drawerOpened} color="brand.8" onClick={toggleDrawer} />
             </Flex>
           </Flex>
-          <Group gap={isAdmin ? 20 : 80} justify="flex-end" className={classes.mainLinks} visibleFrom="sm">
+          <Group
+            gap={isAdmin ? 20 : 80}
+            justify="flex-end"
+            className={classes.mainLinks}
+            visibleFrom="sm"
+          >
             {mainItems}
             {isAdmin && (
               <>
@@ -221,8 +242,23 @@ export const HeaderMegaMenu = () => {
 
           <Divider mb="sm" size="md" color={theme.colors.secondary[6]} />
 
-          <Flex justify="space-around" direction="column" align="center" pb="xl" px="md" mt={84} gap="xl">
-            <Button fz="md" c="white" color={theme.colors.brand[7]} component="a" w="50%" href="/sign-in">
+          <Flex
+            justify="space-around"
+            direction="column"
+            align="center"
+            pb="xl"
+            px="md"
+            mt={84}
+            gap="xl"
+          >
+            <Button
+              fz="md"
+              c="white"
+              color={theme.colors.brand[7]}
+              component="a"
+              w="50%"
+              href="/sign-in"
+            >
               Iniciar sesión
             </Button>
             <Button fz="md" variant="transparent" component="a" w="50%" href="/sign-up">

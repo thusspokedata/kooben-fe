@@ -1,7 +1,12 @@
 'use client';
 
 import { Group, ActionIcon, rem, Text, Flex } from '@mantine/core';
-import { IconBrandWhatsapp, IconBrandInstagram, IconBrandFacebookFilled, IconProps } from '@tabler/icons-react';
+import {
+  IconBrandWhatsapp,
+  IconBrandInstagram,
+  IconBrandFacebookFilled,
+  IconProps,
+} from '@tabler/icons-react';
 
 interface SocialIconProps {
   Icon: React.ElementType<IconProps>;
@@ -17,7 +22,16 @@ function SocialIcon({ Icon }: SocialIconProps) {
 
 export function Footer() {
   return (
-    <Flex w="100%" h={200} mt="xl" bg="#84A98C" justify="center" align="center" direction="column" gap="md">
+    <Flex
+      w="100%"
+      h={200}
+      mt="xl"
+      bg="#84A98C"
+      justify="center"
+      align="center"
+      direction="column"
+      gap="md"
+    >
       <Group gap="md" justify="flex-end" wrap="nowrap">
         <SocialIcon Icon={IconBrandFacebookFilled} />
         <SocialIcon Icon={IconBrandInstagram} />

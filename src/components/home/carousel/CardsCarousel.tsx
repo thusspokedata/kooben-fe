@@ -1,7 +1,18 @@
 'use client';
 
 import { Carousel } from '@mantine/carousel';
-import { useMantineTheme, rem, Text, Button, Image, Card, Box, Flex, Divider, Skeleton } from '@mantine/core';
+import {
+  useMantineTheme,
+  rem,
+  Text,
+  Button,
+  Image,
+  Card,
+  Box,
+  Flex,
+  Divider,
+  Skeleton,
+} from '@mantine/core';
 import { IconArrowLeft, IconArrowRight } from '@tabler/icons-react';
 import { useProducts } from '@/hooks/useProducts';
 import { Product } from '@/interfaces';
@@ -64,8 +75,12 @@ export function CardsCarousel() {
       controlsOffset="md"
       controlSize={31}
       styles={{ control: { backgroundColor: theme.colors.brand[6] } }}
-      nextControlIcon={<IconArrowRight style={{ width: rem(24), height: rem(24), color: 'white' }} />}
-      previousControlIcon={<IconArrowLeft style={{ width: rem(24), height: rem(24), color: 'white' }} />}
+      nextControlIcon={
+        <IconArrowRight style={{ width: rem(24), height: rem(24), color: 'white' }} />
+      }
+      previousControlIcon={
+        <IconArrowLeft style={{ width: rem(24), height: rem(24), color: 'white' }} />
+      }
     >
       {slides}
     </Carousel>

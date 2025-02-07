@@ -6,7 +6,9 @@ const DetallesDeEntrega = () => {
   const contentLeft = <EditarCompra />;
   const contentRight = <ResumenCard nextPage="/verificar-compra" />;
 
-  return <CheckoutLayout title="Datos Cliente" contentLeft={contentLeft} contentRight={contentRight} />;
+  return (
+    <CheckoutLayout title="Datos Cliente" contentLeft={contentLeft} contentRight={contentRight} />
+  );
 };
 
 export default DetallesDeEntrega;

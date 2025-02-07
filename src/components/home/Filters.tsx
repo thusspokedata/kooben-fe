@@ -68,13 +68,20 @@ export const Filters = () => {
   return (
     <Grid w="100%" gutter={{ base: 16, sm: 32 }}>
       <Grid.Col span={{ base: 6, sm: 4 }} w="auto" h={{ base: 330, sm: 520 }}>
-        <ArticleCardImage imageUrl={getFirstProductImage('respaldo_de_cama')} category="respaldo_de_cama" />
+        <ArticleCardImage
+          imageUrl={getFirstProductImage('respaldo_de_cama')}
+          category="respaldo_de_cama"
+        />
       </Grid.Col>
 
       <Grid.Col span={{ base: 6, sm: 8 }} mah={520}>
         <Grid gutter={{ base: 16, sm: 32 }}>
           <Grid.Col span={{ base: 12, sm: 6 }} mah={300}>
-            <ArticleCardImage aspectRatio="4/3" imageUrl={getFirstProductImage('mesa_de_luz')} category="mesa_de_luz" />
+            <ArticleCardImage
+              aspectRatio="4/3"
+              imageUrl={getFirstProductImage('mesa_de_luz')}
+              category="mesa_de_luz"
+            />
           </Grid.Col>
           <Grid.Col span={{ base: 12, sm: 6 }} mah={300}>
             <ArticleCardImage

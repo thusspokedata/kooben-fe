@@ -30,7 +30,11 @@ const ContactInfo = ({ icon: Icon, text, copyValue }: ContactInfoProps) => {
         {({ copied, copy }) => (
           <Tooltip label={copied ? 'Copied' : 'Copy'} withArrow position="right">
             <ActionIcon color={copied ? 'teal' : 'gray'} variant="subtle" onClick={copy}>
-              {copied ? <IconCheck style={{ width: rem(16) }} /> : <IconCopy style={{ width: rem(16) }} />}
+              {copied ? (
+                <IconCheck style={{ width: rem(16) }} />
+              ) : (
+                <IconCopy style={{ width: rem(16) }} />
+              )}
             </ActionIcon>
           </Tooltip>
         )}
@@ -46,11 +50,19 @@ const ContactCard: React.FC = () => {
     <Center w="100%" mb="11xl">
       <Card bg={theme.colors.brand[8]} maw={700} mah={580} w="100%" h="520" mx={10}>
         <Flex direction="column" justify="center" h="100%" gap="md" p={{ base: 20, sm: 120 }}>
-          <ContactInfo icon={IconPhoneFilled} text="Tel: +54 9 351 2881616" copyValue="+54 9 351 2881616" />
+          <ContactInfo
+            icon={IconPhoneFilled}
+            text="Tel: +54 9 351 2881616"
+            copyValue="+54 9 351 2881616"
+          />
 
           <Divider color="white" size="sm" my="md" />
 
-          <ContactInfo icon={IconMailFilled} text="koobenargentina@gmail.com" copyValue="koobenargentina@gmail.com" />
+          <ContactInfo
+            icon={IconMailFilled}
+            text="koobenargentina@gmail.com"
+            copyValue="koobenargentina@gmail.com"
+          />
 
           <Divider color="white" size="sm" my="md" />
 
