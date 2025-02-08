@@ -25,3 +25,5 @@ pnpm-debug.log
 # Ignore Docker-related files
 docker-compose.yml
 .dockerignore
+
+public/images

@@ -1,8 +1,8 @@
 'use client';
 
 // export const revalidate = 60 * 60 * 24 * 7; // 1 week
-import type { Metadata, ResolvingMetadata } from 'next';
-import { notFound } from 'next/navigation';
+// import type { Metadata, ResolvingMetadata } from 'next';
+// import { notFound } from 'next/navigation';
 import { ProductCarousel } from './ui/ProductCarousel';
 import { useGetProductBySlug } from '@/hooks';
 import { Container, Flex } from '@mantine/core';
