@@ -25,7 +25,6 @@ export function Footer() {
     <Flex
       w="100%"
       h={200}
-      mt="xl"
       bg="#84A98C"
       justify="center"
       align="center"

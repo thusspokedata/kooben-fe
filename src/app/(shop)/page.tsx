@@ -1,4 +1,4 @@
-import { BestSellersCarousel, Filters, GeneralInformation } from '@/components';
+import { BestSellersCarousel, Filters, ServiceOverview } from '@/components';
 import { Container, Flex } from '@mantine/core';
 
 export default async function Home() {
@@ -10,7 +10,7 @@ export default async function Home() {
           <BestSellersCarousel />
         </Flex>
       </Container>
-      <GeneralInformation />
+      <ServiceOverview />
     </>
   );
 }
