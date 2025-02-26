@@ -3,7 +3,7 @@ const nextConfig = {
   images: {
     remotePatterns: [
       { hostname: 'res.cloudinary.com' },
-      { hostname: 'kooben-elb-1725802152.eu-central-1.elb.amazonaws.com' },
+      { hostname: 'backend-alb-kooben-dev-frankfurt-707089180.eu-central-1.elb.amazonaws.com' },
       { hostname: 'koobenapi.guitarrasargentinas.com' },
     ],
   },
