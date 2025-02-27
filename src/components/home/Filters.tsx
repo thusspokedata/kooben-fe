@@ -7,6 +7,7 @@ import { useHover } from '@mantine/hooks';
 import { useProducts } from '@/hooks/useProducts';
 import type { Product } from '@/interfaces';
 import { CATEGORIES, CategoryKey } from '@/utils';
+import ImagePlaceholder from '@/components/global/ImagePlaceHolder';
 
 interface ArticleCardImageProps {
   aspectRatio?: string;
@@ -27,6 +28,29 @@ export function ArticleCardImage({
   const handleClick = () => {
     router.push(`/catalogo?category=${category}`);
   };
+
+  // If no imageUrl is provided, render the ImagePlaceholder component
+  if (!imageUrl) {
+    return (
+      <Card
+        ref={ref}
+        onClick={handleClick}
+        radius="0"
+        className={classes.imageContainer}
+        style={{
+          height: '100%',
+          cursor: 'pointer',
+          aspectRatio,
+        }}
+      >
+        <ImagePlaceholder iconWidth={70} />
+        <div className={classes.overlay} />
+        <Title order={3} className={classes.title} tt="uppercase">
+          {CATEGORIES[category as CategoryKey]}
+        </Title>
+      </Card>
+    );
+  }
 
   return (
     <Card
@@ -62,7 +86,7 @@ export const Filters = () => {
   // Helper function to get the first image of the first product in a category
   const getFirstProductImage = (category: string) => {
     const product = products.find((p: Product) => p.category === category);
-    return product ? product.images[0] : '/images/placeholder.jpg'; // TODO: Replace with placeholder image
+    return product ? product.images[0] : undefined; // Return undefined to trigger the placeholder
   };
 
   return (
