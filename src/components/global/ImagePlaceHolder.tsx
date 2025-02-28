@@ -20,7 +20,6 @@ const ImagePlaceholder = ({
       h="100%"
       w="100%"
       style={{
-        backgroundColor: 'var(--mantine-color-gray-2)',
         borderRadius: typeof borderRadius === 'number' ? borderRadius : theme.radius[borderRadius],
         ...newStyle,
       }}
