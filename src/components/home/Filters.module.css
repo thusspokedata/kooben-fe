@@ -1,11 +1,8 @@
 .title {
-  font-family:
-    Greycliff CF,
-    var(--mantine-font-family);
-  font-weight: 900;
+  font-weight: 500;
   color: var(--mantine-color-white);
   line-height: 1.2;
-  font-size: rem(20px);
+  font-size: var(--mantine-font-size-4xl);
   margin-top: var(--mantine-spacing-xs);
   position: absolute;
   bottom: 0;
@@ -15,6 +12,12 @@
   text-align: start;
   width: 100%;
   z-index: 2;
+}
+
+@media (max-width: 62em) {
+  .title {
+    font-size: var(--mantine-font-size-lg);
+  }
 }
 
 .overlay {
