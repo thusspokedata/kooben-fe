@@ -33,7 +33,7 @@ const ValueText: React.FC<ValueTextProps> = ({ title, children }) => (
 
 export const QuienesSomos: React.FC = () => {
   return (
-    <Container size="lg">
+    <Container size="responsive" px={{base:"20px", xs:"40px", lg:"120"}}>
       <Card p={{ base: 'xs', sm: '45px' }}>
         <Stack c="brand.8">
           <Section title="Nuestra Historia" order={1}>

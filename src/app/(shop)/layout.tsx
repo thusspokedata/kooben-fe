@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import '@mantine/core/styles.css';
 
 export const metadata: Metadata = {
   title: "K'ooben",
