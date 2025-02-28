@@ -147,7 +147,7 @@ export const HeaderMegaMenu = () => {
   ));
 
   return (
-    <Container size="lg">
+    <Container size="responsive" px={{base:"20px", xs:"40px", lg:"120"}}  >
       <header className={classes.header}>
         <Group justify="space-between" h="100%" mt="sm" gap="0px">
           <Flex justify="space-between" w="100%" align="center">
