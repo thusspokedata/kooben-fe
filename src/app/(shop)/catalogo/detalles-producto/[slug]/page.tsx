@@ -8,11 +8,11 @@ import { useGetProductBySlug } from '@/hooks';
 import { Container, Flex } from '@mantine/core';
 import { ProductInfo } from './ui/ProductInfo';
 
-type Props = {
+interface ProductDetailPageProps {
   params: { slug: string };
-};
+}
 
-export default function ProductDetailPage({ params }: Props) {
+export default function ProductDetailPage({ params }: ProductDetailPageProps) {
   const { slug } = params;
 
   const { data: product, isLoading, isError, error } = useGetProductBySlug({ slug });

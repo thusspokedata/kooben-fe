@@ -2,35 +2,43 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { currencyFormat } from '@/utils';
-import { AspectRatio, Box, Card, Flex, Image, Text } from '@mantine/core';
+import { AspectRatio, Box, Card, Flex, Text } from '@mantine/core';
 import ImagePlaceholder from '../global/ImagePlaceHolder';
 import { Product } from '@/interfaces';
 
 export function CardCatalogo({ product }: { product: Product }) {
-  const [displayImage, setDisplayImage] = useState(product.images[0]);
+  const [displayImage, setDisplayImage] = useState(
+    product.images && product.images.length > 0 ? product.images[0] : undefined
+  );
+  const [imageError, setImageError] = useState(false);
 
   const { images, title, description, price, slug } = product;
+  const hasImages = images && images.length > 0;
+
   return (
     <Link href={`/catalogo/detalles-producto/${slug}`} passHref style={{ textDecoration: 'none' }}>
       <Card shadow="sm">
         <Card.Section>
-          {images.length === 0 ? (
+          {!hasImages || !displayImage || imageError ? (
             <AspectRatio ratio={4 / 3}>
               <ImagePlaceholder iconWidth={70} />
             </AspectRatio>
           ) : (
             <AspectRatio ratio={4 / 3}>
-              <Image
-                src={displayImage}
-                h={160}
-                alt={title}
-                width={160}
-                height={160}
-                style={{ objectFit: 'cover' }}
-                onMouseEnter={() => setDisplayImage(images[1] ?? images[0])}
-                onMouseLeave={() => setDisplayImage(images[0])}
-              />
+              <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+                <Image
+                  src={displayImage}
+                  alt={title}
+                  fill
+                  style={{ objectFit: 'cover' }}
+                  unoptimized={true}
+                  onMouseEnter={() => images.length > 1 && setDisplayImage(images[1])}
+                  onMouseLeave={() => setDisplayImage(images[0])}
+                  onError={() => setImageError(true)}
+                />
+              </div>
             </AspectRatio>
           )}
         </Card.Section>

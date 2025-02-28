@@ -1,12 +1,13 @@
 'use client';
 
+import { useState } from 'react';
+import Image from 'next/image';
 import { Carousel } from '@mantine/carousel';
 import {
   useMantineTheme,
   rem,
   Text,
   Button,
-  Image,
   Card,
   Box,
   Flex,
@@ -16,6 +17,7 @@ import {
 import { IconArrowLeft, IconArrowRight } from '@tabler/icons-react';
 import { useProducts } from '@/hooks/useProducts';
 import { Product } from '@/interfaces';
+import ImagePlaceholder from '@/components/global/ImagePlaceHolder';
 import classes from './CardsCarousel.module.css';
 
 interface CardProps {
@@ -28,11 +30,30 @@ interface CardProps {
 
 function CardWithImage({ images, title, description }: CardProps) {
   const theme = useMantineTheme();
+  const [imageError, setImageError] = useState(false);
+  const hasImages = images && images.length > 0;
 
   return (
     <Card withBorder radius="md" p={0} className={classes.card}>
       <Flex wrap="nowrap" gap={0}>
-        <Image src={images[0]} height={280} alt={title} />
+        {!hasImages || imageError ? (
+          <Box style={{ width: '50%', height: 280, position: 'relative' }}>
+            <ImagePlaceholder iconWidth={70} />
+          </Box>
+        ) : (
+          <Box style={{ width: '50%', height: 280, position: 'relative' }}>
+            <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+              <Image
+                src={images[0]}
+                alt={title}
+                fill
+                style={{ objectFit: 'cover' }}
+                unoptimized={true}
+                onError={() => setImageError(true)}
+              />
+            </div>
+          </Box>
+        )}
         <Box className={classes.body} my={{ base: '', sm: 'xl' }} tt="uppercase">
           <Flex direction="column" gap="xs" justify="space-between" h="100%">
             <Box>
