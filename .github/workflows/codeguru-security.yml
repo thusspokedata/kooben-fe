@@ -82,7 +82,7 @@ jobs:
         if: always() # Try to upload even if previous steps failed
 
       - name: Archive Scan Results
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: codeguru-security-results
           path: codeguru-security-results.sarif.json
