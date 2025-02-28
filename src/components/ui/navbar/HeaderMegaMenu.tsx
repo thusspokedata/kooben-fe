@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import {
   Group,
   Button,
@@ -16,9 +16,9 @@ import {
   ActionIcon,
   Center,
 } from '@mantine/core';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useDisclosure } from '@mantine/hooks';
-import { IconUserFilled, IconShoppingBagPlus } from '@tabler/icons-react';
+import { IconUser, IconShoppingBagPlus } from '@tabler/icons-react';
 import Link from 'next/link';
 import LogoKooben from '../../../../public/assets/svgs/LogoKooben';
 import classes from './HeaderMegaMenu.module.css';
@@ -42,6 +42,7 @@ export const HeaderMegaMenu = () => {
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] = useDisclosure(false);
   const [active, setActive] = useState(0);
   const pathname = usePathname();
+  const router = useRouter();
   const theme = useMantineTheme();
   const { isSignedIn, user } = useUser();
   const totalItemsInCart = useCartStore((state) => state.getTotalItems());
@@ -50,9 +51,18 @@ export const HeaderMegaMenu = () => {
 
   const [mounted, setMounted] = useState(false);
 
-  const cartLink = {
-    link: totalItemsInCart === 0 && mounted ? '/carrito-vacio' : '/carrito',
-    label: `Carrito ${mounted && totalItemsInCart > 0 ? `(${totalItemsInCart})` : ''}`,
+  // Memoize cart link to prevent unnecessary recalculations
+  const cartLink = useMemo(
+    () => ({
+      link: totalItemsInCart === 0 && mounted ? '/carrito-vacio' : '/carrito',
+      label: `Carrito ${mounted && totalItemsInCart > 0 ? `(${totalItemsInCart})` : ''}`,
+    }),
+    [totalItemsInCart, mounted]
+  );
+
+  const navigateToCart = () => {
+    const cartPath = totalItemsInCart === 0 && mounted ? '/carrito-vacio' : '/carrito';
+    router.push(cartPath);
   };
 
   useEffect(() => {
@@ -155,7 +165,7 @@ export const HeaderMegaMenu = () => {
                   variant="transparent"
                   size="md"
                   c="brand.8"
-                  leftSection={<IconUserFilled size={22} />}
+                  leftSection={<IconUser size={20} aria-hidden="true" />}
                 >
                   <Text c="brand.9" fz="lg" fw={300}>
                     Iniciar sesión
@@ -165,11 +175,11 @@ export const HeaderMegaMenu = () => {
 
               <Button
                 component={Link}
-                href={totalItemsInCart === 0 && mounted ? '/carrito-vacio' : '/carrito'}
+                href={cartLink.link}
                 variant="transparent"
                 size="md"
                 c="brand.8"
-                leftSection={<IconShoppingBagPlus size={22} />}
+                leftSection={<IconShoppingBagPlus size={20} aria-hidden="true" />}
               >
                 <Text c="brand.8" fz="lg" fw={300}>
                   Carrito {mounted && totalItemsInCart > 0 && `(${totalItemsInCart})`}
@@ -182,10 +192,8 @@ export const HeaderMegaMenu = () => {
                 variant="subtle"
                 color="brand.7"
                 c="brand.8"
-                onClick={() => {
-                  window.location.href =
-                    isSignedIn && totalItemsInCart > 0 ? '/carrito' : '/carrito-vacio';
-                }}
+                onClick={navigateToCart}
+                aria-label="Ver carrito"
               >
                 <IconShoppingBagPlus size={24} />
               </ActionIcon>
@@ -223,7 +231,7 @@ export const HeaderMegaMenu = () => {
         }
         hiddenFrom="sm"
         zIndex={1000000}
-        bg="#F3F3F3"
+        bg="brand.9"
       >
         <Box>
           <Divider mt="sm" size="md" color={theme.colors.secondary[6]} />
