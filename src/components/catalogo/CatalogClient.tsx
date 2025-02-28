@@ -6,6 +6,7 @@ import { useProducts } from '@/hooks/useProducts';
 import type { Product } from '@/interfaces';
 import { CategoryKey, CATEGORIES } from '@/utils';
 import { Container, SimpleGrid, Text } from '@mantine/core';
+import CatalogSkeleton from './CatalogSkeleton';
 
 const CatalogClient = () => {
   const searchParams = useSearchParams();
@@ -13,7 +14,7 @@ const CatalogClient = () => {
 
   const { products, isLoading } = useProducts();
 
-  if (isLoading) return <div>Cargando...</div>;
+  if (isLoading) return <CatalogSkeleton />;
 
   // Group products by category
   const groupedProducts = products.reduce((acc: { [key: string]: Product[] }, product: Product) => {
@@ -32,7 +33,12 @@ const CatalogClient = () => {
   });
 
   return (
-    <Container size="responsive" px={{base:"20px", xs:"40px", lg:"120"}} h="100%" style={{ minHeight: '100vh' }}>
+    <Container
+      size="responsive"
+      px={{ base: '20px', xs: '40px', lg: '120' }}
+      h="100%"
+      style={{ minHeight: '100vh' }}
+    >
       {sortedCategories.map((categoryKey) => (
         <div key={categoryKey}>
           <Text ta="start" fw={500} size="xl" mt="xl" mb="lg" c="brand.8" tt="uppercase">
