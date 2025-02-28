@@ -20,6 +20,7 @@ export function ProductCarousel({ product }: { product: Product }) {
         alt="product"
         width={imageWidth}
         height={imageHeight}
+        priority={true}
         style={{ objectFit: 'contain', backgroundColor: theme.colors.neutral[1] }}
       />
     </Carousel.Slide>

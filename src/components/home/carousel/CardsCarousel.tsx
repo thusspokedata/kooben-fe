@@ -3,16 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { Carousel } from '@mantine/carousel';
-import {
-  useMantineTheme,
-  rem,
-  Text,
-  Button,
-  Card,
-  Box,
-  Flex,
-  Divider,
-} from '@mantine/core';
+import { useMantineTheme, rem, Text, Button, Card, Box, Flex, Divider } from '@mantine/core';
 import { IconArrowLeft, IconArrowRight } from '@tabler/icons-react';
 import { useProducts } from '@/hooks/useProducts';
 import { Product } from '@/interfaces';
@@ -72,6 +63,7 @@ function CardWithImage({ images, title, description }: CardProps) {
                 fill
                 style={{ objectFit: 'cover' }}
                 unoptimized={true}
+                priority={true}
                 onError={(e) => {
                   console.error('Error loading carousel image:', imageUrl, e);
                   setImageError(true);
