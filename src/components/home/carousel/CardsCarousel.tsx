@@ -33,6 +33,12 @@ function CardWithImage({ images, title, description }: CardProps) {
   const [imageError, setImageError] = useState(false);
   const hasImages = images && images.length > 0;
 
+  // Log image URL for debugging
+  console.log('CardWithImage - Image URL:', hasImages ? images[0] : 'No images');
+
+  // Ensure image URL is absolute
+  const imageUrl = hasImages ? images[0] : '';
+
   return (
     <Card withBorder radius="md" p={0} className={classes.card}>
       <Flex wrap="nowrap" gap={0}>
@@ -44,12 +50,17 @@ function CardWithImage({ images, title, description }: CardProps) {
           <Box style={{ width: '50%', height: 280, position: 'relative' }}>
             <div style={{ position: 'relative', width: '100%', height: '100%' }}>
               <Image
-                src={images[0]}
-                alt={title}
+                src={imageUrl}
+                alt={title || 'Product image'}
                 fill
                 style={{ objectFit: 'cover' }}
                 unoptimized={true}
-                onError={() => setImageError(true)}
+                onError={(e) => {
+                  console.error('Error loading carousel image:', imageUrl, e);
+                  setImageError(true);
+                }}
+                sizes="(max-width: 768px) 100vw, 50vw"
+                priority={true}
               />
             </div>
           </Box>

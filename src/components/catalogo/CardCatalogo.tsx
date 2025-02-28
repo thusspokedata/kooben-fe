@@ -17,6 +17,9 @@ export function CardCatalogo({ product }: { product: Product }) {
   const { images, title, description, price, slug } = product;
   const hasImages = images && images.length > 0;
 
+  // Log image URL for debugging
+  console.log('CardCatalogo - Image URL:', displayImage || 'No image');
+
   return (
     <Link href={`/catalogo/detalles-producto/${slug}`} passHref style={{ textDecoration: 'none' }}>
       <Card shadow="sm">
@@ -30,13 +33,18 @@ export function CardCatalogo({ product }: { product: Product }) {
               <div style={{ position: 'relative', width: '100%', height: '100%' }}>
                 <Image
                   src={displayImage}
-                  alt={title}
+                  alt={title || 'Product image'}
                   fill
                   style={{ objectFit: 'cover' }}
                   unoptimized={true}
                   onMouseEnter={() => images.length > 1 && setDisplayImage(images[1])}
                   onMouseLeave={() => setDisplayImage(images[0])}
-                  onError={() => setImageError(true)}
+                  onError={(e) => {
+                    console.error('Error loading catalog image:', displayImage, e);
+                    setImageError(true);
+                  }}
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  priority={true}
                 />
               </div>
             </AspectRatio>
