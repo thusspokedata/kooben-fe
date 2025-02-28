@@ -24,28 +24,24 @@ function CardWithImage({ images, title, description }: CardProps) {
   // Log image URL for debugging
   console.log('CardWithImage - Image URL:', hasImages ? images[0] : 'No images');
 
-  // Ensure image URL is absolute and add Cloudinary transformation parameters
-  // Format: https://res.cloudinary.com/dg1oorbbx/image/upload/c_fill,w_600,h_280,q_auto/v1725792723/facf9a3b-20240629_164705%281%29.jpg
-  const getOptimizedCloudinaryUrl = (url: string) => {
-    if (!url || !url.includes('cloudinary.com')) return url;
+  // Function to safely handle URLs with special characters
+  const getSafeImageUrl = (url: string): string => {
+    if (!url) return '';
 
     try {
-      // Find the upload part in the URL
-      const uploadIndex = url.indexOf('/upload/');
-      if (uploadIndex === -1) return url;
+      // For debugging
+      console.log('Processing URL in CardWithImage:', url);
 
-      // Insert transformation parameters after /upload/
-      return (
-        url.slice(0, uploadIndex + 8) + 'c_fill,w_600,h_280,q_auto/' + url.slice(uploadIndex + 8)
-      );
-    } catch (e) {
-      console.error('Error transforming Cloudinary URL:', e);
+      // Return the URL as is - Next.js with unoptimized=true should handle it correctly
       return url;
+    } catch (error) {
+      console.error('Error processing image URL in CardWithImage:', error);
+      return '';
     }
   };
 
-  const imageUrl = hasImages ? getOptimizedCloudinaryUrl(images[0]) : '';
-  console.log('Transformed URL:', imageUrl);
+  const imageUrl = hasImages ? getSafeImageUrl(images[0]) : '';
+  console.log('Final URL to be used:', imageUrl);
 
   return (
     <Card withBorder radius="md" p={0} className={classes.card}>
