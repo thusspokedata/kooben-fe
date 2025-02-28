@@ -3,7 +3,6 @@ const nextConfig = {
   images: {
     remotePatterns: [
       { hostname: 'res.cloudinary.com' },
-      { hostname: 'koobenapi.guitarrasargentinas.com' },
       { hostname: 'api.guitarrasargentinas.com' },
     ],
   },

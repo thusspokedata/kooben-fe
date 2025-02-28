@@ -35,6 +35,8 @@ export function ArticleCardImage({
       <Card
         ref={ref}
         onClick={handleClick}
+        shadow={hovered ? 'xl' : 'xs'}
+        p="xl"
         radius="0"
         className={classes.imageContainer}
         style={{
