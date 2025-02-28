@@ -167,6 +167,7 @@ const customMantineTheme = createTheme({
   },
   defaultRadius: 'md',
   radius: {
+    sm: '0.5rem', // 8px
     '2xl': '1.5rem', // 24px
     '3xl': '2rem', // 32px
   },

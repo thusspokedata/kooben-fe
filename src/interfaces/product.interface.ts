@@ -18,5 +18,5 @@ export interface CartProduct {
   size: string;
   image: string;
   description: string;
-  // TODO: agregar color
+  // TODO: add color
 }
