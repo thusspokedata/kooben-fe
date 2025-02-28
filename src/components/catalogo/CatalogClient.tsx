@@ -32,7 +32,7 @@ const CatalogClient = () => {
   });
 
   return (
-    <Container size="lg" h="100%" p="lg" style={{ minHeight: '100vh' }}>
+    <Container size="responsive" px={{base:"20px", xs:"40px", lg:"120"}} h="100%" style={{ minHeight: '100vh' }}>
       {sortedCategories.map((categoryKey) => (
         <div key={categoryKey}>
           <Text ta="start" fw={500} size="xl" mt="xl" mb="lg" c="brand.8" tt="uppercase">
