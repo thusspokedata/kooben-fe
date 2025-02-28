@@ -8,6 +8,7 @@ import { useProducts } from '@/hooks/useProducts';
 import type { Product } from '@/interfaces';
 import { CATEGORIES, CategoryKey } from '@/utils';
 import ImagePlaceholder from '@/components/global/ImagePlaceHolder';
+import FiltersSkeleton from './FiltersSkeleton';
 
 interface ArticleCardImageProps {
   aspectRatio?: string;
@@ -84,12 +85,9 @@ export function ArticleCardImage({
 export const Filters = () => {
   const { products, isLoading } = useProducts();
 
-  if (isLoading)
-    return (
-      <Center h={300}>
-        <Loader size="xl" />
-      </Center>
-    );
+  if (isLoading) {
+    return <FiltersSkeleton />;
+  }
 
   // Helper function to get the first image of the first product in a category
   const getFirstProductImage = (category: string) => {
