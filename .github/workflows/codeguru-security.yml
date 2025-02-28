@@ -1,0 +1,90 @@
+name: CodeGuru Security Scan
+
+on:
+  push:
+    branches:
+      - 'main'
+  pull_request:
+    branches:
+      - 'main'
+  schedule:
+    # Run weekly on Sunday at midnight
+    - cron: '0 0 * * 0'
+  workflow_dispatch: # Allow manual triggering
+
+permissions:
+  id-token: write
+  security-events: write
+  actions: read
+  contents: read
+  pull-requests: read
+
+jobs:
+  analyze:
+    name: CodeGuru Security Analysis
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: arn:aws:iam::277707121152:role/CodeGuruSecurityGitHubAccessRole
+          aws-region: eu-central-1
+          role-session-name: GitHubActionScript
+
+      - name: Run CodeGuru Security Scan
+        id: codeguru
+        uses: aws-actions/codeguru-security@v1
+        with:
+          source_path: .
+          aws_region: eu-central-1
+          fail_on_severity: Critical
+        continue-on-error: true
+
+      - name: Check for scan failures
+        if: steps.codeguru.outcome == 'failure'
+        run: |
+          echo "CodeGuru Security scan failed with Critical severity findings!"
+          exit 1
+
+      - name: Generate Summary Report
+        run: |
+          echo "## CodeGuru Security Scan Results" >> $GITHUB_STEP_SUMMARY
+          echo "Scan completed at $(date)" >> $GITHUB_STEP_SUMMARY
+
+          if [ -f codeguru-security-results.sarif.json ]; then
+            CRITICAL=$(grep -c '"level":"critical"' codeguru-security-results.sarif.json || echo 0)
+            HIGH=$(grep -c '"level":"high"' codeguru-security-results.sarif.json || echo 0)
+            MEDIUM=$(grep -c '"level":"medium"' codeguru-security-results.sarif.json || echo 0)
+            LOW=$(grep -c '"level":"low"' codeguru-security-results.sarif.json || echo 0)
+            
+            echo "| Severity | Count |" >> $GITHUB_STEP_SUMMARY
+            echo "| -------- | ----- |" >> $GITHUB_STEP_SUMMARY
+            echo "| Critical | $CRITICAL |" >> $GITHUB_STEP_SUMMARY
+            echo "| High     | $HIGH |" >> $GITHUB_STEP_SUMMARY
+            echo "| Medium   | $MEDIUM |" >> $GITHUB_STEP_SUMMARY
+            echo "| Low      | $LOW |" >> $GITHUB_STEP_SUMMARY
+            
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "For detailed results, check the Security tab in your repository." >> $GITHUB_STEP_SUMMARY
+          else
+            echo "No SARIF results file found. Scan may have failed." >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: Upload SARIF Results
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: codeguru-security-results.sarif.json
+        if: always() # Try to upload even if previous steps failed
+
+      - name: Archive Scan Results
+        uses: actions/upload-artifact@v3
+        with:
+          name: codeguru-security-results
+          path: codeguru-security-results.sarif.json
+          retention-days: 90
+        if: always() # Try to upload even if previous steps failed
