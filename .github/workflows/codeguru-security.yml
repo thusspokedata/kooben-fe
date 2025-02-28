@@ -73,14 +73,21 @@ jobs:
             echo "" >> $GITHUB_STEP_SUMMARY
             echo "For detailed results, check the Security tab in your repository." >> $GITHUB_STEP_SUMMARY
           else
-            echo "No SARIF results file found. Scan may have failed." >> $GITHUB_STEP_SUMMARY
+            echo "⚠️ **Warning:** No SARIF results file found at 'codeguru-security-results.sarif.json'." >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "Possible reasons:" >> $GITHUB_STEP_SUMMARY
+            echo "- The CodeGuru Security scan did not generate any findings" >> $GITHUB_STEP_SUMMARY
+            echo "- The scan failed to complete successfully" >> $GITHUB_STEP_SUMMARY
+            echo "- The SARIF file was saved to a different location" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "Check the logs of the 'Run CodeGuru Security Scan' step for more details." >> $GITHUB_STEP_SUMMARY
           fi
 
       - name: Upload SARIF Results
-        uses: github/codeql-action/upload-sarif@v2
+        uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: codeguru-security-results.sarif.json
-        if: always() # Try to upload even if previous steps failed
+        if: always() && hashFiles('codeguru-security-results.sarif.json') != ''
 
       - name: Archive Scan Results
         uses: actions/upload-artifact@v4
@@ -88,4 +95,4 @@ jobs:
           name: codeguru-security-results
           path: codeguru-security-results.sarif.json
           retention-days: 90
-        if: always() # Try to upload even if previous steps failed
+        if: always() && hashFiles('codeguru-security-results.sarif.json') != ''
