@@ -1,6 +1,7 @@
 'use client';
 
-import { Title, Text, Box, Container, Stack, Card, TitleOrder } from '@mantine/core';
+import { ResponsiveContainer } from '@/components/ui';
+import { Title, Text, Box, Stack, Card, TitleOrder } from '@mantine/core';
 
 interface SectionProps {
   title: string;
@@ -33,7 +34,7 @@ const ValueText: React.FC<ValueTextProps> = ({ title, children }) => (
 
 export const QuienesSomos: React.FC = () => {
   return (
-    <Container size="responsive" px={{base:"20px", xs:"40px", lg:"120"}}>
+    <ResponsiveContainer>
       <Card p={{ base: 'xs', sm: '45px' }}>
         <Stack c="brand.8">
           <Section title="Nuestra Historia" order={1}>
@@ -94,6 +95,6 @@ export const QuienesSomos: React.FC = () => {
           </Section>
         </Stack>
       </Card>
-    </Container>
+    </ResponsiveContainer>
   );
 };

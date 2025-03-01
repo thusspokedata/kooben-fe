@@ -15,7 +15,7 @@ interface SocialIconProps {
 function SocialIcon({ Icon }: SocialIconProps) {
   return (
     <ActionIcon size="md" variant="default" radius="xl">
-      <Icon style={{ width: rem(20), height: rem(20), color: '#84A98C' }} stroke={2} />
+      <Icon style={{ width: rem(20), height: rem(20), color: 'secondary.4' }} stroke={2} />
     </ActionIcon>
   );
 }
@@ -25,7 +25,7 @@ export function Footer() {
     <Flex
       w="100%"
       h={200}
-      bg="#84A98C"
+      bg="secondary.4"
       justify="center"
       align="center"
       direction="column"
