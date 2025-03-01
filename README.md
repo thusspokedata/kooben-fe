@@ -29,6 +29,12 @@ Here are some preview images from the current development:
 - A dedicated file for handling errors efficiently throughout the app.
 - Code quality and security enhanced with [**Amazon CodeGuru**](https://aws.amazon.com/codeguru/) for automated code reviews and vulnerability detection.
 
+## Development Practices
+
+### Branch Protection
+
+This repository uses GitHub's branch protection rules to safeguard the main branch from accidental deletions and force pushes. The protection is configured using [GitHub Rulesets](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets).
+
 ## Backend
 
 The backend for this application is developed with **NestJS**. You can check out the repository [here](https://github.com/thusspokedata/kooben-be).
