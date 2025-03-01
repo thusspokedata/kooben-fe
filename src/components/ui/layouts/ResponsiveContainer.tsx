@@ -16,7 +16,11 @@ interface ResponsiveContainerProps extends Omit<ContainerProps, 'children'> {
  */
 export function ResponsiveContainer({ children, ...props }: ResponsiveContainerProps) {
   return (
-    <Container size="responsive" px={{ base: '20px', xs: '40px', lg: '120' }} {...props}>
+    <Container
+      size="responsive"
+      px={{ base: '20px', xs: '40px', lg: '120', '2xl': '260' }}
+      {...props}
+    >
       {children}
     </Container>
   );
