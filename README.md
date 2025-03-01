@@ -27,6 +27,7 @@ Here are some preview images from the current development:
 - Integrated with external APIs using Axios
 - State management and data fetching handled by TanStack Query
 - A dedicated file for handling errors efficiently throughout the app.
+- Code quality and security enhanced with [**Amazon CodeGuru**](https://aws.amazon.com/codeguru/) for automated code reviews and vulnerability detection.
 
 ## Backend
 
@@ -34,7 +35,7 @@ The backend for this application is developed with **NestJS**. You can check out
 
 ## Design Reference
 
-For design details, you can visit the K’óoben design on [Figma](https://www.figma.com/design/5pfsdvCtVxXvwbVdgRdLEB/kooben?node-id=0-1&node-type=canvas&t=KQT7fgUIFiAWpKjl-0).
+For design details, you can visit the K'óoben design on [Figma](https://www.figma.com/design/5pfsdvCtVxXvwbVdgRdLEB/kooben?node-id=0-1&node-type=canvas&t=KQT7fgUIFiAWpKjl-0).
 
 
 Stay tuned for further updates!
