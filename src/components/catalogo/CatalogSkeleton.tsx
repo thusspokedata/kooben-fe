@@ -1,6 +1,7 @@
 'use client';
 
-import { Container, SimpleGrid, Skeleton, Box, Card, Flex, AspectRatio } from '@mantine/core';
+import { SimpleGrid, Skeleton, Box, Card, Flex, AspectRatio } from '@mantine/core';
+import { ResponsiveContainer } from '../ui';
 
 // Skeleton card component for catalog items
 function CardCatalogoSkeleton() {
@@ -40,19 +41,14 @@ function CategorySkeleton({ itemCount = 4 }: { itemCount?: number }) {
 // Main catalog skeleton component
 const CatalogSkeleton = ({ categoryCount = 3 }: { categoryCount?: number }) => {
   return (
-    <Container
-      size="responsive"
-      px={{ base: '20px', xs: '40px', lg: '120' }}
-      h="100%"
-      style={{ minHeight: '100vh' }}
-    >
+    <ResponsiveContainer h="100%" style={{ minHeight: '100vh' }}>
       {Array.from({ length: categoryCount }).map((_, index) => (
         <CategorySkeleton
           key={index}
           itemCount={index === 0 ? 4 : 3} // First category has more items
         />
       ))}
-    </Container>
+    </ResponsiveContainer>
   );
 };
 

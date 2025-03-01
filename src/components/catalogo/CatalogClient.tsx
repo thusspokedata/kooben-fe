@@ -5,8 +5,9 @@ import { CardCatalogo } from '@/components';
 import { useProducts } from '@/hooks/useProducts';
 import type { Product } from '@/interfaces';
 import { CategoryKey, CATEGORIES } from '@/utils';
-import { Container, SimpleGrid, Text } from '@mantine/core';
+import { SimpleGrid, Text } from '@mantine/core';
 import CatalogSkeleton from './CatalogSkeleton';
+import { ResponsiveContainer } from '../ui';
 
 const CatalogClient = () => {
   const searchParams = useSearchParams();
@@ -33,9 +34,7 @@ const CatalogClient = () => {
   });
 
   return (
-    <Container
-      size="responsive"
-      px={{ base: '20px', xs: '40px', lg: '120' }}
+    <ResponsiveContainer
       h="100%"
       style={{ minHeight: '100vh' }}
     >
@@ -52,7 +51,7 @@ const CatalogClient = () => {
           </SimpleGrid>
         </div>
       ))}
-    </Container>
+    </ResponsiveContainer>
   );
 };
 

@@ -1,6 +1,7 @@
 'use client';
 
-import { Container, Flex, Skeleton, Box, AspectRatio, Stack, Group } from '@mantine/core';
+import { ResponsiveContainer } from '@/components/ui';
+import { Flex, Skeleton, Box, AspectRatio, Stack, Group } from '@mantine/core';
 
 // Skeleton for the product carousel
 function ProductCarouselSkeleton() {
@@ -45,16 +46,11 @@ function ProductInfoSkeleton() {
 // Main product detail skeleton component
 export default function ProductDetailSkeleton() {
   return (
-    <Container
-      size="responsive"
-      px={{ base: '20px', xs: '40px', lg: '120' }}
-      h="100%"
-      style={{ minHeight: '100vh' }}
-    >
+    <ResponsiveContainer h="100%" style={{ minHeight: '100vh' }}>
       <Flex direction={{ base: 'column', md: 'row' }} justify="space-between">
         <ProductCarouselSkeleton />
         <ProductInfoSkeleton />
       </Flex>
-    </Container>
+    </ResponsiveContainer>
   );
 }
