@@ -35,6 +35,20 @@ Here are some preview images from the current development:
 
 This repository uses GitHub's branch protection rules to safeguard the main branch from accidental deletions and force pushes. The protection is configured using [GitHub Rulesets](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets).
 
+### Secret Scanning with 🐷🔑🐷 TruffleHog
+
+This project uses TruffleHog for detecting and preventing secrets from being committed to the repository. TruffleHog scans the entire git history for secrets and credentials.
+
+You can run TruffleHog locally with these commands:
+
+```bash
+# Scan the local repository
+trufflehog git file://./kooben-fe
+
+# Scan the remote repository
+trufflehog git https://github.com/thusspokedata/kooben-fe
+```
+
 ## Backend
 
 The backend for this application is developed with **NestJS**. You can check out the repository [here](https://github.com/thusspokedata/kooben-be).
