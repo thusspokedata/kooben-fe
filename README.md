@@ -69,6 +69,10 @@ trufflehog git file://./kooben-fe
 trufflehog git https://github.com/thusspokedata/kooben-fe
 ```
 
+### Security Training
+
+The security practices implemented in this project were acquired through knowledge shared by [@gabrielsoltz](https://github.com/gabrielsoltz) during one of the tech meetups organized by [@Pablo-Mdz](https://github.com/Pablo-Mdz).
+
 ## Backend
 
 The backend for this application is developed with **NestJS**. You can check out the repository [here](https://github.com/thusspokedata/kooben-be).
