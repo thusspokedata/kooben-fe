@@ -34,6 +34,21 @@ Here are some preview images from the current development:
 
 This repository uses GitHub's branch protection rules to safeguard the main branch from accidental deletions and force pushes. The protection is configured using [GitHub Rulesets](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets).
 
+### CI/CD with GitHub Actions
+
+This project implements Continuous Integration and Continuous Deployment using GitHub Actions. 
+
+#### Docker Containerization
+
+The application is automatically containerized using Docker through GitHub Actions:
+
+- **Automated Docker Builds**: Creates and pushes Docker images on every push to main
+- **Semantic Versioning**: Uses [Git Semantic Version](https://github.com/marketplace/actions/git-semantic-version?version=v5.4.0) to automatically generate version numbers based on commit messages
+  - Major version increments with "major:" prefix in commits
+  - Minor version increments with "feat:" prefix in commits
+  - Patch version increments with all other commits
+- **Multi-tag Strategy**: Pushes both versioned tags and "latest" tag to Docker Hub
+
 ## Security
 
 ### Code Quality with Amazon CodeGuru
