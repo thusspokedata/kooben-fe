@@ -44,8 +44,8 @@ export const HistoriaImages: React.FC = () => {
       align="center"
       direction={{ base: 'column', sm: 'row' }}
     >
-      <HistoriaImage src="/images/kooben-historia1.jpeg" />
-      <HistoriaImage src="/images/kooben-historia2.jpeg" />
+      <HistoriaImage src="https://res.cloudinary.com/thusspokedata/image/upload/v1740839929/kooben/pnapfjwh2uzotauvhcyt.jpg" />
+      <HistoriaImage src="https://res.cloudinary.com/thusspokedata/image/upload/v1740839929/kooben/bcy56muegp6bejaahimr.jpg" />
     </Flex>
   );
 };
