@@ -27,3 +27,5 @@ docker-compose.yml
 .dockerignore
 
 public/images
+
+images-no-subir/
