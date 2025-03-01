@@ -9,7 +9,6 @@ import {
   Burger,
   Drawer,
   Flex,
-  Container,
   Box,
   useMantineTheme,
   Text,
@@ -24,6 +23,7 @@ import LogoKooben from '../../../../public/assets/svgs/LogoKooben';
 import classes from './HeaderMegaMenu.module.css';
 import { UserButton, useUser } from '@clerk/nextjs';
 import { useCartStore } from '@/store';
+import { ResponsiveContainer } from '../layouts';
 
 const mainLinks = [
   { link: '/', label: 'Inicio' },
@@ -147,7 +147,7 @@ export const HeaderMegaMenu = () => {
   ));
 
   return (
-    <Container size="responsive" px={{base:"20px", xs:"40px", lg:"120"}}  >
+    <ResponsiveContainer >
       <header className={classes.header}>
         <Group justify="space-between" h="100%" mt="sm" gap="0px">
           <Flex justify="space-between" w="100%" align="center">
@@ -275,6 +275,6 @@ export const HeaderMegaMenu = () => {
           </Flex>
         </Box>
       </Drawer>
-    </Container>
+    </ResponsiveContainer>
   );
 };
