@@ -27,13 +27,18 @@ Here are some preview images from the current development:
 - Integrated with external APIs using Axios
 - State management and data fetching handled by TanStack Query
 - A dedicated file for handling errors efficiently throughout the app.
-- Code quality and security enhanced with [**Amazon CodeGuru**](https://aws.amazon.com/codeguru/) for automated code reviews and vulnerability detection.
 
 ## Development Practices
 
 ### Branch Protection
 
 This repository uses GitHub's branch protection rules to safeguard the main branch from accidental deletions and force pushes. The protection is configured using [GitHub Rulesets](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets).
+
+## Security
+
+### Code Quality with Amazon CodeGuru
+
+Code quality and security are enhanced with [**Amazon CodeGuru**](https://aws.amazon.com/codeguru/) for automated code reviews and vulnerability detection.
 
 ### Secret Scanning with 🐷🔑🐷 TruffleHog
 
