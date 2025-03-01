@@ -117,7 +117,7 @@ export const Filters = () => {
             <ArticleCardImage
               aspectRatio="4/3"
               imageUrl={getFirstProductImage('escritorio')}
-              category="respaldo_de_cama"
+              category="escritorio"
             />
           </SimpleGrid>
 
@@ -135,13 +135,13 @@ export const Filters = () => {
           aspectRatio="5/2"
           imageUrl={getFirstProductImage('botinero')}
           category="botinero"
-        />
+          />
       </SimpleGrid>
       <SimpleGrid cols={1} mt={16}>
         <ArticleCardImage
           aspectRatio="5/2"
-          imageUrl={getFirstProductImage('botinero')}
-          category="botinero"
+          imageUrl={getFirstProductImage('mesa_tv')}
+          category="mesa_tv"
         />
       </SimpleGrid>
     </>

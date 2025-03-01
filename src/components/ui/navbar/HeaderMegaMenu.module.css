@@ -40,10 +40,20 @@
   border-bottom-color: var(--mantine-color-tertiary-0);
 }
 
+.logo {
+  width: 265px;
+  height: 85px;
+}
+
 @media (max-width: 48em) {
   .header,
   .inner,
   .links {
     height: rem(64px);
+  }
+
+  .logo {
+    width: 200px;
+    height: 65px;
   }
 }

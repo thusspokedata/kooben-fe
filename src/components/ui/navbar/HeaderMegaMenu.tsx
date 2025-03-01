@@ -24,6 +24,7 @@ import classes from './HeaderMegaMenu.module.css';
 import { UserButton, useUser } from '@clerk/nextjs';
 import { useCartStore } from '@/store';
 import { ResponsiveContainer } from '../layouts';
+import { KoobenLogoSVG } from '@/assets/svgs/KoobenLogo';
 
 const mainLinks = [
   { link: '/', label: 'Inicio' },
@@ -147,12 +148,12 @@ export const HeaderMegaMenu = () => {
   ));
 
   return (
-    <ResponsiveContainer >
+    <ResponsiveContainer>
       <header className={classes.header}>
-        <Group justify="space-between" h="100%" mt="sm" gap="0px">
+        <Group justify="space-between" h="100%" gap="0px">
           <Flex justify="space-between" w="100%" align="center">
             <Box mt="xs">
-              <LogoKooben />
+              <KoobenLogoSVG className={classes.logo} />
             </Box>
 
             <Group visibleFrom="sm">
@@ -216,7 +217,7 @@ export const HeaderMegaMenu = () => {
             )}
           </Group>
         </Group>
-        <Divider size="md" mt="md" color="secondary.5" />
+        <Divider size="md" mt={41} color="secondary.5" bg="red" />
       </header>
 
       <Drawer
