@@ -2,59 +2,52 @@ name: Docker Image CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ['main']
   pull_request:
-    branches: [ "main" ]
+    branches: ['main']
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
-      with:
-        fetch-depth: 0
-    
-    - name: Git Semantic Version
-      uses: PaulHatch/semantic-version@v5.4.0
-      with:
-        major_pattern: "major:"
-        minor_pattern: "feat:"
-        version_format: '${major}.${minor}.${patch}-prerelease${increment}'
-      id: version
-    
-    - name: Docker Login
-      env:
-        DOCKER_USER: ${{ secrets.DOCKER_USER }}
-        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-        
-      run: |
-        docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-        
-    - name: Build Docker Image
-      env:
-        NEW_VERSION: ${{ steps.version.outputs.version }}
-      run: |
-        docker build -t thusspokedata/kooben-fe:$NEW_VERSION .
-        docker build -t thusspokedata/kooben-fe:latest .
-        
-    - name: Push Docker Image
-      env:
-        NEW_VERSION: ${{ steps.version.outputs.version }}
-      run: |
-        docker push thusspokedata/kooben-fe:$NEW_VERSION
-        docker push thusspokedata/kooben-fe:latest
-      
-    
-    
-    
-    
-    
-    
-    
-    
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Git Semantic Version
+        uses: PaulHatch/semantic-version@v5.4.0
+        with:
+          major_pattern: 'major:'
+          minor_pattern: 'feat:'
+          version_format: '${major}.${minor}.${patch}-prerelease${increment}'
+        id: version
+
+      - name: Docker Login
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        env:
+          DOCKER_USER: ${{ secrets.DOCKER_USER }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+
+        run: |
+          docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+
+      - name: Build Docker Image
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        env:
+          NEW_VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          docker build -t thusspokedata/kooben-fe:$NEW_VERSION .
+          docker build -t thusspokedata/kooben-fe:latest .
+
+      - name: Push Docker Image
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        env:
+          NEW_VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          docker push thusspokedata/kooben-fe:$NEW_VERSION
+          docker push thusspokedata/kooben-fe:latest
+
 #     - name: Build the Docker image
 #       run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
