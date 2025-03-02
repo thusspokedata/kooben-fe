@@ -27,7 +27,7 @@ function CardCatalogoSkeleton() {
 function CategorySkeleton({ itemCount = 4 }: { itemCount?: number }) {
   return (
     <div>
-      <Skeleton height={28} width="30%" mt="xl" mb="lg" animate={true} />
+      <Skeleton height={28} width="30%" mb="lg" animate={true} />
 
       <SimpleGrid cols={{ base: 1, xs: 2, sm: 3, md: 4 }} spacing="xl">
         {Array.from({ length: itemCount }).map((_, index) => (

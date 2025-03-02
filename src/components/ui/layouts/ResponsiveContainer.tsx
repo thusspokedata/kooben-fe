@@ -19,6 +19,7 @@ export function ResponsiveContainer({ children, ...props }: ResponsiveContainerP
     <Container
       size="responsive"
       px={{ base: '20px', xs: '40px', lg: '120', '2xl': '260' }}
+      pb="5xl"
       {...props}
     >
       {children}
