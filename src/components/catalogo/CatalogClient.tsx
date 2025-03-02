@@ -40,7 +40,7 @@ const CatalogClient = () => {
     >
       {sortedCategories.map((categoryKey) => (
         <div key={categoryKey}>
-          <Text ta="start" fw={500} size="xl" mt="xl" mb="lg" c="brand.8" tt="uppercase">
+          <Text ta="start" fw={500} size="xl" mb="lg" c="brand.8" tt="uppercase">
             {CATEGORIES[categoryKey as CategoryKey]}
           </Text>
 
