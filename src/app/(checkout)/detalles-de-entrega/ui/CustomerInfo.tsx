@@ -5,13 +5,16 @@ import { TextInput, Checkbox, Button, Group, Select, Stack } from '@mantine/core
 import { notifications } from '@mantine/notifications';
 import { useUser } from '@clerk/nextjs';
 import { useEffect } from 'react';
-import { customerService } from '@/api/customer';
-import type { CustomerInfo as CustomerInfoType } from '@/interfaces/customer.interface';
+import { useAddressStore } from '@/store';
+import type { CustomerInfo as ICustomerInfo } from '@/interfaces';
+import classes from './CustomerInfo.module.css';
 
 export const CustomerInfo = () => {
   const { user } = useUser();
+  const setAddress = useAddressStore((state) => state.setAddress);
+  const savedAddress = useAddressStore((state) => state.address);
 
-  const form = useForm({
+  const form = useForm<ICustomerInfo>({
     mode: 'uncontrolled',
     initialValues: {
       email: '',
@@ -29,33 +32,40 @@ export const CustomerInfo = () => {
       email: (value) => (/^\S+@\S+$/.test(value) ? null : 'Correo electrónico inválido'),
       name: (value) => (!value ? 'El nombre es requerido' : null),
       clerkId: (value) => (!value ? 'El ID de Clerk es requerido' : null),
+      address: (value) => (!value ? 'La dirección es requerida' : null),
+      zipCode: (value) => (!value ? 'El código postal es requerido' : null),
+      city: (value) => (!value ? 'La ciudad es requerida' : null),
+      province: (value) => (!value ? 'La provincia es requerida' : null),
     },
   });
 
+  // Load data when component mounts
   useEffect(() => {
-    if (user) {
+    // First check if there's saved data in localStorage (via Zustand)
+    const hasSavedData = savedAddress && savedAddress.email !== '' && savedAddress.name !== '';
+
+    if (hasSavedData) {
+      form.setValues({
+        ...savedAddress,
+      });
+    } else if (user) {
+      // If no saved data but user is logged in, use Clerk data
       form.setValues({
         email: user.primaryEmailAddress?.emailAddress || '',
         name: user.fullName || '',
         clerkId: user.id,
       });
     }
-  }, [user]);
+  }, [user, savedAddress]);
 
-  const handleSubmit = async (values: CustomerInfoType) => {
+  const handleSubmit = async (values: ICustomerInfo) => {
     try {
-      if (values.rememberAddress) {
-        await customerService.saveCustomerAddress({
-          address: values.address || '',
-          zipCode: values.zipCode || '',
-          city: values.city || '',
-          province: values.province || '',
-          isDefault: true,
-        });
-      }
+      const { rememberAddress, ...addressData } = values;
+      setAddress({
+        ...addressData,
+        phone: addressData.phone || '',
+      });
 
-      console.log('💾 Saving customer info:', values);
-      await customerService.saveCustomerInfo(values);
       notifications.show({
         title: 'Éxito',
         message: 'Información guardada correctamente',
@@ -95,7 +105,7 @@ export const CustomerInfo = () => {
     'Santiago del Estero',
     'Tierra del Fuego',
     'Tucumán',
-  ];
+  ].sort();
 
   return (
     <form onSubmit={form.onSubmit(handleSubmit)}>
@@ -117,6 +127,7 @@ export const CustomerInfo = () => {
 
         <TextInput
           size="md"
+          withAsterisk
           label="Dirección"
           placeholder="Dirección"
           {...form.getInputProps('address')}
@@ -124,6 +135,7 @@ export const CustomerInfo = () => {
 
         <TextInput
           size="md"
+          withAsterisk
           label="Código postal"
           placeholder="Código postal"
           {...form.getInputProps('zipCode')}
@@ -131,13 +143,20 @@ export const CustomerInfo = () => {
 
         <Select
           size="md"
+          withAsterisk
           label="Provincia"
           placeholder="Provincia"
           data={provincias.map((provincia) => ({ value: provincia, label: provincia }))}
           {...form.getInputProps('province')}
         />
 
-        <TextInput size="md" label="Ciudad" placeholder="Ciudad" {...form.getInputProps('city')} />
+        <TextInput
+          size="md"
+          withAsterisk
+          label="Ciudad"
+          placeholder="Ciudad"
+          {...form.getInputProps('city')}
+        />
 
         <TextInput
           size="md"
@@ -153,8 +172,15 @@ export const CustomerInfo = () => {
           {...form.getInputProps('rememberAddress', { type: 'checkbox' })}
         />
 
-        <Group justify="flex-end" mt="md">
-          <Button type="submit">Continuar</Button>
+        <Group justify="flex-end">
+          <Button
+            type="submit"
+            disabled={!form.isValid()}
+            color="brand.8"
+            className={classes.button}
+          >
+            Guardar
+          </Button>
         </Group>
       </Stack>
     </form>
