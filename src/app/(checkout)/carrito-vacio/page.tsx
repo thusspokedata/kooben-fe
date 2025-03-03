@@ -16,7 +16,7 @@ export default function EmptyCart() {
       <IconShoppingCart
         size={rem(80)}
         stroke={1.5}
-        style={{ marginBottom: rem(20), color: '#6f4e37' }}
+        style={{ marginBottom: rem(20), color: 'var(--mantine-color-brand-6)' }}
       />
 
       <Title order={2} size="h1" fw={900} style={{ marginBottom: rem(15) }}>

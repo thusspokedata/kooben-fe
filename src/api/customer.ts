@@ -1,13 +1,23 @@
-import { CustomerInfo, CustomerAddress } from '../types/customer';
-import { api } from '@/api/api';
+import { CustomerInfo, CustomerAddress } from '@/interfaces/customer.interface';
+import { api } from './api';
+import { AxiosError } from 'axios';
 
 export const customerService = {
   async saveCustomerInfo(customerInfo: CustomerInfo) {
     try {
+      if (!customerInfo.clerkId) {
+        throw new Error('clerkId is required');
+      }
       const response = await api.post('/customers', customerInfo);
       return response.data;
     } catch (error) {
-      console.error('Error saving customer info:', error);
+      if (error instanceof AxiosError) {
+        console.error('Backend error details:', {
+          status: error.response?.status,
+          data: JSON.stringify(error.response?.data, null, 2),
+          message: error.message,
+        });
+      }
       throw error;
     }
   },
