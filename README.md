@@ -15,9 +15,10 @@ Here are some preview images from the current development:
 ### Home Page
 ![Home1](./public/images/home1.png)
 ![Home2](./public/images/home2.png)
+![Home3](./public/images/home3.png)
 
 ### Catalog
-![Catalog](./public/images/catalogo.png)
+![Catalog](./public/images/catalog.png)
 
 ## Features
 
