@@ -18,7 +18,7 @@ Here are some preview images from the current development:
 ![Home3](./public/images/home3.png)
 
 ### Catalog
-![Catalog](./public/images/SRP1.png)
+![Catalog](./public/images/catalog.png)
 
 ## Features
 

@@ -5,7 +5,7 @@ import { CardCatalogo } from '@/components';
 import { useProducts } from '@/hooks/useProducts';
 import type { Product } from '@/interfaces';
 import { CategoryKey, CATEGORIES } from '@/utils';
-import { SimpleGrid, Text } from '@mantine/core';
+import { Box, SimpleGrid, Text } from '@mantine/core';
 import CatalogSkeleton from './CatalogSkeleton';
 import { ResponsiveContainer } from '../ui';
 
@@ -39,7 +39,7 @@ const CatalogClient = () => {
       style={{ minHeight: '100vh' }}
     >
       {sortedCategories.map((categoryKey) => (
-        <div key={categoryKey}>
+        <Box key={categoryKey} mb="lg">
           <Text ta="start" fw={500} size="xl" mb="lg" c="brand.8" tt="uppercase">
             {CATEGORIES[categoryKey as CategoryKey]}
           </Text>
@@ -49,7 +49,7 @@ const CatalogClient = () => {
               <CardCatalogo key={product.id} product={product} />
             ))}
           </SimpleGrid>
-        </div>
+        </Box>
       ))}
     </ResponsiveContainer>
   );

@@ -51,7 +51,7 @@ export function CardCatalogo({ product }: { product: Product }) {
           )}
         </Card.Section>
         <Flex direction="column" justify="space-between" gap="xs" h="100%">
-          <Box>
+          <Box mih={{ xs: "130", sm: "155"}}>
             <Text fw={500} fz="lg" c="brand.7" mt="md" tt="capitalize">
               {title}
             </Text>
