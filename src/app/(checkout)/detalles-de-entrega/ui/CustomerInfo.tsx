@@ -5,14 +5,16 @@ import { TextInput, Checkbox, Button, Group, Select, Stack } from '@mantine/core
 import { notifications } from '@mantine/notifications';
 import { useUser } from '@clerk/nextjs';
 import { useEffect } from 'react';
-import { saveCustomerInfo, saveCustomerAddress } from '@/services';
+import { useAddressStore } from '@/store';
 import type { CustomerInfo as ICustomerInfo } from '@/interfaces';
 import classes from './CustomerInfo.module.css';
 
 export const CustomerInfo = () => {
   const { user } = useUser();
+  const setAddress = useAddressStore((state) => state.setAddress);
+  const savedAddress = useAddressStore((state) => state.address);
 
-  const form = useForm({
+  const form = useForm<ICustomerInfo>({
     mode: 'uncontrolled',
     initialValues: {
       email: '',
@@ -37,30 +39,33 @@ export const CustomerInfo = () => {
     },
   });
 
+  // Load data when component mounts
   useEffect(() => {
-    if (user) {
+    // First check if there's saved data in localStorage (via Zustand)
+    const hasSavedData = savedAddress && savedAddress.email !== '' && savedAddress.name !== '';
+
+    if (hasSavedData) {
+      form.setValues({
+        ...savedAddress,
+      });
+    } else if (user) {
+      // If no saved data but user is logged in, use Clerk data
       form.setValues({
         email: user.primaryEmailAddress?.emailAddress || '',
         name: user.fullName || '',
         clerkId: user.id,
       });
     }
-  }, [user]);
+  }, [user, savedAddress]);
 
   const handleSubmit = async (values: ICustomerInfo) => {
     try {
-      if (values.rememberAddress) {
-        await saveCustomerAddress({
-          address: values.address || '',
-          zipCode: values.zipCode || '',
-          city: values.city || '',
-          province: values.province || '',
-          phone: values.phone,
-        });
-      }
+      const { rememberAddress, ...addressData } = values;
+      setAddress({
+        ...addressData,
+        phone: addressData.phone || '',
+      });
 
-      console.log('💾 Saving customer info:', values);
-      await saveCustomerInfo(values);
       notifications.show({
         title: 'Éxito',
         message: 'Información guardada correctamente',
