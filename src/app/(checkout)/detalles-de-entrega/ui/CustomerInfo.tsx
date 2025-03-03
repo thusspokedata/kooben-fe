@@ -100,7 +100,7 @@ export const CustomerInfo = () => {
     'Santiago del Estero',
     'Tierra del Fuego',
     'Tucumán',
-  ];
+  ].sort();
 
   return (
     <form onSubmit={form.onSubmit(handleSubmit)}>
