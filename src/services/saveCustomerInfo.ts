@@ -1,5 +1,5 @@
-import { CustomerInfo, CustomerAddress } from '@/interfaces/customer.interface';
 import { api } from '@/api/api';
+import { CustomerInfo, CustomerAddress } from '@/interfaces';
 import { AxiosError } from 'axios';
 
 export const saveCustomerInfo = async (customerInfo: CustomerInfo) => {
