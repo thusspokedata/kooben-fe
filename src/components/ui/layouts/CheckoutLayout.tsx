@@ -1,5 +1,6 @@
-import { Box, Container, Flex, Text, Title } from '@mantine/core';
+import { Box, Flex, Text, Title } from '@mantine/core';
 import { ReactNode } from 'react';
+import { ResponsiveContainer } from './ResponsiveContainer';
 
 interface LayoutProps {
   title: string;
@@ -10,10 +11,10 @@ interface LayoutProps {
 
 export const CheckoutLayout = ({ title, subtitle, contentLeft, contentRight }: LayoutProps) => {
   return (
-    <Container size="lg" h="100%" p={{ base: 'xs', md: 'lg' }} style={{ minHeight: '100vh' }}>
+    <ResponsiveContainer h="100%" style={{ minHeight: '100vh' }}>
       <Flex direction={{ base: 'column', md: 'row' }} justify="space-between">
         <Flex direction="column" w={{ base: '100%', md: '90%' }}>
-          <Box h="110px">
+          <Box h={80}>
             <Title order={1} c="brand.8" fz={24} fw={500}>
               {title}
             </Title>
@@ -27,7 +28,7 @@ export const CheckoutLayout = ({ title, subtitle, contentLeft, contentRight }: L
         </Flex>
 
         <Flex direction="column" align="end" w="100%">
-          <Box h="110px" ta="start" w={{ base: '100%', md: '80%' }}>
+          <Box h={80} ta="start" w={{ base: '100%', md: '80%' }}>
             <Text c="brand.8" fz={24} fw={500} w={{ base: '100%', md: '80%' }} pl="sm">
               Resumen
             </Text>
@@ -37,6 +38,6 @@ export const CheckoutLayout = ({ title, subtitle, contentLeft, contentRight }: L
           </Box>
         </Flex>
       </Flex>
-    </Container>
+    </ResponsiveContainer>
   );
 };

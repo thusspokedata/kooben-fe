@@ -7,7 +7,7 @@ export interface CustomerInfo {
   phone: string;
   province: string;
   rememberAddress: boolean;
-  clerkId?: string; // ID del usuario en Clerk
+  clerkId?: string;
 }
 
 export interface CustomerAddress {
