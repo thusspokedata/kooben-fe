@@ -63,6 +63,10 @@ export const CustomerInfo = () => {
       const { rememberAddress, ...addressData } = values;
       setAddress({
         ...addressData,
+        address: addressData.address || '',
+        zipCode: addressData.zipCode || '',
+        city: addressData.city || '',
+        province: addressData.province || '',
         phone: addressData.phone || '',
       });
 
