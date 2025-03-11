@@ -13,6 +13,8 @@ import '@mantine/dropzone/styles.css';
 import '@mantine/charts/styles.css';
 import './globals.css';
 import { Footer, HeaderMegaMenu } from '@/components';
+import { AuthSyncProvider } from '@/providers/AuthSyncProvider';
+import { Notifications } from '@mantine/notifications';
 
 export const metadata: Metadata = {
   title: "K'ooben",
@@ -34,10 +36,13 @@ export default function RootLayout({
         </head>
         <body>
           <MantineProvider theme={theme}>
+            <Notifications position="top-right" />
             <TanStackProvider>
-              <HeaderMegaMenu /> 
+              <AuthSyncProvider>
+                <HeaderMegaMenu />
                 {children}
-              <Footer />
+                <Footer />
+              </AuthSyncProvider>
             </TanStackProvider>
           </MantineProvider>
         </body>
