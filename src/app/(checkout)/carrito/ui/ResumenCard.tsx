@@ -3,8 +3,11 @@
 import { useEffect, useState } from 'react';
 import { useCartStore } from '@/store';
 import Link from 'next/link';
-import { Button, Text, Flex, useMantineTheme, Box, LoadingOverlay } from '@mantine/core';
+import { Button, Text, Flex, useMantineTheme, Box, LoadingOverlay, Modal } from '@mantine/core';
 import { currencyFormat } from '@/utils';
+import { useUser } from '@clerk/nextjs';
+import { useDisclosure } from '@mantine/hooks';
+import { useRouter } from 'next/navigation';
 
 interface ResumenRowProps {
   label: string;
@@ -31,6 +34,9 @@ export const ResumenCard = ({ nextPage }: { nextPage: string }) => {
   const cart = useCartStore((state) => state.cart);
   const getSummaryInformation = useCartStore((state) => state.getSummaryInformation);
   const summary = getSummaryInformation();
+  const [opened, { open, close }] = useDisclosure(false);
+  const { isSignedIn } = useUser();
+  const router = useRouter();
 
   useEffect(() => {
     setMounted(true);
@@ -38,6 +44,24 @@ export const ResumenCard = ({ nextPage }: { nextPage: string }) => {
 
   const { total, tax, subTotal, itemsInCart } = summary;
   const articles = itemsInCart === 1 ? '1 artículo' : `${itemsInCart} artículos`;
+
+  const handleContinueClick = (e: React.MouseEvent) => {
+    if (!isSignedIn) {
+      e.preventDefault();
+      open();
+    }
+    // If signed in, the Link component will handle navigation
+  };
+
+  const handleSignIn = () => {
+    close();
+    router.push('/sign-in');
+  };
+
+  const handleSignUp = () => {
+    close();
+    router.push('/sign-up');
+  };
 
   return (
     <Flex
@@ -59,11 +83,31 @@ export const ResumenCard = ({ nextPage }: { nextPage: string }) => {
         <ResumenRow label="Impuestos (21%):" value={mounted ? `${currencyFormat(tax)}` : 0} />
       </Box>
       <ResumenRow label="Total:" value={mounted ? `${currencyFormat(total)}` : 0} isBold />
-      <Link href={nextPage} passHref style={{ textDecoration: 'none' }}>
+      <Link
+        href={nextPage}
+        passHref
+        style={{ textDecoration: 'none' }}
+        onClick={handleContinueClick}
+      >
         <Button color="blue" fullWidth mt="md" radius="sm" size="lg" bg="brand.8">
           Continuar
         </Button>
       </Link>
+
+      {/* Authentication required modal */}
+      <Modal opened={opened} onClose={close} title="Inicio de sesión requerido" centered>
+        <Text mb="lg">
+          Para continuar con tu compra, es necesario iniciar sesión o registrarse.
+        </Text>
+        <Flex gap="md" justify="center">
+          <Button onClick={handleSignIn} variant="outline" color="brand">
+            Iniciar Sesión
+          </Button>
+          <Button onClick={handleSignUp} color="brand">
+            Registrarse
+          </Button>
+        </Flex>
+      </Modal>
     </Flex>
   );
 };
