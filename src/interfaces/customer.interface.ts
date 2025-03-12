@@ -16,6 +16,10 @@ export interface CustomerInfo {
   rememberAddress?: boolean;
 }
 
+/**
+ * Customer address interface - used both for frontend and backend
+ * The structure matches the backend Address entity
+ */
 export interface CustomerAddress {
   address: string;
   zipCode: string;
@@ -23,4 +27,10 @@ export interface CustomerAddress {
   province: string;
   phone?: string;
   isDefault?: boolean;
+
+  // Backend specific fields (optional in frontend)
+  id?: string;
+  userId?: string;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
