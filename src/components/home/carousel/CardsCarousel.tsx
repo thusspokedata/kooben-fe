@@ -21,17 +21,12 @@ function CardWithImage({ images, title, description }: CardProps) {
   const [imageError, setImageError] = useState(false);
   const hasImages = images && images.length > 0;
 
-  // Log image URL for debugging
-  console.log('CardWithImage - Image URL:', hasImages ? images[0] : 'No images');
 
   // Function to safely handle URLs with special characters
   const getSafeImageUrl = (url: string): string => {
     if (!url) return '';
 
     try {
-      // For debugging
-      console.log('Processing URL in CardWithImage:', url);
-
       // Return the URL as is - Next.js with unoptimized=true should handle it correctly
       return url;
     } catch (error) {
@@ -41,7 +36,6 @@ function CardWithImage({ images, title, description }: CardProps) {
   };
 
   const imageUrl = hasImages ? getSafeImageUrl(images[0]) : '';
-  console.log('Final URL to be used:', imageUrl);
 
   return (
     <Card withBorder radius="md" p={0} className={classes.card}>
