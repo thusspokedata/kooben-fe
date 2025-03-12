@@ -5,7 +5,7 @@ import { Card, Center, Text, SimpleGrid, useMantineTheme } from '@mantine/core';
 
 interface ServiceCardProps {
   title: string;
-  Icon: React.ComponentType<any>;
+  Icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
 }
 
 const ServiceCard: React.FC<ServiceCardProps> = ({ title, Icon }) => {
