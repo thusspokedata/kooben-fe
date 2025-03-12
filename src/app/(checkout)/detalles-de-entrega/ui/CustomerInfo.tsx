@@ -22,6 +22,23 @@ export const CustomerInfo = () => {
   const [userId, setUserId] = useState<string | null>(null);
   const [isSaving, setIsSaving] = useState(false);
 
+  // Helper function to format address with default empty strings
+  const formatAddress = (
+    addressData: Partial<{
+      address?: string;
+      zipCode?: string;
+      city?: string;
+      province?: string;
+      phone?: string;
+    }>
+  ) => ({
+    address: addressData.address || '',
+    zipCode: addressData.zipCode || '',
+    city: addressData.city || '',
+    province: addressData.province || '',
+    phone: addressData.phone || '',
+  });
+
   const form = useForm<ICustomerInfo>({
     mode: 'uncontrolled',
     initialValues: {
