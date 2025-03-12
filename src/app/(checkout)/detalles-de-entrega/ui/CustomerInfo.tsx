@@ -14,6 +14,7 @@ import {
   getCustomerAddresses,
 } from '@/services/saveCustomerInfo';
 import { formatAddress } from '@/utils/formatting';
+import { PROVINCIAS } from '@/constants/locations';
 
 export const CustomerInfo = () => {
   const { user } = useUser();
@@ -184,32 +185,6 @@ export const CustomerInfo = () => {
     }
   };
 
-  const provincias = [
-    'Buenos Aires',
-    'Catamarca',
-    'Chaco',
-    'Chubut',
-    'Córdoba',
-    'Corrientes',
-    'Entre Ríos',
-    'Formosa',
-    'Jujuy',
-    'La Pampa',
-    'La Rioja',
-    'Mendoza',
-    'Misiones',
-    'Neuquén',
-    'Río Negro',
-    'Salta',
-    'San Juan',
-    'San Luis',
-    'Santa Cruz',
-    'Santa Fe',
-    'Santiago del Estero',
-    'Tierra del Fuego',
-    'Tucumán',
-  ].sort();
-
   return (
     <form onSubmit={form.onSubmit(handleSubmit)}>
       <Stack gap="lg">
@@ -249,7 +224,7 @@ export const CustomerInfo = () => {
           withAsterisk
           label="Provincia"
           placeholder="Provincia"
-          data={provincias.map((provincia) => ({ value: provincia, label: provincia }))}
+          data={PROVINCIAS.map((provincia) => ({ value: provincia, label: provincia }))}
           {...form.getInputProps('province')}
         />
 
