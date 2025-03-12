@@ -1,7 +1,7 @@
 /**
  * Lista de provincias de Argentina, ordenadas alfabéticamente
  */
-export const PROVINCIAS = [
+export const PROVINCES = [
   'Buenos Aires',
   'Catamarca',
   'Chaco',

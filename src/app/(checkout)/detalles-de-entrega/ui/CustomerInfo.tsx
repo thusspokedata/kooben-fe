@@ -14,7 +14,7 @@ import {
   getCustomerAddresses,
 } from '@/services/saveCustomerInfo';
 import { formatAddress } from '@/utils/formatting';
-import { PROVINCIAS } from '@/constants/locations';
+import { PROVINCES } from '@/constants/locations';
 
 export const CustomerInfo = () => {
   const { user } = useUser();
@@ -224,7 +224,7 @@ export const CustomerInfo = () => {
           withAsterisk
           label="Provincia"
           placeholder="Provincia"
-          data={PROVINCIAS.map((provincia) => ({ value: provincia, label: provincia }))}
+          data={PROVINCES.map((provincia) => ({ value: provincia, label: provincia }))}
           {...form.getInputProps('province')}
         />
 
