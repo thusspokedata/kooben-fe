@@ -10,6 +10,7 @@ type AuthSyncContextType = {
   isSyncing: boolean;
   isSynced: boolean;
   userInDb: any | null;
+  forceSync: () => void; // New function to force synchronization
 };
 
 // Create context with default values
@@ -17,6 +18,7 @@ const AuthSyncContext = createContext<AuthSyncContextType>({
   isSyncing: false,
   isSynced: false,
   userInDb: null,
+  forceSync: () => {}, // Default no-op function
 });
 
 // Hook to use the context values
@@ -28,6 +30,21 @@ export function AuthSyncProvider({ children }: { children: ReactNode }) {
   const [isSyncing, setIsSyncing] = useState(false);
   const [isSynced, setIsSynced] = useState(false);
   const [userInDb, setUserInDb] = useState<any>(null);
+  const [syncCounter, setSyncCounter] = useState(0); // Counter to force re-sync
+
+  // Reset sync state when user changes
+  useEffect(() => {
+    if (user?.id) {
+      // Set isSynced to false when user changes or first appears
+      setIsSynced(false);
+    }
+  }, [user?.id]);
+
+  // Function to force a new synchronization attempt
+  const forceSync = () => {
+    setIsSynced(false);
+    setSyncCounter((prev) => prev + 1);
+  };
 
   // Effect to sync user with backend after authentication
   useEffect(() => {
@@ -98,13 +115,14 @@ export function AuthSyncProvider({ children }: { children: ReactNode }) {
       // User not authenticated, mark as synced
       setIsSynced(true);
     }
-  }, [isLoaded, isSignedIn, user, isSynced, isSyncing]);
+  }, [isLoaded, isSignedIn, user, isSynced, isSyncing, syncCounter]); // Added syncCounter as dependency
 
   // Context value to be provided
   const contextValue = {
     isSyncing,
     isSynced,
     userInDb,
+    forceSync,
   };
 
   return <AuthSyncContext.Provider value={contextValue}>{children}</AuthSyncContext.Provider>;
