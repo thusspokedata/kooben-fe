@@ -5,11 +5,28 @@ import { ReactNode, createContext, useContext, useEffect, useState } from 'react
 import { getUserByClerkId, saveCustomerInfo } from '@/services/saveCustomerInfo';
 import { api } from '@/api/api';
 
+// Define user interface for database user
+interface DbUser {
+  id: string;
+  clerkId: string;
+  email?: string;
+  name?: string;
+  addresses?: Array<{
+    id?: string;
+    address?: string;
+    zipCode?: string;
+    city?: string;
+    province?: string;
+    phone?: string;
+  }>;
+  [key: string]: unknown; // For any additional properties
+}
+
 // Define the context shape
 type AuthSyncContextType = {
   isSyncing: boolean;
   isSynced: boolean;
-  userInDb: any | null;
+  userInDb: DbUser | null;
   forceSync: () => void; // New function to force synchronization
 };
 
@@ -29,7 +46,7 @@ export function AuthSyncProvider({ children }: { children: ReactNode }) {
   const { isLoaded, isSignedIn, user } = useUser();
   const [isSyncing, setIsSyncing] = useState(false);
   const [isSynced, setIsSynced] = useState(false);
-  const [userInDb, setUserInDb] = useState<any>(null);
+  const [userInDb, setUserInDb] = useState<DbUser | null>(null);
   const [syncCounter, setSyncCounter] = useState(0); // Counter to force re-sync
 
   // Reset sync state when user changes

@@ -29,6 +29,7 @@ export const useAddressStore = create<State>()(
         province: '',
         clerkId: '',
       },
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       setAddress: (address) => set({ address }),
     }),
     {

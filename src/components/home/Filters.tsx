@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { Grid, Card, Title, SimpleGrid, Center, Loader } from '@mantine/core';
+import { Grid, Card, Title, SimpleGrid } from '@mantine/core';
 import classes from './Filters.module.css';
 import { useHover } from '@mantine/hooks';
 import { useProducts } from '@/hooks/useProducts';

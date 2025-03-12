@@ -9,10 +9,11 @@ import { useAddressStore } from '@/store';
 import type { CustomerInfo as ICustomerInfo } from '@/interfaces';
 import classes from './CustomerInfo.module.css';
 import {
-  getCustomerAddresses,
   getUserByClerkId,
   saveCustomerAddress,
+  getCustomerAddresses,
 } from '@/services/saveCustomerInfo';
+import { formatAddress } from '@/utils/formatting';
 
 export const CustomerInfo = () => {
   const { user } = useUser();
@@ -143,7 +144,7 @@ export const CustomerInfo = () => {
     };
 
     loadUserData();
-  }, [user, savedAddress]);
+  }, [user, savedAddress, form]);
 
   const handleSubmit = async (values: ICustomerInfo) => {
     try {
