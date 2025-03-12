@@ -22,31 +22,15 @@ export const saveCustomerInfo = async (
       name: userData.name || '',
     };
 
-    // Use the same approach that works with fetch
-    try {
-      // Attempt 1: Using Axios normally
-      const response = await api.post('/users/sync', userDataToSend);
-      return response.data;
-    } catch (axiosError) {
-      // Attempt 2: Using stringified data, similar to fetch
-      const stringifiedData = JSON.stringify(userDataToSend);
-      const response = await api.post('/users/sync', stringifiedData, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-
-      return response.data;
-    }
+    // Single API call without unnecessary fallbacks
+    const response = await api.post('/users/sync', userDataToSend);
+    return response.data;
   } catch (error) {
     if (error instanceof AxiosError) {
       console.error('Backend error details:', {
         status: error.response?.status,
         statusText: error.response?.statusText,
         data: error.response?.data ? JSON.stringify(error.response.data, null, 2) : 'No data',
-        url: error.config?.url,
-        method: error.config?.method,
-        requestData: error.config?.data ? JSON.parse(error.config.data) : null,
       });
     }
     console.error('Error saving customer info:', error);
@@ -89,12 +73,24 @@ export const updateUser = async (userId: string, userData: Partial<CustomerInfo>
 };
 
 /**
- * Save customer address
+ * Save customer address - checks if address exists and updates it
  */
 export const saveCustomerAddress = async (userId: string, address: CustomerAddress) => {
   try {
-    const response = await api.post(`users/${userId}/addresses`, address);
-    return response.data;
+    // First, get the user's existing addresses
+    const existingAddresses = await getCustomerAddresses(userId);
+
+    if (existingAddresses && existingAddresses.length > 0) {
+      const addressId = existingAddresses[0].id;
+
+      // Update the existing address
+      const response = await api.put(`users/${userId}/addresses/${addressId}`, address);
+      return response.data;
+    } else {
+      // No existing address, create a new one
+      const response = await api.post(`users/${userId}/addresses`, address);
+      return response.data;
+    }
   } catch (error) {
     console.error('Error saving customer address:', error);
     throw error;
@@ -109,6 +105,9 @@ export const getCustomerAddresses = async (userId: string) => {
     const response = await api.get(`users/${userId}/addresses`);
     return response.data;
   } catch (error) {
+    if (error instanceof AxiosError && error.response?.status === 404) {
+      return []; // No addresses found
+    }
     console.error('Error getting customer addresses:', error);
     throw error;
   }
