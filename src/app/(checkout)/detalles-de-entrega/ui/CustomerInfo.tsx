@@ -45,29 +45,30 @@ export const CustomerInfo = () => {
   // Fetch user data from the database when component mounts
   useEffect(() => {
     const fetchUserData = async () => {
-      if (user?.id) {
-        try {
-          const dbUser = await getUserByClerkId(user.id);
-          if (dbUser) {
-            setUserId(dbUser.id);
+      if (!user?.id) return;
 
-            // If user has a saved address in DB, populate form
-            if (dbUser.addresses && dbUser.addresses.length > 0) {
-              const dbAddress = dbUser.addresses[0];
-              form.setValues({
-                ...form.values,
-                address: dbAddress.address || '',
-                zipCode: dbAddress.zipCode || '',
-                city: dbAddress.city || '',
-                province: dbAddress.province || '',
-                phone: dbAddress.phone || '',
-                rememberAddress: true,
-              });
-            }
-          }
-        } catch (error) {
-          console.error('Error fetching user data:', error);
+      try {
+        const dbUser = await getUserByClerkId(user.id);
+        if (!dbUser) return;
+
+        setUserId(dbUser.id);
+
+        // If user has addresses, populate form with the first one (should be default)
+        if (dbUser.addresses && dbUser.addresses.length > 0) {
+          const dbAddress = dbUser.addresses[0];
+
+          form.setValues({
+            ...form.values,
+            address: dbAddress.address || '',
+            zipCode: dbAddress.zipCode || '',
+            city: dbAddress.city || '',
+            province: dbAddress.province || '',
+            phone: dbAddress.phone || '',
+            rememberAddress: true,
+          });
         }
+      } catch (error) {
+        console.error('Error fetching user data:', error);
       }
     };
 
@@ -86,6 +87,7 @@ export const CustomerInfo = () => {
     } else if (user) {
       // If no saved data but user is logged in, use Clerk data
       form.setValues({
+        ...form.values,
         email: user.primaryEmailAddress?.emailAddress || '',
         name: user.username || '',
         clerkId: user.id,
@@ -98,36 +100,36 @@ export const CustomerInfo = () => {
       setIsSaving(true);
       const { rememberAddress, ...addressData } = values;
 
-      // Always save to local store
-      setAddress({
-        ...addressData,
+      // Extract address fields with default empty strings
+      const formattedAddress = {
         address: addressData.address || '',
         zipCode: addressData.zipCode || '',
         city: addressData.city || '',
         province: addressData.province || '',
         phone: addressData.phone || '',
+      };
+
+      // Always save to local store
+      setAddress({
+        ...addressData,
+        ...formattedAddress,
       });
 
       // If rememberAddress is true and user is authenticated, save to database
       if (rememberAddress && userId && user?.id) {
         try {
-          // Transform form data to match CustomerAddress format
-          const addressToSave = {
-            address: addressData.address || '',
-            zipCode: addressData.zipCode || '',
-            city: addressData.city || '',
-            province: addressData.province || '',
-            phone: addressData.phone || '',
-          };
+          await saveCustomerAddress(userId, formattedAddress);
 
-          await saveCustomerAddress(userId, addressToSave);
           notifications.show({
             title: 'Dirección guardada',
             message: 'Tu dirección se ha guardado en tu cuenta para futuras compras',
             color: 'green',
           });
-        } catch (error) {
-          console.error('Error saving address to database:', error);
+        } catch (error: unknown) {
+          // Log detailed error for developers
+          console.error('Error saving address:', error);
+
+          // Simple message for users
           notifications.show({
             title: 'Error al guardar',
             message:
