@@ -8,7 +8,12 @@ import { useEffect, useState } from 'react';
 import { useAddressStore } from '@/store';
 import type { CustomerInfo as ICustomerInfo } from '@/interfaces';
 import classes from './CustomerInfo.module.css';
-import { getUserByClerkId, saveCustomerAddress } from '@/services/saveCustomerInfo';
+import {
+  getUserByClerkId,
+  saveCustomerAddress,
+  getCustomerAddresses,
+} from '@/services/saveCustomerInfo';
+import { formatAddress } from '@/utils/formatting';
 
 export const CustomerInfo = () => {
   const { user } = useUser();
@@ -42,58 +47,87 @@ export const CustomerInfo = () => {
     },
   });
 
-  // Fetch user data from the database when component mounts
+  // Fetch user data and handle form population
   useEffect(() => {
-    const fetchUserData = async () => {
+    const loadUserData = async () => {
       if (!user?.id) return;
 
+      // Log Clerk user data to see what's available
+      console.log('Clerk user data:', {
+        id: user.id,
+        email: user.primaryEmailAddress?.emailAddress,
+        username: user.username,
+        fullName: user.fullName,
+        firstName: user.firstName,
+        lastName: user.lastName,
+      });
+
+      // STEP 1: Set basic user data from Clerk
+      // This is important regardless of the address source
+      const userName =
+        user.fullName || user.username || `${user.firstName || ''} ${user.lastName || ''}`.trim();
+      const userEmail = user.primaryEmailAddress?.emailAddress || '';
+      const userClerkId = user.id;
+
+      console.log('Setting basic user data:', { userName, userEmail, userClerkId });
+
+      // Apply basic user data
+      form.setFieldValue('name', userName);
+      form.setFieldValue('email', userEmail);
+      form.setFieldValue('clerkId', userClerkId);
+
       try {
-        const dbUser = await getUserByClerkId(user.id);
-        if (!dbUser) return;
+        // STEP 2: Check for data in localStorage
+        const hasSavedData = savedAddress && savedAddress.email !== '' && savedAddress.name !== '';
 
-        setUserId(dbUser.id);
-
-        // If user has addresses, populate form with the first one (should be default)
-        if (dbUser.addresses && dbUser.addresses.length > 0) {
-          const dbAddress = dbUser.addresses[0];
-
+        if (hasSavedData) {
+          console.log('Loading data from localStorage:', savedAddress);
+          // Use data from localStorage but keep clerkId
           form.setValues({
-            ...form.values,
-            address: dbAddress.address || '',
-            zipCode: dbAddress.zipCode || '',
-            city: dbAddress.city || '',
-            province: dbAddress.province || '',
-            phone: dbAddress.phone || '',
-            rememberAddress: true,
+            ...savedAddress,
+            clerkId: userClerkId, // Keep the Clerk ID
           });
+          return; // Exit early if we loaded from localStorage
+        }
+
+        // STEP 3: If no localStorage data, try to get data from database
+        console.log('Fetching user from database with clerk ID:', userClerkId);
+        const dbUser = await getUserByClerkId(userClerkId);
+
+        if (dbUser) {
+          setUserId(dbUser.id);
+          console.log('User found in database:', dbUser);
+
+          // STEP 4: Try to get saved addresses
+          try {
+            const addresses = await getCustomerAddresses(dbUser.id);
+            console.log('Addresses from database:', addresses);
+
+            // If there are addresses, use the first one
+            if (addresses && addresses.length > 0) {
+              const dbAddress = addresses[0];
+              console.log('Setting address data from database:', dbAddress);
+
+              // Update only address fields, keeping basic data
+              form.setValues({
+                name: userName,
+                email: userEmail,
+                clerkId: userClerkId,
+                ...formatAddress(dbAddress),
+                rememberAddress: true,
+              });
+            }
+          } catch (addressError) {
+            console.error('Error fetching customer addresses:', addressError);
+          }
         }
       } catch (error) {
-        console.error('Error fetching user data:', error);
+        console.error('Error loading user data:', error);
       }
     };
 
-    fetchUserData();
-  }, [user]);
-
-  // Load data when component mounts
-  useEffect(() => {
-    // First check if there's saved data in localStorage (via Zustand)
-    const hasSavedData = savedAddress && savedAddress.email !== '' && savedAddress.name !== '';
-
-    if (hasSavedData) {
-      form.setValues({
-        ...savedAddress,
-      });
-    } else if (user) {
-      // If no saved data but user is logged in, use Clerk data
-      form.setValues({
-        ...form.values,
-        email: user.primaryEmailAddress?.emailAddress || '',
-        name: user.username || '',
-        clerkId: user.id,
-      });
-    }
-  }, [user, savedAddress]);
+    loadUserData();
+  }, [user, savedAddress, form]);
 
   const handleSubmit = async (values: ICustomerInfo) => {
     try {
@@ -101,13 +135,7 @@ export const CustomerInfo = () => {
       const { rememberAddress, ...addressData } = values;
 
       // Extract address fields with default empty strings
-      const formattedAddress = {
-        address: addressData.address || '',
-        zipCode: addressData.zipCode || '',
-        city: addressData.city || '',
-        province: addressData.province || '',
-        phone: addressData.phone || '',
-      };
+      const formattedAddress = formatAddress(addressData);
 
       // Always save to local store
       setAddress({
