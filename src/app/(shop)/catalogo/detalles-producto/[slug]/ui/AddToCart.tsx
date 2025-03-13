@@ -15,7 +15,6 @@ export default function AddToCart({ product }: { product: Product }): JSX.Elemen
   const [quantity, setQuantity] = useState<number>(1);
   const [posted, setPosted] = useState(false);
 
-
   // Function to get the available stock for the selected size
   const getSelectedSizeStock = (): number => {
     if (!size || !product.productSizes) return 0;
@@ -109,7 +108,7 @@ export default function AddToCart({ product }: { product: Product }): JSX.Elemen
           onClick={addToCart}
           disabled={!size || (availableColors.length > 0 && !color) || availableStock <= 0}
         >
-          Add to cart
+          Agregar al carrito
         </Button>
       </Flex>
     </Box>
