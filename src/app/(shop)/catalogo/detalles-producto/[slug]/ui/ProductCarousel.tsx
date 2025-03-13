@@ -8,7 +8,7 @@ import Image from 'next/image';
 import { useState } from 'react';
 import ImagePlaceholder from '@/components/global/ImagePlaceHolder';
 
-export function ProductCarousel({ product }: { product: Product }) {
+export function ProductCarousel({ product }: { product: Product }): JSX.Element {
   const theme = useMantineTheme();
   const isMobile = useMediaQuery('(max-width: 768px)');
   const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({});
@@ -16,36 +16,8 @@ export function ProductCarousel({ product }: { product: Product }) {
   const imageWidth = isMobile ? 350 : 500;
   const imageHeight = isMobile ? 350 : 500;
 
-  // Log all product images for debugging
-  console.log('ProductCarousel - All images:', product.images);
-
-  // Ensure the image URL is valid and handle special characters
-  const isValidImageUrl = (url: string): boolean => {
-    return !!url && typeof url === 'string' && url.trim() !== '';
-  };
-
-  // Function to safely handle URLs with special characters
-  const getSafeImageUrl = (url: string): string => {
-    if (!url) return '';
-
-    try {
-      // For debugging
-      console.log('Processing URL:', url);
-
-      // Return the URL as is - Next.js with unoptimized=true should handle it correctly
-      return url;
-    } catch (error) {
-      console.error('Error processing image URL:', error);
-      return '';
-    }
-  };
-
   const slides = product.images.map((image: string, index: number) => {
-    // Log each image URL for debugging
-    console.log(`ProductCarousel - Image ${index}:`, image);
-
-    const hasError = imageErrors[image] || !isValidImageUrl(image);
-    const safeImageUrl = getSafeImageUrl(image);
+    const hasError = imageErrors[image];
 
     return (
       <Carousel.Slide key={`${image}-${index}`}>
@@ -55,15 +27,13 @@ export function ProductCarousel({ product }: { product: Product }) {
           </Box>
         ) : (
           <Image
-            src={safeImageUrl}
+            src={image}
             alt={`${product.title || 'Product'} - Image ${index + 1}`}
             width={imageWidth}
             height={imageHeight}
-            priority={index === 0} // Only set priority for the first image
-            unoptimized={true} // Skip Next.js image optimization
+            priority={index === 0}
             style={{ objectFit: 'contain', backgroundColor: theme.colors.neutral[1] }}
-            onError={(e) => {
-              console.error('Error loading product image:', safeImageUrl, e);
+            onError={() => {
               setImageErrors((prev) => ({ ...prev, [image]: true }));
             }}
           />

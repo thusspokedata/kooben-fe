@@ -6,7 +6,15 @@ export interface Product {
   images: string[];
   description: string;
   price: number;
-  sizes: string[];
+  sizes?: string[];
+  productSizes?: ProductSize[];
+}
+
+export interface ProductSize {
+  id?: string;
+  size: string;
+  stock: number;
+  productId?: string;
 }
 
 export interface CartProduct {
