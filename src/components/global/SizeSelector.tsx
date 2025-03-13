@@ -1,3 +1,5 @@
+'use client';
+
 import { Select } from '@mantine/core';
 import { ProductSize } from '@/interfaces';
 
