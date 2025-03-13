@@ -6,13 +6,27 @@ export interface Product {
   images: string[];
   description: string;
   price: number;
-  sizes?: string[];
+  colors?: string[];
   productSizes?: ProductSize[];
+  material?: string | null;
+  length?: number | null;
+  width?: number | null;
+  height?: number | null;
+  tags?: string[];
 }
 
 export interface ProductSize {
   id?: string;
   size: string;
+  stock: number;
+  productId?: string;
+}
+
+export interface ProductColor {
+  id?: string;
+  color: string;
+  colorName: string;
+  colorHex: string;
   stock: number;
   productId?: string;
 }
@@ -26,5 +40,6 @@ export interface CartProduct {
   size: string;
   image: string;
   description: string;
-  // TODO: add color
+  color?: string;
+  colorName?: string;
 }
