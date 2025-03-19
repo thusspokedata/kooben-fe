@@ -1,1 +1,2 @@
-export * from './EditarCompra';
+export * from './ProductsInCart';
+export * from './OrderSummary';
