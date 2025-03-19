@@ -1,2 +1,2 @@
-export * from './CarritoCard';
-export * from './ResumenCard';
+export * from './ResumenCart';
+export * from './CarritoCart';
