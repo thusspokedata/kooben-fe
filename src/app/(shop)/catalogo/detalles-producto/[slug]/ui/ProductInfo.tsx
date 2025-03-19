@@ -3,7 +3,7 @@ import { currencyFormat } from '@/utils';
 import { Flex, Title, Text, Divider, useMantineTheme } from '@mantine/core';
 import AddToCart from './AddToCart';
 
-export const ProductInfo = ({ product }: { product: Product }): JSX.Element => {
+export const ProductInfo = ({ product }: { product: Product }) => {
   const theme = useMantineTheme();
   return (
     <Flex

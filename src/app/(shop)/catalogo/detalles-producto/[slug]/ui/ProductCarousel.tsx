@@ -8,7 +8,7 @@ import Image from 'next/image';
 import { useState } from 'react';
 import ImagePlaceholder from '@/components/global/ImagePlaceHolder';
 
-export function ProductCarousel({ product }: { product: Product }): JSX.Element {
+export function ProductCarousel({ product }: { product: Product }) {
   const theme = useMantineTheme();
   const isMobile = useMediaQuery('(max-width: 768px)');
   const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({});

@@ -15,7 +15,7 @@ export const SizeSelector = ({
   availableSizes,
   productSizes,
   onSizeChanged,
-}: SizeSelectorProps): JSX.Element => {
+}: SizeSelectorProps) => {
   // Create select options based on available data
   let selectData = availableSizes.map((size) => ({ value: size, label: size }));
 

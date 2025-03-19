@@ -8,7 +8,7 @@ import { theme } from '@/themes/mantine-theme';
 import { Flex, Box, Button, Text } from '@mantine/core';
 import { useState } from 'react';
 
-export default function AddToCart({ product }: { product: Product }): JSX.Element {
+export default function AddToCart({ product }: { product: Product }) {
   const addProductToCart = useCartStore((state) => state.addProductToCart);
   const [size, setSize] = useState<string | undefined>('');
   const [color, setColor] = useState<string | undefined>('');

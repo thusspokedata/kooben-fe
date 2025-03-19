@@ -8,7 +8,7 @@ export const QuantitySelector = ({
   quantity: number;
   onQuantityChanged: (quantity: number) => void;
   maxQuantity?: number;
-}): JSX.Element => {
+}) => {
   const onValueChanged = (value: number) => {
     // Prevent going below 1
     if (quantity + value < 1) return;

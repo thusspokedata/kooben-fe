@@ -16,7 +16,7 @@ import {
 import { formatAddress } from '@/utils/formatting';
 import { PROVINCES } from '@/constants/locations';
 
-export const CustomerInfo = (): JSX.Element => {
+export const CustomerInfo = () => {
   const { user } = useUser();
   const setAddress = useAddressStore((state) => state.setAddress);
   const savedAddress = useAddressStore((state) => state.address);
