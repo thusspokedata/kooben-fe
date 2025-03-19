@@ -7,7 +7,7 @@ const DetallesDeEntrega = () => {
   const contentRight = <ResumenCard nextPage="/verificar-compra" />;
 
   return (
-    <CheckoutLayout title="Datos Cliente / Dirección de entrega" contentLeft={contentLeft} contentRight={contentRight} />
+    <CheckoutLayout title="Datos Pedido" contentLeft={contentLeft} contentRight={contentRight} />
   );
 };
 

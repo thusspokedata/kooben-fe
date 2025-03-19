@@ -1,13 +1,13 @@
-import { ResumenCard } from '../carrito/ui';
 import { CheckoutLayout } from '@/components/ui';
-import { EditarCompra } from './ui';
+import { ProductsInCart } from './ui';
+import { OrderSummary } from './ui/OrderSummary';
 
 const DetallesDeEntrega = () => {
-  const contentLeft = <EditarCompra />;
-  const contentRight = <ResumenCard nextPage="/verificar-compra" />;
+  const contentLeft = <ProductsInCart />;
+  const contentRight = <OrderSummary nextPage="/verificar-compra" />;
 
   return (
-    <CheckoutLayout title="Datos Cliente / Dirección de entrega" contentLeft={contentLeft} contentRight={contentRight} />
+    <CheckoutLayout title="Detalles Pedido" contentLeft={contentLeft} contentRight={contentRight} />
   );
 };
 
