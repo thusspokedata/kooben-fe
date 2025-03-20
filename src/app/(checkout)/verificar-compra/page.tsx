@@ -2,7 +2,7 @@ import { CheckoutLayout } from '@/components/ui';
 import { ProductsInCart } from './ui';
 import { OrderSummary } from './ui/OrderSummary';
 
-const DetallesDeEntrega = () => {
+const OrderVerification = () => {
   const contentLeft = <ProductsInCart />;
   const contentRight = <OrderSummary nextPage="/verificar-compra" />;
 
@@ -11,4 +11,4 @@ const DetallesDeEntrega = () => {
   );
 };
 
-export default DetallesDeEntrega;
+export default OrderVerification;

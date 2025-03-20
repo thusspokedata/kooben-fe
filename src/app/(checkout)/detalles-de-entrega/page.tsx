@@ -2,7 +2,7 @@ import { ResumenCard } from '../carrito/ui';
 import { CustomerInfo } from './ui';
 import { CheckoutLayout } from '@/components/ui';
 
-const DetallesDeEntrega = () => {
+const DeliveryDetails = () => {
   const contentLeft = <CustomerInfo />;
   const contentRight = <ResumenCard nextPage="/verificar-compra" />;
 
@@ -11,4 +11,4 @@ const DetallesDeEntrega = () => {
   );
 };
 
-export default DetallesDeEntrega;
+export default DeliveryDetails;
