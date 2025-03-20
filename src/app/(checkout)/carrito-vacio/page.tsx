@@ -1,13 +1,9 @@
-'use client';
-
 import { Container, Title, Text, Button, Group, rem, Box } from '@mantine/core';
 import { IconShoppingCart } from '@tabler/icons-react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { BackButton } from './ui/BackButton';
 
 export default function EmptyCart() {
-  const router = useRouter();
-
   return (
     <Container
       py="xl"
@@ -44,9 +40,7 @@ export default function EmptyCart() {
             Ver catálogo
           </Button>
 
-          <Button variant="subtle" color="gray" size="md" onClick={() => router.back()}>
-            Volver atrás
-          </Button>
+          <BackButton />
         </Group>
       </Box>
     </Container>
