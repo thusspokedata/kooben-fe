@@ -7,7 +7,7 @@ import { useAuthSync } from '@/providers/AuthSyncProvider';
 
 // Wrapper to ensure new users are synced with database
 const SignUpWithSync = () => {
-  const { isLoaded, signUp, setActive } = useSignUp();
+  const { isLoaded, signUp } = useSignUp();
   const { forceSync } = useAuthSync();
 
   // Monitor sign-up status to trigger sync

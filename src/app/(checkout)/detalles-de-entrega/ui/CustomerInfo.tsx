@@ -128,6 +128,7 @@ export const CustomerInfo = () => {
     };
 
     loadUserData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   const handleSubmit = async (values: ICustomerInfo) => {

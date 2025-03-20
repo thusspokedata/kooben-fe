@@ -1,6 +1,6 @@
 import { BestSellersCarousel, Filters, ServiceOverview } from '@/components';
 import { ResponsiveContainer } from '@/components/ui';
-import { Container, Flex } from '@mantine/core';
+import { Flex } from '@mantine/core';
 
 export default async function Home() {
   return (
