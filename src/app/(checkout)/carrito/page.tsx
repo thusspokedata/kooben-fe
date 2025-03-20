@@ -1,8 +1,8 @@
-import { ResumenCard, CarritoCart } from './ui';
+import { ResumenCard, CarritoCard } from './ui';
 import { CheckoutLayout } from '@/components/ui';
 
 const Carrito = () => {
-  const contentLeft = <CarritoCart />;
+  const contentLeft = <CarritoCard />;
 
   const contentRight = <ResumenCard nextPage="/detalles-de-entrega" />;
 

@@ -35,7 +35,6 @@ interface SummaryProps {
 }
 
 export const SummaryBase = ({ nextPage, children }: SummaryProps) => {
-  const theme = useMantineTheme();
   const [mounted, setMounted] = useState(false);
   const getSummaryInformation = useCartStore((state) => state.getSummaryInformation);
   const summary = getSummaryInformation();
