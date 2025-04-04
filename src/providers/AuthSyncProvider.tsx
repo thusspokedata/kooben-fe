@@ -4,6 +4,8 @@ import { useUser } from '@clerk/nextjs';
 import { ReactNode, createContext, useContext, useEffect, useState } from 'react';
 import { getUserByClerkId, saveCustomerInfo } from '@/services/saveCustomerInfo';
 import { api } from '@/api/api';
+import { useCartStore } from '@/store';
+import { useAddressStore } from '@/store';
 
 // Define user interface for database user
 interface DbUser {
@@ -48,14 +50,29 @@ export function AuthSyncProvider({ children }: { children: ReactNode }) {
   const [isSynced, setIsSynced] = useState(false);
   const [userInDb, setUserInDb] = useState<DbUser | null>(null);
   const [syncCounter, setSyncCounter] = useState(0); // Counter to force re-sync
+  const clearCart = useCartStore((state) => state.clearCart);
+  const setAddress = useAddressStore((state) => state.setAddress);
 
-  // Reset sync state when user changes
+  // Reset sync state and clear stores when user changes
   useEffect(() => {
     if (user?.id) {
       // Set isSynced to false when user changes or first appears
       setIsSynced(false);
+    } else {
+      // Clear stores when user logs out
+      clearCart();
+      setAddress({
+        email: '',
+        name: '',
+        address: '',
+        zipCode: '',
+        city: '',
+        phone: '',
+        province: '',
+        clerkId: '',
+      });
     }
-  }, [user?.id]);
+  }, [user?.id, clearCart, setAddress]);
 
   // Function to force a new synchronization attempt
   const forceSync = () => {
