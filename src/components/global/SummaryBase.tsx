@@ -7,7 +7,7 @@ import { Button, Text, Flex, useMantineTheme, Box, LoadingOverlay, Modal } from 
 import { currencyFormat } from '@/utils';
 import { useUser } from '@clerk/nextjs';
 import { useDisclosure } from '@mantine/hooks';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 
 interface ResumenRowProps {
   label: string;
@@ -36,11 +36,14 @@ interface SummaryProps {
 
 export const SummaryBase = ({ nextPage, children }: SummaryProps) => {
   const [mounted, setMounted] = useState(false);
+  const [isPlacingOrder, setIsPlacingOrder] = useState(false);
   const getSummaryInformation = useCartStore((state) => state.getSummaryInformation);
   const summary = getSummaryInformation();
   const [opened, { open, close }] = useDisclosure(false);
   const { isSignedIn } = useUser();
   const router = useRouter();
+  const pathname = usePathname();
+  const isVerificationPage = pathname === '/verificar-compra';
 
   useEffect(() => {
     setMounted(true);
@@ -53,8 +56,20 @@ export const SummaryBase = ({ nextPage, children }: SummaryProps) => {
     if (!isSignedIn) {
       e.preventDefault();
       open();
+      return;
+    }
+
+    if (isVerificationPage) {
+      e.preventDefault();
+      setIsPlacingOrder(true);
+      // TODO: server action
+      setTimeout(() => {
+        router.push('/orden-exitosa');
+      }, 1000);
     }
   };
+
+
 
   const handleSignIn = () => {
     close();
@@ -87,14 +102,27 @@ export const SummaryBase = ({ nextPage, children }: SummaryProps) => {
         <ResumenRow label="Impuestos (21%):" value={mounted ? `${currencyFormat(tax)}` : 0} />
       </Box>
       <ResumenRow label="Total:" value={mounted ? `${currencyFormat(total)}` : 0} isBold />
+
       <Link
         href={nextPage}
         passHref
         style={{ textDecoration: 'none' }}
         onClick={handleContinueClick}
       >
-        <Button color="blue" fullWidth mt="md" radius="sm" size="lg" bg="brand.8">
-          Continuar
+        <Text c="red" ta="start" ml="xs">
+          Error de creación
+        </Text>
+        <Button
+          color="blue"
+          fullWidth
+          mt={2}
+          radius="sm"
+          size="lg"
+          bg="brand.8"
+          loading={isPlacingOrder}
+          disabled={isPlacingOrder}
+        >
+          {isVerificationPage ? 'Colocar Orden' : 'Continuar'}
         </Button>
       </Link>
 
