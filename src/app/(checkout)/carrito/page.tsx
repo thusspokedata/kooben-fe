@@ -2,21 +2,12 @@
 
 import { ResumenCard, CarritoCard } from './ui';
 import { CheckoutLayout } from '@/components/ui';
-import { useCartStore } from '@/store';
-import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import { useEmptyCartRedirect } from '@/hooks/useEmptyCartRedirect';
 
 const Carrito = () => {
-  const cart = useCartStore((state) => state.cart);
-  const router = useRouter();
+  const isEmpty = useEmptyCartRedirect();
 
-  useEffect(() => {
-    if (cart.length === 0) {
-      router.push('/carrito-vacio');
-    }
-  }, [cart.length, router]);
-
-  if (cart.length === 0) {
+  if (isEmpty) {
     return null;
   }
 
