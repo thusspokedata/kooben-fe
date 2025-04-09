@@ -20,11 +20,10 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
 
   if (isError) return <div>Error: {error && error.message}</div>;
 
+  if (!product) return <div>Producto no encontrado</div>;
+
   return (
-    <ResponsiveContainer
-      h="100%"
-      style={{ minHeight: '100vh' }}
-    >
+    <ResponsiveContainer h="100%" style={{ minHeight: '100vh' }}>
       <Flex direction={{ base: 'column', md: 'row' }} justify="space-between">
         <ProductCarousel product={product} />
         <ProductInfo product={product} />
