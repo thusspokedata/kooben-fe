@@ -39,6 +39,7 @@ export const SummaryBase = ({ nextPage, children }: SummaryProps) => {
   const [isPlacingOrder, setIsPlacingOrder] = useState(false);
   const getSummaryInformation = useCartStore((state) => state.getSummaryInformation);
   const summary = getSummaryInformation();
+  const cart = useCartStore((state) => state.cart);
   const [opened, { open, close }] = useDisclosure(false);
   const { isSignedIn } = useUser();
   const router = useRouter();
@@ -63,6 +64,12 @@ export const SummaryBase = ({ nextPage, children }: SummaryProps) => {
       e.preventDefault();
       setIsPlacingOrder(true);
       // TODO: server action
+
+      const productsToOrder = cart.map((product) => ({
+        productId: product.id,
+        quantity: product.quantity,
+        size: product.size
+      }));
       setTimeout(() => {
         router.push('/orden-exitosa');
       }, 1000);
