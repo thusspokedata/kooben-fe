@@ -156,7 +156,7 @@ export const CustomerInfo = () => {
             color: 'green',
           });
         } catch (error: unknown) {
-          // Log detailed error for developers
+          // for developers
           console.error('Error saving address:', error);
 
           // Simple message for users

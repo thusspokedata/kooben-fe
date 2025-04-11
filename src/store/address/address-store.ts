@@ -14,23 +14,26 @@ interface State {
   };
   // Methods
   setAddress: (address: State['address']) => void;
+  clearAddress: () => void;
 }
+
+const initialState = {
+  email: '',
+  name: '',
+  address: '',
+  zipCode: '',
+  city: '',
+  phone: '',
+  province: '',
+  clerkId: '',
+};
 
 export const useAddressStore = create<State>()(
   persist(
     (set) => ({
-      address: {
-        email: '',
-        name: '',
-        address: '',
-        zipCode: '',
-        city: '',
-        phone: '',
-        province: '',
-        clerkId: '',
-      },
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      address: initialState,
       setAddress: (address) => set({ address }),
+      clearAddress: () => set({ address: initialState }),
     }),
     {
       name: 'address-storage',

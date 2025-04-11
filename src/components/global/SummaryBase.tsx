@@ -69,8 +69,6 @@ export const SummaryBase = ({ nextPage, children }: SummaryProps) => {
     }
   };
 
-
-
   const handleSignIn = () => {
     close();
     router.push('/sign-in');

@@ -51,28 +51,18 @@ export function AuthSyncProvider({ children }: { children: ReactNode }) {
   const [userInDb, setUserInDb] = useState<DbUser | null>(null);
   const [syncCounter, setSyncCounter] = useState(0); // Counter to force re-sync
   const clearCart = useCartStore((state) => state.clearCart);
-  const setAddress = useAddressStore((state) => state.setAddress);
+  const clearAddress = useAddressStore((state) => state.clearAddress);
 
   // Reset sync state and clear stores when user changes
   useEffect(() => {
-    if (user?.id) {
-      // Set isSynced to false when user changes or first appears
-      setIsSynced(false);
-    } else {
-      // Clear stores when user logs out
+    if (!isLoaded) return; // Don't do anything until auth is loaded
+
+    if (!isSignedIn) {
+      // Only clear stores when user explicitly logs out
       clearCart();
-      setAddress({
-        email: '',
-        name: '',
-        address: '',
-        zipCode: '',
-        city: '',
-        phone: '',
-        province: '',
-        clerkId: '',
-      });
+      clearAddress();
     }
-  }, [user?.id, clearCart, setAddress]);
+  }, [isLoaded, isSignedIn, clearCart, clearAddress]);
 
   // Function to force a new synchronization attempt
   const forceSync = () => {

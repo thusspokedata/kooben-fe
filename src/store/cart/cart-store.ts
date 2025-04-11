@@ -4,6 +4,7 @@ import { persist } from 'zustand/middleware';
 
 interface State {
   cart: CartProduct[];
+  isLoaded: boolean;
   getTotalItems: () => number;
   getSummaryInformation: () => {
     total: number;
@@ -22,22 +23,17 @@ export const useCartStore = create<State>()(
   persist(
     (set, get) => ({
       cart: [],
-
+      isLoaded: false,
       getTotalItems: () => {
         const { cart } = get();
         return cart.reduce((total, item) => total + item.quantity, 0);
       },
-
       getSummaryInformation: () => {
         const { cart } = get();
-
-        const total = cart.reduce(
-          (subTotal, product) => product.quantity * product.price + subTotal,
-          0
-        );
-        const tax = (total * 0.21) / 1.21;
-        const subTotal = total - tax;
         const itemsInCart = cart.reduce((total, item) => total + item.quantity, 0);
+        const subTotal = cart.reduce((total, item) => total + item.price * item.quantity, 0);
+        const tax = subTotal * 0.16;
+        const total = subTotal + tax;
 
         return {
           total,
@@ -46,58 +42,57 @@ export const useCartStore = create<State>()(
           itemsInCart,
         };
       },
-
       addProductToCart: (product: CartProduct) => {
         const { cart } = get();
 
-        const productInCart = cart.some(
-          (item) => item.id === product.id && item.size === product.size
-        );
+        // Check if product exists in cart
+        const productInCart = cart.some((item) => item.id === product.id);
 
         if (!productInCart) {
           set({ cart: [...cart, product] });
           return;
         }
 
-        const updatedCartProducts = cart.map((item) => {
-          if (item.id === product.id && item.size === product.size) {
+        // Update quantity if product exists
+        const updatedCart = cart.map((item) => {
+          if (item.id === product.id) {
             return { ...item, quantity: item.quantity + product.quantity };
           }
-
           return item;
         });
 
-        set({ cart: updatedCartProducts });
+        set({ cart: updatedCart });
       },
-
       updateProductQuantity: (product: CartProduct, quantity: number) => {
         const { cart } = get();
 
-        const updatedCartProducts = cart.map((item) => {
-          if (item.id === product.id && item.size === product.size) {
-            return { ...item, quantity: quantity };
+        const updatedCart = cart.map((item) => {
+          if (item.id === product.id) {
+            return { ...item, quantity };
           }
-
           return item;
         });
-        set({ cart: updatedCartProducts });
-      },
 
+        set({ cart: updatedCart });
+      },
       removeProduct: (product: CartProduct) => {
         const { cart } = get();
 
-        const updatedCartProducts = cart.filter(
-          (item) => item.id !== product.id || item.size !== product.size
-        );
-        set({ cart: updatedCartProducts });
-      },
+        const updatedCart = cart.filter((item) => item.id !== product.id);
 
+        set({ cart: updatedCart });
+      },
       clearCart: () => {
         set({ cart: [] });
       },
     }),
     {
       name: 'shopping-cart',
+      onRehydrateStorage: () => (state) => {
+        if (state) {
+          state.isLoaded = true;
+        }
+      },
     }
   )
 );
