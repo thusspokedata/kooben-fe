@@ -4,7 +4,8 @@ import { persist } from 'zustand/middleware';
 interface State {
   address: {
     email: string;
-    name: string;
+    firstName: string;
+    familyName: string;
     address: string;
     zipCode: string;
     city: string;
@@ -19,7 +20,8 @@ interface State {
 
 const initialState = {
   email: '',
-  name: '',
+  firstName: '',
+  familyName: '',
   address: '',
   zipCode: '',
   city: '',
@@ -36,7 +38,7 @@ export const useAddressStore = create<State>()(
       clearAddress: () => set({ address: initialState }),
     }),
     {
-      name: 'address-storage',
+      name: 'shipping-address',
     }
   )
 );

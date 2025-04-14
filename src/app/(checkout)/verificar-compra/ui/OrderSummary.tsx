@@ -3,9 +3,19 @@
 import { useAddressStore } from '@/store';
 import { Text, Stack, Divider } from '@mantine/core';
 import { SummaryBase } from '@/components/global/SummaryBase';
+import { useEffect, useState } from 'react';
 
 export const OrderSummary = ({ nextPage }: { nextPage: string }) => {
+  const [isLoaded, setIsLoaded] = useState(false);
   const savedAddress = useAddressStore((state) => state.address);
+
+  useEffect(() => {
+    setIsLoaded(true);
+  }, []);
+
+  if (!isLoaded) {
+    return null; // Render nothing while loading
+  }
 
   const deliveryInfo = (
     <>
@@ -15,7 +25,7 @@ export const OrderSummary = ({ nextPage }: { nextPage: string }) => {
       {savedAddress ? (
         <Stack gap={2} align="flex-start" px="xl">
           <Text fz="2xl" c={'brand.7'}>
-            {savedAddress.name}
+            {savedAddress.firstName} {savedAddress.familyName}
           </Text>
           <Text fz="2xl" c={'brand.7'}>
             {savedAddress.address}
