@@ -68,7 +68,8 @@ export const SummaryBase = ({ nextPage, children }: SummaryProps) => {
       const productsToOrder = cart.map((product) => ({
         productId: product.id,
         quantity: product.quantity,
-        size: product.size
+        size: product.size,
+        price: product.price,
       }));
       setTimeout(() => {
         router.push('/orden-exitosa');
