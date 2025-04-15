@@ -5,7 +5,7 @@ interface State {
   address: {
     email: string;
     firstName: string;
-    familyName: string;
+    lastName: string;
     address: string;
     zipCode: string;
     city: string;
@@ -21,7 +21,7 @@ interface State {
 const initialState = {
   email: '',
   firstName: '',
-  familyName: '',
+  lastName: '',
   address: '',
   zipCode: '',
   city: '',

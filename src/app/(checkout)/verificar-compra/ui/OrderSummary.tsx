@@ -25,7 +25,7 @@ export const OrderSummary = ({ nextPage }: { nextPage: string }) => {
       {savedAddress ? (
         <Stack gap={2} align="flex-start" px="xl">
           <Text fz="2xl" c={'brand.7'}>
-            {savedAddress.firstName} {savedAddress.familyName}
+            {savedAddress.firstName} {savedAddress.lastName}
           </Text>
           <Text fz="2xl" c={'brand.7'}>
             {savedAddress.address}
