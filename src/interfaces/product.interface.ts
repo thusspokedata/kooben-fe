@@ -1,5 +1,4 @@
-import { ProductSize } from "./order.interface";
-
+export type ProductSize = 'XS' | 'S' | 'M' | 'L' | 'XL' | 'XXL';
 
 export interface Product {
   id: string;

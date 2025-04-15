@@ -1,11 +1,41 @@
-export type ProductSize = 'XS' | 'S' | 'M' | 'L' | 'XL' | 'XXL';
+import type { ProductSize } from './product.interface';
 
 export interface OrderItem {
   id: string;
   quantity: number; // 1-10
   price: number;
-  productId: string;
   size: ProductSize;
+  product: {
+    title: string;
+    slug: string;
+    image: string;
+  };
+}
+
+export interface Order {
+  id: string;
+  isPaid: boolean;
+  paidAt?: string;
+  numberOfItems: number;
+  subTotal: number;
+  tax: number;
+  total: number;
+  items: OrderItem[];
+  createdAt: string;
+  updatedAt: string;
+  userId: string;
+  transactionId?: string;
+  status: 'pending' | 'paid' | 'cancelled';
+  address: {
+    firstName: string;
+    lastName: string;
+    address: string;
+    address2?: string;
+    zipCode: string;
+    city: string;
+    phone: string;
+    province: string;
+  };
 }
 
 export interface OrderAddress {
