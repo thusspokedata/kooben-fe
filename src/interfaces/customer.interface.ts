@@ -5,7 +5,8 @@ export enum Role {
 
 export interface CustomerInfo {
   clerkId: string;
-  name: string;
+  firstName: string;
+  lastName: string;
   email: string;
   role?: Role;
   address?: string;
@@ -21,6 +22,8 @@ export interface CustomerInfo {
  * The structure matches the backend Address entity
  */
 export interface CustomerAddress {
+  firstName: string;
+  lastName: string;
   address: string;
   zipCode: string;
   city: string;
