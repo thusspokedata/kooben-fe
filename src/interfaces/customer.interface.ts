@@ -4,17 +4,17 @@ export enum Role {
 }
 
 export interface CustomerInfo {
-  clerkId: string;
+  email: string;
   firstName: string;
   lastName: string;
-  email: string;
-  role?: Role;
-  address?: string;
-  zipCode?: string;
-  city?: string;
-  province?: string;
-  phone?: string;
+  address: string;
+  address2?: string;
+  zipCode: string;
+  city: string;
+  phone: string;
+  province: string;
   rememberAddress?: boolean;
+  clerkId: string;
 }
 
 /**
@@ -22,18 +22,14 @@ export interface CustomerInfo {
  * The structure matches the backend Address entity
  */
 export interface CustomerAddress {
+  email: string;
   firstName: string;
   lastName: string;
   address: string;
+  address2?: string;
   zipCode: string;
   city: string;
+  phone: string;
   province: string;
-  phone?: string;
-  isDefault?: boolean;
-
-  // Backend specific fields (optional in frontend)
-  id?: string;
-  userId?: string;
-  createdAt?: Date;
-  updatedAt?: Date;
+  clerkId: string;
 }

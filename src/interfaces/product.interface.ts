@@ -1,3 +1,6 @@
+import { ProductSize } from "./order.interface";
+
+
 export interface Product {
   id: string;
   slug: string;
@@ -13,13 +16,9 @@ export interface Product {
   width?: number | null;
   height?: number | null;
   tags?: string[];
-}
-
-export interface ProductSize {
-  id?: string;
-  size: string;
-  stock: number;
-  productId?: string;
+  inStock: number;
+  sizes: ProductSize[];
+  gender: 'men' | 'women' | 'kid' | 'unisex';
 }
 
 export interface ProductColor {
@@ -37,7 +36,7 @@ export interface CartProduct {
   title: string;
   price: number;
   quantity: number;
-  size: string;
+  size: ProductSize;
   image: string;
   description: string;
   color?: string;
